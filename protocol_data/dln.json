@@ -1,0 +1,36 @@
+{
+    "name": "DLN",
+    "volume_7d_usd": 35035235.50,
+
+    "relayers" :
+        {
+            "number": 13,
+            "order_value":
+                {
+                    "10": 3, "50": 4, "100": 4, "250": 5, "500": 5, "5000": 8, "25000": 4, "250000": 2
+                }
+        },
+
+    "orders":
+        {
+            "total": 43000,
+            "with_more_than_one_bid": 1245,
+            "only_one_bid": 40000,
+            "value": 
+                {
+                    "10": 1766, "50": 3364,  "100": 1233, "250": 2351, "500": 1529, "5000": 8039, "25000": 1507, "+": 449
+                }
+        },
+
+    "fill_time_seconds":
+        {
+            "min": 0, "avg": 61, "max":686
+        },
+
+    "routes": 
+        {
+            "average_relayers_per_route": 4.2,
+            "number_relayers": [0, 6, 8, 6, 4, 2],
+            "total": 60
+        }
+}
