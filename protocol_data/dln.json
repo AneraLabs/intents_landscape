@@ -30,7 +30,7 @@
     "routes": 
         {
             "average_relayers_per_route": 4.2,
-            "number_relayers": [0, 6, 8, 6, 4, 2],
+            "number_relayers": { "1": 0, "2": 6, "3": 8, "4": 6, "5": 4, "6": 2},
             "total": 60
         }
 }
