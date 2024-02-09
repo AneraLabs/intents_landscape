@@ -1,0 +1,20 @@
+{
+    "name": "Squid",
+    "url": "https://app.squidrouter.com/",
+    "twitter": "https://twitter.com/squidrouter",
+    "description" : "Squid allows any token to be swapped between blockchains, and unlocks access to apps across chains in a single click. Use Squid to build seamless user experiences that tap into cross-chain liquidity and scale to reach anyone with a crypto wallet, no matter what chain they’re on.",
+    "mainnet": "yes",
+    "type": "bridge",
+    "chains_supported": "Ethereum, Arbitrum, Base, Optimism, Polygon PoS, Avalanche...",
+    "auction_design": "FCFS",
+    "auction_design_details": "The first accepted solver bid automatically wins the auction irrespective of whether another bid comes in at roughly the same time with a better price or outcome for the user",
+    "auction_openness": "Poor",
+    "auction_openness_details": "Auctions occur off chain and no data around composion or basis for which solver won the right to fill the auction is published",
+    "xchain_sync": "Canonical brdiges for message passing",
+    "solver_diversity": "Poor",
+    "solver_diversity_details": "Protocol acts as it's own solver and doesn't allow for permissionless participation",
+    "censorship_resistance": "None",
+    "censorship_resistance_details": "No protocol features or mechanisms are in place to ensure bids are accepted and fulfilled",
+    "solver_failure_resistance": "None",
+    "solver_failure_resistance_details": "If no solvers are available there is no way to fulfil the operation and no way for the user to get their funds back on the source chain"
+}
