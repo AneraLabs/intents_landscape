@@ -1,41 +1,99 @@
 {
-    "name": "DLN",
-    "volume_7d_usd": 35035235.50,
+	"name": "DLN",
+	"volume_7d_usd": 49729194.67,
 
-    "relayers" :
-    {
-            "number": 13,
-            "order_value":
-            {
-                "0-10": 3, "11-50": 4, "51-100": 4, "101-250": 5, "251-500": 5, "501-5000": 8, "5001-25000": 4, "25001-250000": 2, "> 250000": 1
-            }
-    },
+	"relayers": {
+		"number": 26,
+		"order_value": { "0-10": 4, "501-5000": 9, "11-50": 6, "51-100": 7, "5001-25000": 5, "251-500": 6, "101-250": 7, "> 25000": 3 }
+	},
 
-    "orders":
-    {
-            "total": 43000,
-            "bids": 
-            {
-                "1": 40000,
-                "2": 800,
-                "3": 250,
-                "4": 2
-            },
-            "value": 
-            {
-                "0-10": 1766, "11-50": 3364,  "51-100": 1233, "101-250": 2351, "251-500": 1529, "501-5000": 8039, "5001-25000": 1507, "> 250000": 449
-            }
-    },
+	"orders": {
+		"total": 13829,
+		"bids": {
+			"1": 12586,
+			"2": 1215,
+			"3": 28
+		},
+		"value": { "0-10": 717, "501-5000": 2062, "11-50": 1033, "51-100": 675, "5001-25000": 196, "251-500": 976, "101-250": 1226, "> 25000": 28 }
+	},
 
-    "fill_time_seconds":
-    {
-        "min": 0, "avg": 61, "max":686
-    },
+	"fill_time_seconds": {
+		"min": -5,
+		"avg": 11.54,
+		"max": 5353
+	},
 
-    "routes": 
-    {
-        "average_relayers_per_route": 4.2,
-        "number_relayers": { "1": 0, "2": 6, "3": 8, "4": 6, "5": 4, "6": 2},
-        "total": 60
-    }
+	"average_volume_by_bid_count": { "2": 300.2101325516, "1": 660.4513690798749 },
+
+	"routes": {
+		"average_relayers_per_route": 2.609375,
+		"number_relayers": {
+			"bnb -> base": 2,
+			"bnb -> arbitrum-one": 3,
+			"solana -> arbitrum-one": 2,
+			"arbitrum-one -> avalanche": 3,
+			"optimism -> base": 2,
+			"solana -> base": 3,
+			"arbitrum-one -> base": 3,
+			"avalanche -> base": 1,
+			"solana -> ethereum": 4,
+			"base -> ethereum": 2,
+			"optimism -> ethereum": 4,
+			"arbitrum-one -> ethereum": 5,
+			"polygon-pos -> ethereum": 4,
+			"polygon-pos -> base": 2,
+			"avalanche -> arbitrum-one": 3,
+			"optimism -> linea": 2,
+			"avalanche -> linea": 2,
+			"base -> linea": 2,
+			"arbitrum-one -> linea": 2,
+			"ethereum -> arbitrum-one": 3,
+			"ethereum -> linea": 1,
+			"base -> optimism": 2,
+			"linea -> base": 2,
+			"arbitrum-one -> optimism": 2,
+			"bnb -> optimism": 2,
+			"polygon-pos -> linea": 2,
+			"polygon-pos -> avalanche": 3,
+			"bnb -> ethereum": 3,
+			"solana -> optimism": 3,
+			"linea -> optimism": 2,
+			"optimism -> arbitrum-one": 2,
+			"bnb -> linea": 2,
+			"polygon-pos -> optimism": 2,
+			"arbitrum-one -> polygon-pos": 5,
+			"solana -> polygon-pos": 6,
+			"linea -> ethereum": 2,
+			"base -> arbitrum-one": 2,
+			"optimism -> avalanche": 2,
+			"base -> avalanche": 3,
+			"solana -> linea": 2,
+			"avalanche -> polygon-pos": 3,
+			"base -> polygon-pos": 2,
+			"bnb -> polygon-pos": 5,
+			"solana -> avalanche": 4,
+			"bnb -> avalanche": 3,
+			"linea -> polygon-pos": 2,
+			"ethereum -> polygon-pos": 4,
+			"avalanche -> ethereum": 4,
+			"ethereum -> optimism": 2,
+			"avalanche -> optimism": 2,
+			"optimism -> polygon-pos": 2,
+			"ethereum -> base": 2,
+			"polygon-pos -> arbitrum-one": 3,
+			"ethereum -> avalanche": 3,
+			"linea -> arbitrum-one": 2,
+			"linea -> avalanche": 3,
+			"solana -> bnb": 2,
+			"arbitrum-one -> bnb": 2,
+			"ethereum -> bnb": 3,
+			"avalanche -> bnb": 2,
+			"optimism -> bnb": 2,
+			"linea -> bnb": 1,
+			"polygon-pos -> bnb": 3,
+			"base -> bnb": 2
+		},
+		"total": 64
+	},
+	"fee": {}
 }
