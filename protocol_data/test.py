@@ -1,4 +1,11 @@
 import importlib
+import sys
+from pathlib import Path
+
+# Add path information to make the modules directory importable
+directory_path = Path(__file__).parent / "protocol_data"
+sys.path.append(str(directory_path))
+
 from enabled_protocols import ENABLED_PROTOCOLS
 
 known_modules = []
