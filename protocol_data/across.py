@@ -6,6 +6,18 @@ def get_contract_address(chain_id, type):
     # Optionally configurable to be different per chain_id and based
     # on type which may be 'deposit' or 'fill'
     contracts = {
+        '42161': {
+            'deposit': '0xe35e9842fceaCA96570B734083f4a58e8F7C5f2A',
+            'fill': '0xe35e9842fceaCA96570B734083f4a58e8F7C5f2A'
+        },
+        '8453': {
+            'deposit': '0x09aea4b2242abC8bb4BB78D537A67a245A7bEC64',
+            'fill': '0x09aea4b2242abC8bb4BB78D537A67a245A7bEC64'
+        },
+        '1': {
+            'deposit': '0x5c7BCd6E7De5423a257D81B442095A1a6ced35C5',
+            'fill': '0x5c7BCd6E7De5423a257D81B442095A1a6ced35C5'
+        },
         '10' : { 
             'deposit': '0x3a23F943181408EAC424116Af7b7790c94Cb97a5',
             'fill': '0x6f26Bf09B1C792e3228e5467807a900A503c0281'
@@ -13,6 +25,10 @@ def get_contract_address(chain_id, type):
         '137': { 
             'deposit': '0x9295ee1d8C5b022Be115A2AD3c30C72E34e7F096',
             'fill': '0x9295ee1d8C5b022Be115A2AD3c30C72E34e7F096'
+        },
+        '324': { 
+            'deposit': '0xE0B015E54d54fc84a6cB9B666099c46adE9335FF',
+            'fill': '0xE0B015E54d54fc84a6cB9B666099c46adE9335FF'
         },
     }
 
@@ -33,7 +49,7 @@ def get_contract_abi(chain_id, type):
     return None
 
 def get_supported_chains():
-    return ['10', '137']
+    return ['42161', '8453', '1', '10', '137', '324']
 
 def get_deposit_function_filter():
     return None
