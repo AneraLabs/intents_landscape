@@ -3,21 +3,21 @@ from borsh_construct import Option,CStruct,U32,U64,Bytes,U8
 PROTOCOL_NAME = "dln"
 
 contracts = {
-    7565164: {
+    "7565164": {
         "deposit": "src5qyZHqTqecJV4aY6Cb6zDZLMDzrDKKezs22MPHr4",
         "fill": "dst5MGcFPoBeREFAA5E3tU5ij8m5uVYwkzkSAbsLbNo",
     }
 }
 
 identifiers = {
-    7565164: {
+    "7565164": {
         "deposit": "828362be28ce4432",
         "fill": "3dd627f841d49924",
     }
 }
 
 abi = {
-   7565164: {
+   "7565164": {
         "deposit": CStruct(
             "identifier" / U8[8],
             "orderArgs" / CStruct(
