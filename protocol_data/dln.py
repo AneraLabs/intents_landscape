@@ -86,16 +86,16 @@ def get_contract_abi(chain_id, contract_name):
     return abi[chain_id][contract_name]
 
 def get_supported_chains():
-    return [1, 10, 7565164]
+    return ["7565164"]
 
 def get_deposit_function_filter():
-    return "" # or None if no filter to use
+    return None
 
 def get_deposit_event_filter():
-    return "" # or None if no  filter to use
+    return None
 
 def get_fill_function_filter():
-    return "" # or None if no filter to use
+    return None
 
 def get_fill_event_filter():
-    return "" # or None if no  filter to use
+    return None
