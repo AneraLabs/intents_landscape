@@ -1,8 +1,12 @@
 PROTOCOL_NAME = "across"
 
-def get_contract_address(chain_id):
-    # Optionally configurable to be different per chain_id
+def get_contract_address(chain_id, type):
+    # Optionally configurable to be different per chain_id and based
+    # on type which may be 'deposit' or 'fill'
     return "0x1234"
+
+def get_contract_abi(chain_id, contract_address):
+    return []
 
 def get_supported_chains():
     return [1, 10]
