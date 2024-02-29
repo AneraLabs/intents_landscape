@@ -1714,7 +1714,7 @@ def get_contract_abi(chain_id, type):
   ]""")
     
     if chain_id == '7565164':
-        return sol_abi
+        return sol_abi[type]
     
     if type == 'deposit':
         return contract_dlnsource_abi
