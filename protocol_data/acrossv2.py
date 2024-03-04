@@ -1,6 +1,6 @@
 import json
 
-PROTOCOL_NAME = "across"
+PROTOCOL_NAME = "acrossv2"
 
 def get_contract_address(chain_id, type):
     # Optionally configurable to be different per chain_id and based
