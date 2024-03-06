@@ -42,6 +42,8 @@
 	"auction_design_details": "The first accepted solver bid automatically wins the auction irrespective of whether another bid comes in at roughly the same time with a better price or outcome for the user",
 	"auction_openness": "Excellent",
 	"auction_openness_details": "Auctions occur entirely on chain with no auction period of shielded competition window",
+	"filler_permissionlessness": "Excellent",
+	"filler_permissionlessness_details": "There are no protocol restrictions on who can act as a Filler.",
 	"filler_diversity": "Good",
 	"filler_diversity_details": "Protocol acts as it's own solver but also allows for others to permissionlessly fill orders",
 	"censorship_resistance": "Good",
