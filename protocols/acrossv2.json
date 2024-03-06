@@ -1,9 +1,37 @@
 {
 	"name": "acrossv2",
-	"url": "https://across.to/bridge",
-	"twitter": "https://twitter.com/AcrossProtocol",
-	"github": "https://github.com/across-protocol",
-	"logo": "https://2085701667-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2Fo33kX1T6RRp4inOcEH1d%2Fuploads%2FcYhMPvUtnNlDtxcSFReG%2FAcross-dark.png?alt=media&token=b9a568ea-9f9e-49f0-bc72-d9f70e8506cd",
+	"logo_dark": "/protocols/across-dark.png",
+	"logo_light": "/protocols/across-light.png",
+	"socials": [
+		{
+			"label": "Discord",
+			"link": "https://discord.across.to/"
+		},
+		{
+			"label": "Twitter",
+			"link": "https://twitter.com/AcrossProtocol"
+		},
+		{
+			"label": "Medium",
+			"link": "https://medium.com/across-protocol"
+		},
+		{
+			"label": "Forum",
+			"link": "https://forum.across.to/"
+		},
+		{
+			"label": "Github",
+			"link": "https://github.com/across-protocol"
+		},
+		{
+			"label": "Docs",
+			"link": "https://docs.across.to/v/v3-developer-docs/introduction/what-is-across"
+		},
+		{
+			"label": "Website",
+			"link": "https://across.to/bridge"
+		}
+	],
 	"description": "Across is a cross-chain bridge for L2s and rollups secured by UMA's optimistic oracle.",
 	"mainnet": "yes",
 	"type": "bridge",

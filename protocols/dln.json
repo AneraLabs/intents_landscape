@@ -1,9 +1,33 @@
 {
 	"name": "DLN",
-	"url": "app.dln.trade",
-	"twitter": "https://twitter.com/DLN_Trade",
-	"github": "https://twitter.com/AcrossProtocol",
-	"logo": "https://debridge.finance/assets/img/logo/logo.svg",
+	"socials": [
+		{
+			"label": "App",
+			"link": "https://app.dln.trade"
+		},
+		{
+			"label": "Website",
+			"link": "https://dln.trade"
+		},
+		{
+			"label": "Docs",
+			"link": "https://docs.dln.trade/"
+		},
+		{
+			"label": "Twitter",
+			"link": "https://twitter.com/DLN_Trade"
+		},
+		{
+			"label": "Github",
+			"link": "https://github.com/debridge-finance"
+		},
+		{
+			"label": "Medium",
+			"link": "https://dln-trade.medium.com/"
+		}
+	],
+	"logo_dark": "/protocols/dln-dark.svg",
+	"logo_light": "/protocols/dln-light.svg",
 	"description": "Experience native cross-chain trading with deep liquidity, advanced limit orders, and lightning-fast execution. Powered by deBridge",
 	"mainnet": "yes",
 	"type": "bridge",
