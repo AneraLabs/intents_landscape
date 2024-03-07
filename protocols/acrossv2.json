@@ -44,8 +44,6 @@
 	"auction_openness_details": "Auctions occur entirely on chain with no auction period of shielded competition window",
 	"filler_permissionlessness": "Excellent",
 	"filler_permissionlessness_details": "There are no protocol restrictions on who can act as a Filler.",
-	"filler_diversity": "Good",
-	"filler_diversity_details": "Protocol acts as it's own solver but also allows for others to permissionlessly fill orders",
 	"censorship_resistance": "Good",
 	"censorship_resistance_details": "As auctions are entirely on chain, all details about new orders are public and available to all participants. There are no mechanisms on-chain by which the protocol can prevent an order from being accepted. There are however no penalties to fillers for systematically ignoring address or orders which can indirectly result in censorship. However to prevent this there only needs to be one honest rational filler in the ecosystem to fill the order.",
 	"filler_failure_resistance": "Poor",
