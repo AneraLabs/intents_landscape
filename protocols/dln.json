@@ -36,12 +36,12 @@
 	"auction_design": "FCFS",
 	"auction_design_ranking": "Average",
 	"auction_design_details": "The first accepted solver bid automatically wins the auction irrespective of whether another bid comes in at roughly the same time with a better price or outcome for the user",
-	"auction_openness": "Average",
-	"auction_openness_details": "Auctions occur entirely on chain with no auction period of shielded competition window, however there is a preferential window where a nominated filler is able to submit a bid ahead of others and be automatically accepted.",
+	"auction_openness": "Excellent",
+	"auction_openness_details": "Auctions occur entirely on chain with no auction period of shielded competition window and there are no preferential Filler selection mechanisms.",
 	"filler_permissionlessness": "Excellent",
 	"filler_permissionlessness_details": "DLN allows any participant to perform Filling actions and provides comprehensive code (https://github.com/debridge-finance/dln-taker) to get Fillers up and running quickly.",
-	"censorship_resistance": "Poor",
-	"censorship_resistance_details": "Whilst there are no mechanisms on-chain by which the protocol can prevent an order from being accepted, since the protocol is the only solver it creates a centralisation risk whereby at any point censorship of orderflow can occur.",
-	"filler_failure_resistance": "Poor",
-	"filler_failure_resistance_details": "If the protocol filler fails there is no other way to fill an order and no way for the user to get their funds back on the source chain."
+	"censorship_resistance": "Excellent",
+	"censorship_resistance_details": "There are no mechanisms on-chain by which the protocol can prevent an order from being filled (assuming it hasn't been already).",
+	"filler_failure_resistance": "Excellent",
+	"filler_failure_resistance_details": "If an order remains unfulfilled for a prolonged period of time for whatever reason, there is a mechanism to cancel the order and receive the funds back on the source chain. (See https://docs.dln.trade/dln-api/quick-start-guide/cancelling-the-order)."
 }

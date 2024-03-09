@@ -46,6 +46,6 @@
 	"filler_permissionlessness_details": "There are no protocol restrictions on who can act as a Filler.",
 	"censorship_resistance": "Good",
 	"censorship_resistance_details": "As auctions are entirely on chain, all details about new orders are public and available to all participants. There are no mechanisms on-chain by which the protocol can prevent an order from being accepted. There are however no penalties to fillers for systematically ignoring address or orders which can indirectly result in censorship. However to prevent this there only needs to be one honest rational filler in the ecosystem to fill the order.",
-	"filler_failure_resistance": "Poor",
-	"filler_failure_resistance_details": "If no fillers are available there is no way to fill an order and no way for the user to get their funds back on the source chain."
+	"filler_failure_resistance": "Excellent",
+	"filler_failure_resistance_details": "If no fillers are available to fast fill the order, a backup mechanism using the JIT AMM and canonical bridges exists to fill an order (assuming a slow fill is requested prior to expiration). If an order is not filled before expiration time it will expire and can be credited back to the user on the source chain. (See https://docs.across.to/concepts/intent-lifecycle-in-across#slow-fill-or-expiration-if-no-fill)."
 }
