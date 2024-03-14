@@ -36,12 +36,12 @@
 	"auction_design": "FCFS",
 	"auction_design_ranking": "Average",
 	"auction_design_details": "The first accepted solver bid automatically wins the auction irrespective of whether another bid comes in at roughly the same time with a better price or outcome for the user",
-	"auction_openness": "Excellent",
-	"auction_openness_details": "Auctions occur entirely on chain with no auction period of shielded competition window and there are no preferential Filler selection mechanisms.",
+	"auction_openness": "Poor",
+	"auction_openness_details": "Protocol fillers rely on a webhook to recieve order flow data as of now. This enables the protocol to send orderflow data to selected fillers before other fillers which gives them a better chance at winning the FCFS auction",
 	"filler_permissionlessness": "Excellent",
 	"filler_permissionlessness_details": "DLN allows any participant to perform Filling actions and provides comprehensive code (https://github.com/debridge-finance/dln-taker) to get Fillers up and running quickly.",
-	"censorship_resistance": "Excellent",
-	"censorship_resistance_details": "There are no mechanisms on-chain by which the protocol can prevent an order from being filled (assuming it hasn't been already).",
-	"filler_failure_resistance": "Excellent",
-	"filler_failure_resistance_details": "If an order remains unfulfilled for a prolonged period of time for whatever reason, there is a mechanism to cancel the order and receive the funds back on the source chain. (See https://docs.dln.trade/dln-api/quick-start-guide/cancelling-the-order)."
+	"censorship_resistance": "Average",
+	"censorship_resistance_details": "Protocol fillers rely on a webhook to recieve order flow data as of now. While this doesn't completely disable the fillers from filling the order as it can still be picked up from the mempool, most fillers will rely on the protocol run webhook which means the orders can be prevented from ever reaching any fillers.",
+	"filler_failure_resistance": "Average",
+	"filler_failure_resistance_details": "Protocol fillers rely on a webhook to recieve order flow data as of now. While users can always fallback to looking for orderflow in the mempool if the webhook ever goes down, it does introduce a possiblity of downtime or atleast less efficient trades if the webhook ever goes down"
 }
