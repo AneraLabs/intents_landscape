@@ -106,7 +106,9 @@ def get_contract_abi(chain_id, type):
                 ),
             ),
             "orderId" / U8[32],
-            "unlockAuthority" / U8[32]
+            "unlockAuthority" / Option(
+              U8[32]
+            )
         )
     }
 
