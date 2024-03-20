@@ -8,29 +8,29 @@ def get_contract_address(chain_id, type):
         '42161': {
                 'deposit': {
                     0 : '0x6C0771aD91442D670159a8171C35F4828E19aFd2',
-                    189700328 : '0x5523d3c98809dddb82c686e152f5c58b1b0fb59e'
+                    189700328 : '0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E'
                 },
                 'fill':  {
                     0 : '0x6C0771aD91442D670159a8171C35F4828E19aFd2',
-                    189700328 : '0x5523d3c98809dddb82c686e152f5c58b1b0fb59e'
+                    189700328 : '0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E'
                 },
         }, '1': {
                 'deposit': {
                     0 : '0x4983DB49336fD4f95e864aB6DA9135e057EF0be1',
-                    19420718 : '0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E',
+                    19421323 : '0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E',
                 },
                 'fill':  {
                     0 : '0x4983DB49336fD4f95e864aB6DA9135e057EF0be1',
-                    19420718 : '0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E',
+                    19421323 : '0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E',
                 },
         }, '10': {
                 'deposit': {
                     0 : '0x6C0771aD91442D670159a8171C35F4828E19aFd2',
-                    117334308 : '0x5523d3c98809dddb82c686e152f5c58b1b0fb59e',
+                    117334308 : '0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E',
                 },
                 'fill': {
                     0 : '0x6C0771aD91442D670159a8171C35F4828E19aFd2',
-                    117334308 : '0x5523d3c98809dddb82c686e152f5c58b1b0fb59e',
+                    117334308 : '0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E',
                 },
         }, '81457': {
                 'deposit': {
