@@ -6,32 +6,32 @@ def get_contract_address(chain_id, type):
     # Call by scraping logic to determine where to monitor for events
     contracts = {
 		'42161': {
-				'deposit': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666',
-				'fill': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666'
+				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
 		}, '1': {
-				'deposit': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666',
-				'fill': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666'
+				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
 		}, '10': {
-				'deposit': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666',
-				'fill': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666'
+				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
 		}, '56': {
-				'deposit': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666',
-				'fill': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666'
+				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
 		}, '137': {
-				'deposit': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666',
-				'fill': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666'
+				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
 		}, '43114': {
-				'deposit': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666',
-				'fill': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666'
+				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
 		}, '8453': {
-				'deposit': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666',
-				'fill': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666'
+				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
 		}, '534352': {
-				'deposit': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666',
-				'fill': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666'
+				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
 		}, '1284': {
-				'deposit': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666',
-				'fill': '0xce16F69375520ab01377ce7B88f5BA8C48F8D666'
+				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
 		}
     }
 
@@ -42,9 +42,9 @@ def get_contract_abi(chain_id, type):
     
     # deposit and fill contracts may be the same for some protocols
     if type == 'deposit':
-        return contract_abi
+        return { 0 : contract_abi }
     elif type == 'fill':
-        return contract_abi
+        return { 0 : contract_abi }
 
     return None
 
@@ -55,7 +55,7 @@ def get_supported_chains():
 def get_deposit_function_filter():
     # To record deposit transactions specify the function name
     # NOTE: this is optional and can be left as None
-    return "callBridgeCall"
+    return { 0: "callBridgeCall" }
 
 def get_deposit_event_filter():
     # To record deposit events specify the deposit function name
@@ -68,9 +68,9 @@ def get_fill_function_filter():
     # for an order where subsequent fills result in rejected transactions
     # it is VERY IMPORTANT to add a fill function filter. Only adding a 
     # fill event filter will not result in reverted txs being picked up
-    return 'expressExecuteWithToken'
+    return { 0: 'expressExecuteWithToken' }
 
 def get_fill_event_filter():
     # To record fill events specify the event name
     # NOTE: wherever possible please also include the fill function filter above
-    return 'ExpressExecutedWithToken'
+    return { 0: 'ExpressExecutedWithToken' }

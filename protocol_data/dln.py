@@ -10,36 +10,36 @@ def get_contract_address(chain_id, type):
             "fill": "dst5MGcFPoBeREFAA5E3tU5ij8m5uVYwkzkSAbsLbNo",
         },
         '42161': {
-            'deposit': '0xeF4fB24aD0916217251F553c0596F8Edc630EB66',
-            'fill': '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f'
+            'deposit': { 0 : '0xeF4fB24aD0916217251F553c0596F8Edc630EB66' },
+            'fill': { 0 : '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f' }
         },
         '43114': {
-            'deposit': '0xeF4fB24aD0916217251F553c0596F8Edc630EB66',
-            'fill': '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f'
+            'deposit': { 0 : '0xeF4fB24aD0916217251F553c0596F8Edc630EB66' },
+            'fill': { 0 : '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f' }
         },
         '8453': {
-            'deposit': '0xeF4fB24aD0916217251F553c0596F8Edc630EB66',
-            'fill': '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f'
+            'deposit': { 0 : '0xeF4fB24aD0916217251F553c0596F8Edc630EB66' },
+            'fill': { 0 : '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f' }
         },
         '56': {
-            'deposit': '0xeF4fB24aD0916217251F553c0596F8Edc630EB66',
-            'fill': '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f'
+            'deposit': { 0 : '0xeF4fB24aD0916217251F553c0596F8Edc630EB66' },
+            'fill': { 0 : '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f' }
         },
         '1': {
-            'deposit': '0xeF4fB24aD0916217251F553c0596F8Edc630EB66',
-            'fill': '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f'
+            'deposit': { 0 : '0xeF4fB24aD0916217251F553c0596F8Edc630EB66' },
+            'fill': { 0 : '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f' }
         },
         '59144' : { 
-            'deposit': '0xeF4fB24aD0916217251F553c0596F8Edc630EB66',
-            'fill': '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f'
+            'deposit': { 0 : '0xeF4fB24aD0916217251F553c0596F8Edc630EB66' },
+            'fill': { 0 : '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f' }
         },        
         '10' : { 
-            'deposit': '0xeF4fB24aD0916217251F553c0596F8Edc630EB66',
-            'fill': '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f'
+            'deposit': { 0 : '0xeF4fB24aD0916217251F553c0596F8Edc630EB66' },
+            'fill': { 0 : '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f' }
         },
         '137': { 
-            'deposit': '0xeF4fB24aD0916217251F553c0596F8Edc630EB66',
-            'fill': '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f'
+            'deposit': { 0 : '0xeF4fB24aD0916217251F553c0596F8Edc630EB66' },
+            'fill': { 0 : '0xE7351Fd770A37282b91D153Ee690B63579D6dd7f' }
         }
     }
     return contracts[chain_id][type]
@@ -1719,9 +1719,9 @@ def get_contract_abi(chain_id, type):
         return sol_abi[type]
     
     if type == 'deposit':
-        return contract_dlnsource_abi
+        return { 0 : contract_dlnsource_abi }
     elif type == 'fill':
-        return contract_dlndestination_abi
+        return { 0 : contract_dlndestination_abi }
     
     return None
 
@@ -1732,10 +1732,10 @@ def get_deposit_function_filter():
     return None
 
 def get_deposit_event_filter():
-    return 'CreatedOrder'
+    return { 0 : 'CreatedOrder' }
 
 def get_fill_function_filter():
-    return 'fulfillOrder'
+    return { 0 : 'fulfillOrder' }
 
 def get_fill_event_filter():
-    return 'FulfilledOrder'
+    return { 0 : 'FulfilledOrder' }
