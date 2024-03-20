@@ -5,34 +5,53 @@ PROTOCOL_NAME = "squid"
 def get_contract_address(chain_id, type):
     # Call by scraping logic to determine where to monitor for events
     contracts = {
-		'42161': {
-				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
-				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
-		}, '1': {
-				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
-				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
-		}, '10': {
-				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
-				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
-		}, '56': {
-				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
-				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
-		}, '137': {
-				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
-				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
-		}, '43114': {
-				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
-				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
-		}, '8453': {
-				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
-				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
-		}, '534352': {
-				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
-				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
-		}, '1284': {
-				'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
-				'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
-		}
+        '42161': {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '1': {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '10': {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '56': {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '137': {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '43114': {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '8453': {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '534352': {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '1284': {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '5000' : {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '534352' : {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '42220' : {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '2222' : {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '81457' : {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }, '252' : {
+            'deposit': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' },
+            'fill': { 0 : '0xce16F69375520ab01377ce7B88f5BA8C48F8D666' }
+        }
+
     }
 
     return contracts[chain_id][type]
@@ -50,7 +69,75 @@ def get_contract_abi(chain_id, type):
 
 def get_supported_chains():
     # Only chain_ids listed here will be used when scraping data
-    return ['42161', '1', '10', '56', '137', '43114', '8453', '534352', '1284']
+    return [
+        '1', # Ethereum
+        '42161', # Arbitrum
+        '10', # Optimism
+        '59144', # Linea 
+        '8453', # Base
+        '43114', # Avalanche
+        '137', # Polygon
+        '56', # BSC
+        '250', # Fantom
+        '1284', # Moonbeam
+        '5000', # Mantle
+        '534352', # Scroll
+        '42220', # Celo 
+        '2222', # Kava EVM
+        '81457', # Blast
+        '252', # Fraxtal
+        # 'osmosis', # Osmosis
+        # 'cosmoshub', # cosmos-hub
+        # 'dydx', # DyDx - Not there on axelar
+        # 'celestia', 
+        # 'kujira',
+        # 'neutron',
+        # 'stargaze',
+        # 'axelar', # Not found on axelar
+        # 'noble', # Not found on axelar
+        # 'umee',
+        # 'secret-snip',
+        # 'persistence',
+        # 'sommelier',
+        # 'stride',
+        # 'injective',
+        # 'crescent',
+        # 'terra-2',
+        # 'juno',
+        # 'sei',
+        # 'carbon',
+        # 'regen',
+        # 'agoric',
+        # 'chihuahua',
+        # 'akash', # Not found on axelar
+        # 'comdex',
+        # 'archway',
+        # 'quicksilver', # not found
+        # 'omniflix', # not found
+        # 'coreum',# not found
+        # 'migaloo',
+        # 'mars-hub',# not found
+        # 'terra', # Terra Classic
+        # 'assetmantle',# not found
+        # 'gravitybridge',# not found
+        # 'bitcanna',# not found
+        # 'bitsong',# not found
+        # 'cheqd',# not found
+        # 'decentr',# not found
+        # 'desmos',# not found
+        # 'irisnet',# not found
+        # 'impacts-hub',# not found
+        # 'jackal',# not found
+        # 'likecoin',# not found
+        # 'lumnetwork',# not found
+        # 'sentinel',# not found
+        # 'nolus',# not found
+        # 'kava_ibc',# not found
+        # 'teritori',
+        # 'humans',# not found
+        # 'evmos',
+        # 'dymension'
+    ]
 
 def get_deposit_function_filter():
     # To record deposit transactions specify the function name
