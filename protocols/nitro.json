@@ -1,0 +1,47 @@
+{
+	"name": "Nitro",
+	"socials": [
+		{
+			"label": "App",
+			"link": "https://app.routernitro.com/swap"
+		},
+		{
+			"label": "Website",
+			"link": "https://nitro.routerprotocol.com/"
+		},
+		{
+			"label": "Docs",
+			"link": "https://docs.routerprotocol.com/"
+		},
+		{
+			"label": "Twitter",
+			"link": "https://twitter.com/routerprotocol"
+		},
+		{
+			"label": "Discord",
+			"link": "https://discord.com/invite/rKf9UYMNWC"
+		},
+		{
+			"label": "Medium",
+			"link": "https://routerprotocol.medium.com/"
+		}
+	],
+	"logo_dark": "/protocols/nitro-dark.svg",
+	"logo_light": "/protocols/nitro-light.svg",
+	"description": "THE MOST EFFICIENT INTENT BASED CROSS-CHAIN BRIDGE IN WEB3",
+	"mainnet": "yes",
+	"type": "bridge",
+	"chains_supported": "Ethereum, Scroll, ZKSync, Arbitrum, Linea, Polygon, Blast,Optimism, Avalanche, Base, BSC, Polygon ZKEVM, Mantle, Manta, Rootstock, Tron",
+	"xchain_sync": "Canonical brdiges for message passing",
+	"auction_design": "FCFS",
+	"auction_design_ranking": "Average",
+	"auction_design_details": "The first accepted solver bid automatically wins the auction irrespective of whether another bid comes in at roughly the same time with a better price or outcome for the user",
+	"auction_openness": "Poor",
+	"auction_openness_details": "Protocol fillers rely on a webhook to recieve order flow data as of now. This enables the protocol to send orderflow data to selected fillers before other fillers which gives them a better chance at winning the FCFS auction",
+	"filler_permissionlessness": "Excellent",
+	"filler_permissionlessness_details": "DLN allows any participant to perform Filling actions and provides comprehensive code (https://github.com/debridge-finance/dln-taker) to get Fillers up and running quickly.",
+	"censorship_resistance": "Average",
+	"censorship_resistance_details": "Protocol fillers rely on a webhook to recieve order flow data as of now. While this doesn't completely disable the fillers from filling the order as it can still be picked up from the mempool, most fillers will rely on the protocol run webhook which means the orders can be prevented from ever reaching any fillers.",
+	"filler_failure_resistance": "Average",
+	"filler_failure_resistance_details": "Protocol fillers rely on a webhook to recieve order flow data as of now. While users can always fallback to looking for orderflow in the mempool if the webhook ever goes down, it does introduce a possiblity of downtime or atleast less efficient trades if the webhook ever goes down"
+}
