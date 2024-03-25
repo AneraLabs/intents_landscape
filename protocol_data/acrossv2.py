@@ -55,10 +55,10 @@ def get_deposit_function_filter():
     return None
 
 def get_deposit_event_filter():
-    return { 0 : 'FundsDeposited' }
+    return { 0 : ['FundsDeposited'] }
 
 def get_fill_function_filter():
-    return { 0 : 'fillRelay' }
+    return { 0 : ['fillRelay'] }
 
 def get_fill_event_filter():
-    return { 0 : 'FilledRelay' }
+    return { 0 : ['FilledRelay'] }

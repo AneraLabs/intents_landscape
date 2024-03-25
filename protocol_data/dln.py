@@ -1732,10 +1732,10 @@ def get_deposit_function_filter():
     return None
 
 def get_deposit_event_filter():
-    return { 0 : 'CreatedOrder' }
+    return { 0 : ['CreatedOrder'] }
 
 def get_fill_function_filter():
-    return { 0 : 'fulfillOrder' }
+    return { 0 : ['fulfillOrder'] }
 
 def get_fill_event_filter():
-    return { 0 : 'FulfilledOrder' }
+    return { 0 : ['FulfilledOrder'] }
