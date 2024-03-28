@@ -37,11 +37,11 @@
 	"auction_design_ranking": "Average",
 	"auction_design_details": "The first accepted filler bid automatically wins the auction irrespective of whether another bid comes in at roughly the same time with a better price or outcome for the user",
 	"auction_openness": "Good",
-	"auction_openness_details": "Nitro runs a state chain which is open but requires permissioned node software to freely access. The team does however provide an explorer (https://explorer.routernitro.com/) but this does require some trust in the protocol operator.",
+	"auction_openness_details": "Nitro runs a state chain which is open but requires permissioned node software to easily access. The team does however provide an explorer (https://explorer.routernitro.com/) but this does require some trust in the protocol operator.",
 	"filler_permissionlessness": "Good",
 	"filler_permissionlessness_details": "Nitro does not restrict fillers from contributing bids for orderflow on chain, however to get full access to orderflow and fee quoting requires running node software which is currently not freely available publicly.",
 	"censorship_resistance": "Good",
 	"censorship_resistance_details": "The Nitro state chain includes protections against order flow and fill censorship, however participation requires access to node software which is currently not freely available publicly.",
 	"filler_failure_resistance": "Average",
-	"filler_failure_resistance_details": "Rescuing unfilled inflight orders is restricted to admin addresses which can take all balances on a chain irrespective of whether the order has been fully filled or not."
+	"filler_failure_resistance_details": "Rescuing unfilled inflight orders is restricted to admin addresses which can take all balances on a chain irrespective of whether the order has been fully filled or not. Aside from acting as a Filler and unblocking stuck orders in flight, there is no native mechanism to rescue an order inflight in the event there are no Fillers available to service the order."
 }
