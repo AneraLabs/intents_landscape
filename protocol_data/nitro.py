@@ -135,26 +135,26 @@ def get_contract_address(chain_id, type):
         },
         '288': {
             'deposit': {
-                0: '0xc21e4ebd1d92036cb467b53fe3258f219d909eb9'
+                0: '0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9'
             },
             'fill':  {
-                0 : '0xc21e4ebd1d92036cb467b53fe3258f219d909eb9',
+                0 : '0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9',
             },
         },
         '34443': {
             'deposit': {
-                0: '0xc21e4ebd1d92036cb467b53fe3258f219d909eb9'
+                0: '0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9'
             },
             'fill':  {
-                0 : '0xc21e4ebd1d92036cb467b53fe3258f219d909eb9',
+                0 : '0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9',
             },
         }, 
         '1088': {
             'deposit': {
-                0: '0xc21e4ebd1d92036cb467b53fe3258f219d909eb9'
+                0: '0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9'
             },
             'fill':  {
-                0 : '0xc21e4ebd1d92036cb467b53fe3258f219d909eb9',
+                0 : '0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9',
             },
         }
     }
