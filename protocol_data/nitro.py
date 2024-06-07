@@ -4,6 +4,8 @@ PROTOCOL_NAME = "nitro"
 
 def get_contract_address(chain_id, type):
     # Call by scraping logic to determine where to monitor for events
+    # accepts only checksummed addresses, can be done here:
+    # https://ethsum.netlify.app/
     contracts = {
         '1': {
             'deposit': {
@@ -159,10 +161,10 @@ def get_contract_address(chain_id, type):
         },
         '167000': {
             'deposit': {
-                0: '0x7bd616192fb2b364f9d29b2026165281a5f2ff2f'
+                0: '0x7BD616192fB2B364f9d29B2026165281a5f2ff2F'
             },
             'fill': {
-                0: '0x7bd616192fb2b364f9d29b2026165281a5f2ff2f'
+                0: '0x7BD616192fB2B364f9d29B2026165281a5f2ff2F'
             }
         }
     }
