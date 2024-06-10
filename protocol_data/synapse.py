@@ -4,6 +4,8 @@ PROTOCOL_NAME = "synapse"
 
 def get_contract_address(chain_id, type):
     # Call by scraping logic to determine where to monitor for events
+    # Synapse FASTBRIDGE_CONTRACTS, source:
+    # https://github.com/synapsecns/sanguine/blob/2f452875d88c95505cb491cff2f64a46b7d7e497/packages/synapse-constants/constants/chains/index.ts#L121
     contracts = {
         '42161': {
                 'deposit': {
@@ -32,14 +34,21 @@ def get_contract_address(chain_id, type):
                     0 : '0x6C0771aD91442D670159a8171C35F4828E19aFd2',
                     117334308 : '0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E',
                 },
-        }, '81457': {
+        }, '534352': {
                 'deposit': {
-                    0 : '0xD1734b283d58C1E36fE5187F20Ae17A3Da7e702f'
+                    5124895 : '0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E'
                 },
                 'fill': {
-                    0 : '0xD1734b283d58C1E36fE5187F20Ae17A3Da7e702f'
+                    5124895 : '0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E'
                 },
-        }, 
+        },  '8453': {
+                'deposit': {
+                    12478103 : '0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E',
+                },
+                'fill': {
+                    12478103 : '0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E',
+                },
+        }
     }
 
     return contracts[chain_id][type]
@@ -532,7 +541,7 @@ def get_contract_abi(chain_id, type):
 
 def get_supported_chains():
     # Only chain_ids listed here will be used when scraping data
-    return ['42161', '81457', '1', '10']
+    return ['42161', '534352', '1', '10', '8453']
 
 def get_deposit_function_filter():
     # To record deposit transactions specify the function name
