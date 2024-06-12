@@ -5,6 +5,8 @@ PROTOCOL_NAME = "acrossv3"
 def get_contract_address(chain_id, type):
     # Optionally configurable to be different per chain_id and based
     # on type which may be 'deposit' or 'fill'
+    # https://github.com/across-protocol/contracts/blob/44ebf51e256e8149765444a52be757761b20a130/deployments/deployments.json
+    # https://docs.across.to/reference/contract-addresses
     contracts = {
         '42161': {
             'deposit': { 0 : '0xe35e9842fceaCA96570B734083f4a58e8F7C5f2A' },
@@ -19,7 +21,7 @@ def get_contract_address(chain_id, type):
             'fill': { 0 : '0x5c7BCd6E7De5423a257D81B442095A1a6ced35C5' }
         },
         '10' : { 
-            'deposit': { 0 : '0x3a23F943181408EAC424116Af7b7790c94Cb97a5' },
+            'deposit': { 0 : '0x6f26Bf09B1C792e3228e5467807a900A503c0281' },
             'fill': { 0 : '0x6f26Bf09B1C792e3228e5467807a900A503c0281' }
         },
         '137': { 
@@ -29,6 +31,14 @@ def get_contract_address(chain_id, type):
         '324': { 
             'deposit': { 0 : '0xE0B015E54d54fc84a6cB9B666099c46adE9335FF' },
             'fill': { 0 : '0xE0B015E54d54fc84a6cB9B666099c46adE9335FF' }
+        },
+        '59144': { 
+            'deposit': { 0 : '0x7E63A5f1a8F0B4d0934B2f2327DAED3F6bb2ee75' },
+            'fill': { 0 : '0x7E63A5f1a8F0B4d0934B2f2327DAED3F6bb2ee75' }
+        },
+        '34443': { 
+            'deposit': { 0 : '0x3baD7AD0728f9917d1Bf08af5782dCbD516cDd96' },
+            'fill': { 0 : '0x3baD7AD0728f9917d1Bf08af5782dCbD516cDd96' }
         },
     }
 
@@ -49,7 +59,7 @@ def get_contract_abi(chain_id, type):
     return None
 
 def get_supported_chains():
-    return ['42161', '8453', '1', '10', '137', '324']
+    return ['42161', '8453', '1', '10', '137', '324', '59144', '34443']
 
 def get_deposit_function_filter():
     return None
