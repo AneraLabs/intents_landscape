@@ -4,6 +4,8 @@ PROTOCOL_NAME = "nitro"
 
 def get_contract_address(chain_id, type):
     # Call by scraping logic to determine where to monitor for events
+    # accepts only checksummed addresses, can be done here:
+    # https://ethsum.netlify.app/
     contracts = {
         '1': {
             'deposit': {
@@ -135,27 +137,35 @@ def get_contract_address(chain_id, type):
         },
         '288': {
             'deposit': {
-                0: '0xc21e4ebd1d92036cb467b53fe3258f219d909eb9'
+                0: '0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9'
             },
             'fill':  {
-                0 : '0xc21e4ebd1d92036cb467b53fe3258f219d909eb9',
+                0 : '0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9',
             },
         },
         '34443': {
             'deposit': {
-                0: '0xc21e4ebd1d92036cb467b53fe3258f219d909eb9'
+                0: '0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9'
             },
             'fill':  {
-                0 : '0xc21e4ebd1d92036cb467b53fe3258f219d909eb9',
+                0 : '0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9',
             },
         }, 
         '1088': {
             'deposit': {
-                0: '0xc21e4ebd1d92036cb467b53fe3258f219d909eb9'
+                0: '0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9'
             },
             'fill':  {
-                0 : '0xc21e4ebd1d92036cb467b53fe3258f219d909eb9',
+                0 : '0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9',
             },
+        },
+        '167000': {
+            'deposit': {
+                0: '0x7BD616192fB2B364f9d29B2026165281a5f2ff2F'
+            },
+            'fill': {
+                0: '0x7BD616192fB2B364f9d29B2026165281a5f2ff2F'
+            }
         }
     }
 
@@ -174,7 +184,7 @@ def get_contract_abi(chain_id, type):
 
 def get_supported_chains():
     # Only chain_ids listed here will be used when scraping data
-    return ['1', '534352', '324', '42161', '59144', '137', '81457', '10', '43114','8453','56','1101','5000','169','30','728126428', '288', '34443', '1088']
+    return ['1', '534352', '324', '42161', '59144', '137', '81457', '10', '43114','8453','56','1101','5000','169','728126428', '288', '34443', '1088', '167000']
 
 def get_deposit_function_filter():
     # To record deposit transactions specify the function name
