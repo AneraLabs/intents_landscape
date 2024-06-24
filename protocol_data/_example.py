@@ -29,10 +29,11 @@ def get_function_identifier(chain_id, type):
     return identifiers[chain_id][type]
 
 def get_contract_abi(chain_id, type):
-  contract_abi = json.loads("""[
+    contract_abi = json.loads("""[
     {
-      "abi": "as_json"
-    }""")
+        "abi": "as_json"
+    }
+]""")
 
     # deposit and fill contracts may be the same for some protocols
     if type == 'deposit':
