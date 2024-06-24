@@ -4,6 +4,8 @@ import json
 PROTOCOL_NAME = "dln"
 
 def get_contract_address(chain_id, type):
+    # https://github.com/debridge-finance/dln-contracts/blob/d54e94f2b5102bff89a4df506404bb77f3edc148/hardhat.config.ts
+    # https://docs.dln.trade/the-core-protocol/trusted-smart-contracts
     contracts = {
         '7565164': {
             "deposit": "src5qyZHqTqecJV4aY6Cb6zDZLMDzrDKKezs22MPHr4",
