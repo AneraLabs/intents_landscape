@@ -1,5 +1,6 @@
 {
 	"name": "Synapse",
+	"icon_url": "/protocols/synapse.jpeg",
 	"socials": [
 		{
 			"label": "App",

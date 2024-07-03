@@ -5,7 +5,7 @@ from dataclasses import dataclass
 class Chain:
     _id: str
     name: str
-    iconUrl: str
+    icon_url: str
 
 
 CHAINS = {
