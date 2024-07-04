@@ -35,3 +35,6 @@ CHAINS = {
 
 def get_chain_info(chain_id: str) -> Chain:
     return CHAINS[chain_id]
+
+def is_supported(chain_id: str) -> bool:
+    return chain_id in CHAINS
