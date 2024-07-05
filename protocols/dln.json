@@ -1,6 +1,6 @@
 {
 	"name": "DLN",
-	"icon_url": "https://coin-images.coingecko.com/coins/images/28161/large/dln-200x200.png",
+	"icon_url": "/protocols/dln.svg",
 	"socials": [
 		{
 			"label": "App",
