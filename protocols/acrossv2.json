@@ -2,6 +2,7 @@
 	"name": "acrossv2",
 	"logo_dark": "/protocols/across-dark.png",
 	"logo_light": "/protocols/across-light.png",
+	"icon_url": "https://coin-images.coingecko.com/coins/images/28161/large/across-200x200.png",
 	"socials": [
 		{
 			"label": "Discord",

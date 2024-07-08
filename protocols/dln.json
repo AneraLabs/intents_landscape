@@ -1,5 +1,6 @@
 {
 	"name": "DLN",
+	"icon_url": "/protocols/dln.svg",
 	"socials": [
 		{
 			"label": "App",
