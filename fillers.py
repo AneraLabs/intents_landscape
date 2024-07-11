@@ -28,3 +28,10 @@ def get_filler_by_address(address: str) -> Filler | None:
         if address in filler.addresses:
             return filler
     return None
+
+
+def get_filler_by_name(name: str) -> Filler | None:
+    for filler in KNOWN_FILLERS:
+        if filler.name == name:
+            return filler
+    return None
