@@ -1,0 +1,54 @@
+{
+    "name": "Everclear",
+    "socials": [
+        {
+            "label": "App",
+            "link": "https://bridge.connext.network/"
+        },
+        {
+            "label": "Website",
+            "link": "https://everclear.org/"
+        },
+        {
+            "label": "Docs",
+            "link": "https://docs.everclear.org/"
+        },
+        {
+            "label": "Twitter",
+            "link": "https://twitter.com/EverclearOrg/"
+        },
+        {
+            "label": "Discord",
+            "link": "https://discord.gg/everclear"
+        },
+        {
+            "label": "Explorer",
+            "link": "https://connextscan.io/"
+        },
+        {
+            "label": "GitHub",
+            "link": "https://github.com/connext"
+        }
+    ],
+    "logo_dark": "/protocols/everclear-dark.png",
+    "logo_light": "/protocols/everclear-light.png",
+    "icon_url": "/protocols/everclear-dark.png",
+    "icon_dark": "/protocols/everclear-dark.png",
+    "icon_light": "/protocols/everclear-light.png",
+    "description": "Everclear is a novel public good mechanism for settling intents across chains.",
+    "mainnet": "yes",
+    "type": "bridge",
+    "chains_supported": "Enables permissionless expansion to new chains and rollups, making it possible for any application on any chain to onboard users from any other chain.",
+    "xchain_sync": "Canonical brdiges for message passing",
+    "auction_design": "RTB",
+    "auction_design_ranking": "Good",
+    "auction_design_details": "Race to the Bottom. Auctioneer smart contract governs filler selection (by honoring the bid with the lowest fees).",
+    "auction_openness": "Good",
+    "auction_openness_details": "Everclear uses a smart contract for auctions which allows open access for anyone to review the process.",
+    "filler_permissionlessness": "Excellent",
+    "filler_permissionlessness_details": "Everclear supports direct integration of filler networks and makes no assumptions about signaling, discovery, matching, or execution of intents. Any filler can participate provided they have sufficient balance stored on-chain.",
+    "censorship_resistance": "Average",
+    "censorship_resistance_details": "While a lot of components including auctioner are on chain, there are still off-chain components that can in theory be censored: Relayers and Cartographer.",
+    "filler_failure_resistance": "Good",
+    "filler_failure_resistance_details": "If no filler bids, users can increase the fees on their intent. If the winning filler fails to execute within a predefined time window, the intent will be open to any other filler who will take the MAX_FEE as defined by the protocol plus any added fees."
+}
