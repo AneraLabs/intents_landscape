@@ -1,0 +1,54 @@
+{
+	"name": "rhino.fi",
+	"socials": [
+		{
+			"label": "Website",
+			"link": "https://rhino.fi/"
+		},
+		{
+			"label": "Discord",
+			"link": "https://discord.gg/yafEx8W"
+		},
+		{
+			"label": "Blog",
+			"link": "https://rhino.fi/blog/"
+		},
+		{
+			"label": "Reddit",
+			"link": "https://www.reddit.com/r/rhino.fi/"
+		},
+		{
+			"label": "Twitter",
+			"link": "https://x.com/rhinofi"
+		},
+		{
+			"label": "Github",
+			"link": "https://github.com/rhinofi"
+		},
+		{
+			"label": "Docs",
+			"link": "https://tech.rhino.fi/rhino.fi"
+		}
+	],
+	"logo_dark": "/protocols/rhinofi-logo-dark.svg",
+	"logo_light": "/protocols/rhinofi-logo-light.svg",
+	"icon_url": "/protocols/rhinofi-icon-dark.png",
+	"icon_dark": "/protocols/rhinofi-icon-dark.png",
+	"icon_light": "/protocols/rhinofi-icon-light.png",
+	"description": "rhino.fi is a Layer 2 bridge for effortless multi-chain token movement",
+	"mainnet": "yes",
+	"type": "bridge",
+	"chains_supported": "Ethereum, Arbitrum, BSC, Polygon, zkSync, zkEVM, Optimism, Linea, Base, Manta, Starknet, Scroll",
+	"xchain_sync": "Canonical brdiges for message passing",
+	"auction_design": "-",
+	"auction_design_ranking": "Poor",
+	"auction_design_details": "The bridging process involves the user giving rhino.fi assets on their origin chain and rhino.fi providing their desired assets on their destination chain. There is always only one filler - rhino.fi.",
+	"auction_openness": "Poor",
+	"auction_openness_details": "There is always only one filler - rhino.fi.",
+	"filler_permissionlessness": "Poor",
+	"filler_permissionlessness_details": "There is always only one filler - rhino.fi. Liquidity is provided by rhino.fi AMMs: each liquidity pool includes a pair of tokens, as well as a third, liquidity provider (LP) token. The pool is filled by the community, in exchange for a share of trading fees.",
+	"censorship_resistance": "Poor",
+	"censorship_resistance_details": "Because rhino.fi is the only filler, there is a possibility for censorship.",
+	"filler_failure_resistance": "Good",
+	"filler_failure_resistance_details": "Orders are filled by smart contracts from the pre-populated liquidity pools on the destination chain. If there is not enough liquidity on the destination chain, the order cannot be accepted. If the order is accepted it will be filled."
+}
