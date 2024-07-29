@@ -39,7 +39,7 @@
     "mainnet": "yes",
     "type": "bridge",
     "chains_supported": "Enables permissionless expansion to new chains and rollups, making it possible for any application on any chain to onboard users from any other chain.",
-    "xchain_sync": "Canonical brdiges for message passing",
+    "xchain_sync": "Canonical bridges for message passing",
     "auction_design": "RTB",
     "auction_design_ranking": "Good",
     "auction_design_details": "Race to the Bottom. Auctioneer smart contract governs filler selection (by honoring the bid with the lowest fees).",
