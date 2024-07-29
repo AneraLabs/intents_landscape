@@ -39,7 +39,7 @@
 	"mainnet": "yes",
 	"type": "bridge",
 	"chains_supported": "Ethereum, Arbitrum, BSC, Polygon, zkSync, zkEVM, Optimism, Linea, Base, Manta, Starknet, Scroll",
-	"xchain_sync": "Canonical brdiges for message passing",
+	"xchain_sync": "Canonical bridges for message passing",
 	"auction_design": "-",
 	"auction_design_ranking": "Poor",
 	"auction_design_details": "The bridging process involves the user giving rhino.fi assets on their origin chain and rhino.fi providing their desired assets on their destination chain. There is always only one filler - rhino.fi.",
