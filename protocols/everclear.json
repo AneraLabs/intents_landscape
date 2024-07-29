@@ -43,7 +43,7 @@
     "auction_design": "RTB",
     "auction_design_ranking": "Good",
     "auction_design_details": "Race to the Bottom. Auctioneer smart contract governs filler selection (by honoring the bid with the lowest fees).",
-    "auction_openness": "Good",
+    "auction_openness": "Excellent",
     "auction_openness_details": "Everclear uses a smart contract for auctions which allows open access for anyone to review the process.",
     "filler_permissionlessness": "Excellent",
     "filler_permissionlessness_details": "Everclear supports direct integration of filler networks and makes no assumptions about signaling, discovery, matching, or execution of intents. Any filler can participate provided they have sufficient balance stored on-chain.",
