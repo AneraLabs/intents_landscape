@@ -42,13 +42,13 @@
 	"xchain_sync": "Canonical bridges for message passing",
 	"auction_design": "-",
 	"auction_design_ranking": "Poor",
-	"auction_design_details": "The bridging process involves the user giving rhino.fi assets on their origin chain and rhino.fi providing their desired assets on their destination chain. There is always only one filler - rhino.fi.",
+	"auction_design_details": "The bridging process involves the user giving rhino.fi assets on their origin chain and rhino.fi providing their desired assets on their destination chain. The protocol operates a single filler that executes all orders.",
 	"auction_openness": "Poor",
-	"auction_openness_details": "There is always only one filler - rhino.fi.",
+	"auction_openness_details": "The protocol operates a single filler that executes all orders.",
 	"filler_permissionlessness": "Poor",
-	"filler_permissionlessness_details": "There is always only one filler - rhino.fi. Liquidity is provided by rhino.fi AMMs: each liquidity pool includes a pair of tokens, as well as a third, liquidity provider (LP) token. The pool is filled by the community, in exchange for a share of trading fees.",
+	"filler_permissionlessness_details": "No mechanism exists for other fillers to solve orderflow originating from rhino.fi as the order expression information is incomplete and no mechanism exists for refunding of inventory filled by other entities.",
 	"censorship_resistance": "Poor",
-	"censorship_resistance_details": "Because rhino.fi is the only filler, there is a possibility for censorship.",
-	"filler_failure_resistance": "Good",
-	"filler_failure_resistance_details": "Orders are filled by smart contracts from the pre-populated liquidity pools on the destination chain. If there is not enough liquidity on the destination chain, the order cannot be accepted. If the order is accepted it will be filled."
+	"censorship_resistance_details": "Since the only running filler belongs to the protocol, there is no censorship resistance.",
+	"filler_failure_resistance": "Average",
+	"filler_failure_resistance_details": "Since the only running filler belongs to the protocol, were this or the off-chain infra to fail there would be no way for a user to complete a bridging operation. rhino.fi is built on StarkEx which provides some mechanism for users to withdraw funds to Ethereum L1 in the event the operator goes offline providing some limited recovery options."
 }
