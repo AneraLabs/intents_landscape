@@ -37,7 +37,7 @@
 	"mainnet": "yes",
 	"type": "bridge",
 	"chains_supported": "Ethereum, Arbitrum, Optimism, Blast",
-	"xchain_sync": "Canonical brdiges for message passing",
+	"xchain_sync": "Canonical bridges for message passing",
 	"auction_design": "FCFS",
 	"auction_design_ranking": "Average",
 	"auction_design_details": "The first accepted filler bid automatically wins the auction irrespective of whether another bid comes in at roughly the same time with a better price or outcome for the user",
