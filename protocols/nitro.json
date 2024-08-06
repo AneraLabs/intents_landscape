@@ -1,6 +1,5 @@
 {
 	"name": "Nitro",
-	"icon_url": "https://app.routernitro.com/logo.svg",
 	"socials": [
 		{
 			"label": "App",
@@ -27,8 +26,10 @@
 			"link": "https://routerprotocol.medium.com/"
 		}
 	],
-	"logo_dark": "/protocols/nitro-dark.svg",
-	"logo_light": "/protocols/nitro-light.svg",
+	"logo_dark": "/protocols/nitro_logo_dark.svg",
+	"logo_light": "/protocols/nitro_logo_light.svg",
+	"icon_dark": "/protocols/nitro_icon_dark.svg",
+	"icon_light": "/protocols/nitro_icon_light.svg",
 	"description": "The most efficient intent based cross-chain bridge in web3",
 	"mainnet": "yes",
 	"type": "bridge",
