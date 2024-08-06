@@ -30,11 +30,11 @@
 			"link": "https://tech.rhino.fi/rhino.fi"
 		}
 	],
-	"logo_dark": "/protocols/rhinofi-logo-dark.svg",
-	"logo_light": "/protocols/rhinofi-logo-light.svg",
-	"icon_url": "/protocols/rhinofi-icon-dark.png",
-	"icon_dark": "/protocols/rhinofi-icon-dark.png",
-	"icon_light": "/protocols/rhinofi-icon-light.png",
+	"logo_dark": "/protocols/rhinofi_logo_dark.svg",
+	"logo_light": "/protocols/rhinofi_logo_light.svg",
+	"icon_url": "/protocols/rhinofi_icon_dark.png",
+	"icon_dark": "/protocols/rhinofi_icon_dark.png",
+	"icon_light": "/protocols/rhinofi_icon_light.png",
 	"description": "rhino.fi is a Layer 2 bridge for effortless multi-chain token movement",
 	"mainnet": "yes",
 	"type": "bridge",
