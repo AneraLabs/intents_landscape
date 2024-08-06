@@ -1,6 +1,5 @@
 {
 	"name": "Squid",
-	"icon_url": "https://app.squidrouter.com/images/icons/squid_logo.svg",
 	"socials": [
 		{
 			"label": "App",
@@ -27,8 +26,10 @@
 			"link": "http://discord.gg/squidrouter"
 		}
 	],
-	"logo_dark": "/protocols/squid-dark.svg",
-	"logo_light": "/protocols/squid-light.svg",
+	"logo_dark": "/protocols/squid_logo_dark.svg",
+	"logo_light": "/protocols/squid_logo_light.svg",
+	"icon_dark": "/protocols/squid_icon_dark.svg",
+	"icon_light": "/protocols/squid_icon_light.svg",
 	"description": "Squid allows any token to be swapped between blockchains, and unlocks access to apps across chains in a single click. Use Squid to build seamless user experiences that tap into cross-chain liquidity and scale to reach anyone with a crypto wallet, no matter what chain they're on.",
 	"mainnet": "yes",
 	"type": "bridge",

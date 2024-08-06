@@ -1,6 +1,5 @@
 {
 	"name": "acrossv3",
-	"icon_url": "https://coin-images.coingecko.com/coins/images/28161/large/across-200x200.png",
 	"socials": [
 		{
 			"label": "Discord",
@@ -31,8 +30,10 @@
 			"link": "https://across.to/bridge"
 		}
 	],
-	"logo_dark": "/protocols/across-dark.png",
-	"logo_light": "/protocols/across-light.png",
+	"logo_dark": "/protocols/across_logo_dark.png",
+	"logo_light": "/protocols/across_logo_light.png",
+	"icon_dark": "/protocols/across_icon_dark.png",
+	"icon_light": "/protocols/across_icon_light.png",
 	"description": "Across is a cross-chain bridge for L2s and rollups secured by UMA's optimistic oracle.",
 	"mainnet": "yes",
 	"type": "bridge",

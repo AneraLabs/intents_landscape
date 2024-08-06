@@ -1,6 +1,5 @@
 {
 	"name": "DLN",
-	"icon_url": "/protocols/dln.svg",
 	"socials": [
 		{
 			"label": "App",
@@ -27,8 +26,10 @@
 			"link": "https://dln-trade.medium.com/"
 		}
 	],
-	"logo_dark": "/protocols/dln-dark.svg",
-	"logo_light": "/protocols/dln-light.svg",
+	"logo_dark": "/protocols/dln_logo_dark.svg",
+	"logo_light": "/protocols/dln_logo_light.svg",
+	"icon_dark": "/protocols/dln_icon_dark.svg",
+	"icon_light": "/protocols/dln_icon_light.svg",
 	"description": "Experience native cross-chain trading with deep liquidity, advanced limit orders, and lightning-fast execution. Powered by deBridge",
 	"mainnet": "yes",
 	"type": "bridge",
