@@ -55,7 +55,7 @@ def get_deposit_function_filter():
 def get_deposit_event_filter():
     # To record deposit events specify the deposit function name
     # NOTE: either this or the deposit function filter must be set
-    return { STARTING_BLOCK_NUMBER : 'CreatedOrder' }
+    return { STARTING_BLOCK_NUMBER : ['CreatedOrder'] }
 
 def get_fill_function_filter():
     # To record fill transcations specify the function name
@@ -63,9 +63,9 @@ def get_fill_function_filter():
     # for an order where subsequent fills result in rejected transactions
     # it is VERY IMPORTANT to add a fill function filter. Only adding a 
     # fill event filter will not result in reverted txs being picked up
-    return { STARTING_BLOCK_NUMBER : 'fulfillOrder' }
+    return { STARTING_BLOCK_NUMBER : ['fulfillOrder'] }
 
 def get_fill_event_filter():
     # To record fill events specify the event name
     # NOTE: wherever possible please also include the fill function filter above
-    return { STARTING_BLOCK_NUMBER : 'FulfilledOrder' }
+    return { STARTING_BLOCK_NUMBER : ['FulfilledOrder'] }
