@@ -30,11 +30,10 @@
             "link": "https://github.com/connext"
         }
     ],
-    "logo_dark": "/protocols/everclear-dark.png",
-    "logo_light": "/protocols/everclear-light.png",
-    "icon_url": "/protocols/everclear-dark.png",
-    "icon_dark": "/protocols/everclear-dark.png",
-    "icon_light": "/protocols/everclear-light.png",
+    "logo_dark": "/protocols/everclear_logo_dark.png",
+    "logo_light": "/protocols/everclear_logo_light.png",
+    "icon_dark": "/protocols/everclear_icon_dark.png",
+    "icon_light": "/protocols/everclear_icon_light.png",
     "description": "Everclear is a novel public good mechanism for settling intents across chains.",
     "mainnet": "yes",
     "type": "bridge",

@@ -31,8 +31,10 @@
 			"link": "https://forum.synapseprotocol.com/"
 		}
 	],
-	"logo_dark": "/protocols/synapse-dark.avif",
-	"logo_light": "/protocols/synapse-light.avif",
+	"logo_dark": "/protocols/synapse_logo_dark.avif",
+	"logo_light": "/protocols/synapse_logo_light.avif",
+	"icon_dark": "/protocols/synapse_icon_dark.jpeg",
+	"icon_light": "/protocols/synapse_icon_light.jpeg",
 	"description": "Synapse Bridge allows users to seamlessly swap on-chain assets across 15+ EVM and non-EVM blockchains in a safe and secure manner. Most of these routes use AMM based liquidity with some using RFQ based filling.",
 	"mainnet": "yes",
 	"type": "bridge",
