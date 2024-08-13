@@ -1,5 +1,6 @@
 {
-	"name": "Synapse",
+	"title": "Synapse",
+	"name": "synapse",
 	"icon_url": "/protocols/synapse.jpeg",
 	"socials": [
 		{
