@@ -3,12 +3,6 @@ import os
 from dataclasses import dataclass
 
 
-'''
-Example sources:
-- DLN Trade: https://platform.arkhamintelligence.com/explorer/address/0x555CE236C0220695b68341bc48C68d52210cC35b
-'''
-
-
 @dataclass
 class Filler:
     name: str
