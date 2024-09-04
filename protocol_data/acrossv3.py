@@ -16,9 +16,25 @@ def get_contract_address(chain_id, type):
             'deposit': { 0 : '0x09aea4b2242abC8bb4BB78D537A67a245A7bEC64' },
             'fill': { 0 : '0x09aea4b2242abC8bb4BB78D537A67a245A7bEC64' }
         },
+        '81457': {
+            'deposit': { 0 : '0x2D509190Ed0172ba588407D4c2df918F955Cc6E1' },
+            'fill': { 0 : '0x2D509190Ed0172ba588407D4c2df918F955Cc6E1' }
+        },
         '1': {
             'deposit': { 0 : '0x5c7BCd6E7De5423a257D81B442095A1a6ced35C5' },
             'fill': { 0 : '0x5c7BCd6E7De5423a257D81B442095A1a6ced35C5' }
+        },
+        '59144': { 
+            'deposit': { 0 : '0x7E63A5f1a8F0B4d0934B2f2327DAED3F6bb2ee75' },
+            'fill': { 0 : '0x7E63A5f1a8F0B4d0934B2f2327DAED3F6bb2ee75' }
+        },
+        '1135': { 
+            'deposit': { 0 : '0x9552a0a6624A23B848060AE5901659CDDa1f83f8' },
+            'fill': { 0 : '0x9552a0a6624A23B848060AE5901659CDDa1f83f8' }
+        },
+        '34443': { 
+            'deposit': { 0 : '0x3baD7AD0728f9917d1Bf08af5782dCbD516cDd96' },
+            'fill': { 0 : '0x3baD7AD0728f9917d1Bf08af5782dCbD516cDd96' }
         },
         '10' : { 
             'deposit': { 0 : '0x6f26Bf09B1C792e3228e5467807a900A503c0281' },
@@ -28,17 +44,21 @@ def get_contract_address(chain_id, type):
             'deposit': { 0 : '0x9295ee1d8C5b022Be115A2AD3c30C72E34e7F096' },
             'fill': { 0 : '0x9295ee1d8C5b022Be115A2AD3c30C72E34e7F096' }
         },
+        '690': { 
+            'deposit': { 0 : '0x13fDac9F9b4777705db45291bbFF3c972c6d1d97' },
+            'fill': { 0 : '0x13fDac9F9b4777705db45291bbFF3c972c6d1d97' }
+        },
+        '534352': { 
+            'deposit': { 0 : '0x3baD7AD0728f9917d1Bf08af5782dCbD516cDd96' },
+            'fill': { 0 : '0x3baD7AD0728f9917d1Bf08af5782dCbD516cDd96' }
+        },
         '324': { 
             'deposit': { 0 : '0xE0B015E54d54fc84a6cB9B666099c46adE9335FF' },
             'fill': { 0 : '0xE0B015E54d54fc84a6cB9B666099c46adE9335FF' }
         },
-        '59144': { 
-            'deposit': { 0 : '0x7E63A5f1a8F0B4d0934B2f2327DAED3F6bb2ee75' },
-            'fill': { 0 : '0x7E63A5f1a8F0B4d0934B2f2327DAED3F6bb2ee75' }
-        },
-        '34443': { 
-            'deposit': { 0 : '0x3baD7AD0728f9917d1Bf08af5782dCbD516cDd96' },
-            'fill': { 0 : '0x3baD7AD0728f9917d1Bf08af5782dCbD516cDd96' }
+        '7777777': { 
+            'deposit': { 0 : '0x13fDac9F9b4777705db45291bbFF3c972c6d1d97' },
+            'fill': { 0 : '0x13fDac9F9b4777705db45291bbFF3c972c6d1d97' }
         },
     }
 
@@ -59,7 +79,7 @@ def get_contract_abi(chain_id, type):
     return None
 
 def get_supported_chains():
-    return ['42161', '8453', '1', '10', '137', '324', '59144', '34443']
+    return ['42161', '8453', '81457', '1', '59144', '1135', '34443', '10', '137', '690', '534352', '324', '7777777']
 
 def get_deposit_function_filter():
     return None
