@@ -12,6 +12,7 @@ class Chain:
     native_token_decimals: int = 18
     native_token_coingecko_id: str = 'ethereum'
 
+# https://github.com/DefiLlama/icons/tree/v2/assets/chains
 CHAINS = {
     '1': Chain('1', 'Ethereum', 'https://icons.llamao.fi/icons/chains/rsz_ethereum.jpg', 12.0),
     '10': Chain('10', 'Optimism', 'https://icons.llamao.fi/icons/chains/rsz_optimism.jpg', 2.0),
@@ -51,6 +52,15 @@ CHAINS = {
     '288': Chain('288', 'Boba Network', 'https://icons.llamao.fi/icons/chains/rsz_boba.jpg', None),
     '1088': Chain('1088', 'Metis', 'https://icons.llamao.fi/icons/chains/rsz_metis.jpg', None),
     '167000': Chain('167000', 'Taiko', 'https://icons.llamao.fi/icons/chains/rsz_taiko.jpg', None),
+
+    # https://blockscout.lisk.com/
+    '1135': Chain('1135', 'Lisk', 'https://coin-images.coingecko.com/coins/images/385/small/Lisk_logo.png?1722338450', 2.0),
+
+    # https://explorer.redstone.xyz/
+    '690': Chain('690', 'Redstone', 'https://raw.githubusercontent.com/blockscout/frontend-configs/main/configs/network-icons/redstone-light.svg', 2.0),
+
+    # https://explorer.zora.energy/
+    '7777777': Chain('7777777', 'Zora', 'https://icons.llamao.fi/icons/chains/rsz_zora.jpg', 2.0),
 }
 
 
