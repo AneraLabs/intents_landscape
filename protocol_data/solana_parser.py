@@ -30,21 +30,12 @@ class BaseSolanaParser(ABC):
     @abstractmethod
     def schema(self) -> Parseable:
         raise NotImplementedError
-    
-    @property
-    @abstractmethod
-    def identifier(self) -> str:
-        raise NotImplementedError
 
-    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction,  doc: dict) -> dict:
+    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction, parsed_instruction_data: dict | None, doc: dict) -> dict:
         return doc
     
     def is_relevant_instruction(self, instruction) -> bool:
-        has_parsable_data = isinstance(instruction, UiPartiallyDecodedInstruction)
-        if not has_parsable_data:
-            return False
-        decoded_data_hex = base58.b58decode(instruction.data.encode()).hex()
-        return str(instruction.program_id) == self.program_address and decoded_data_hex.startswith(self.identifier)
+        return str(instruction.program_id) == self.program_address
     
     def decode_compute_budget_instruction(self, data):
         # Unpack the first byte to determine the opcode
@@ -88,43 +79,39 @@ class BaseSolanaParser(ABC):
         
         return round(compute_unit_limit * compute_unit_price)
 
-    def parse_instruction(self, signature: Signature, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction, instruction_type: str, doc: dict) -> dict | None:
+    def parse_instruction(self, signature: Signature, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction, doc: dict) -> dict | None:
         '''
         Parse the common for most protocols fields of the transaction and the instruction.
         All fields of the resulting document can be overwritten in the parse_protocol_specific_fields.
         '''
-        
-        doc['instruction_type'] = instruction_type
 
         # the inner tx object contains parsed instruction data
         try:
             data = self.schema.parse(base58.b58decode(instruction.data.encode()))
-            doc['tx'] = {}
-            for key, value in data.items():
-                doc['tx'][key] = value
+            return data
+
         except Exception as e:
             print(f"Failed to parse data for [{signature}] : [{e}]")
-            # record for possible future fix txs that have unknown instructions
+            # mark docs that have unknown instructions for possible future fix 
             doc[UNPARSED_INSTRUCTION_FIELD_NAME] = instruction.data
-            doc['tx'] = {}
-            doc['tx']['orderId'] = doc['scraper_tx_hash']
-
-        doc = self.parse_protocol_specific_fields(tx, instruction, doc)
-
-        return doc
+            return None
     
 
     def parse_transaction(self, chain_id: str, signature: Signature, tx: GetTransactionResp) -> dict | None:
 
-        assert tx.value is not None
+        if tx.value is None:
+            return None
+        
         tx_data = tx.value.transaction.transaction
         tx_meta = tx.value.transaction.meta
-        assert tx_meta is not None
-        assert tx_data is not None
+        if tx_meta is None or tx_data is None:
+            return None
+        
         message = tx_data.message # type: ignore[attr-defined]
 
         doc = {}
         
+        doc['scraper_protocol'] = self.protocol_name
         doc['scraper_originChain'] = chain_id
         doc['scraper_blockNumber'] = tx.value.slot
         doc['scraper_blockTimestamp'] = tx.value.block_time
@@ -140,18 +127,29 @@ class BaseSolanaParser(ABC):
         doc['scraper_chain_fee'] = tx_meta.fee
         doc['scraper_chain_prioritization_fee'] = self.get_prioritization_fee(tx)
 
+        parsed_instruction_data = None
+
         for instruction in message.instructions:
             if self.is_relevant_instruction(instruction):
-                tx_doc = self.parse_instruction(signature, tx, instruction, "outer_instruction", doc) # type: ignore[arg-type]
-                if tx_doc != None:
-                    return tx_doc
+                doc['instruction_type'] = "outer_instruction"
+                parsed_instruction_data = self.parse_instruction(signature, tx, instruction, doc) # type: ignore[arg-type]
+                break
         
-        if tx_meta.inner_instructions is not None:
+        if tx_meta.inner_instructions is not None and parsed_instruction_data is None and UNPARSED_INSTRUCTION_FIELD_NAME not in doc:
             for inner_instruction in tx_meta.inner_instructions:
                 for instruction in inner_instruction.instructions:
                     if self.is_relevant_instruction(instruction):
-                        tx_doc = self.parse_instruction(signature, tx, instruction, "inner_instruction", doc) # type: ignore[arg-type]
-                        if tx_doc != None:
-                            return tx_doc
+                        doc['instruction_type'] = "inner_instruction"
+                        parsed_instruction_data = self.parse_instruction(signature, tx, instruction, doc) # type: ignore[arg-type]
+                        break
 
-        return None
+        if UNPARSED_INSTRUCTION_FIELD_NAME not in doc and parsed_instruction_data is None:
+            # we didn't find any relevant instructions
+            return None
+                        
+        if parsed_instruction_data is not None and isinstance(instruction, UiPartiallyDecodedInstruction):
+            doc = self.parse_protocol_specific_fields(tx, instruction, parsed_instruction_data, doc)
+            return doc
+        else:
+            print(f"Unexpected parsed_instruction_data for [{signature}]")
+            return None

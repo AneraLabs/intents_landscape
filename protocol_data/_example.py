@@ -31,7 +31,7 @@ def get_function_identifier(chain_id, type):
     return identifiers[chain_id][type]
 
 def get_solana_parsers() -> list[BaseSolanaParser]:
-    '''See dln.py for an example implementation'''
+    '''See dln.py or rhinofi.py for implementation examples'''
     return []
 
 def get_contract_abi(chain_id, type):

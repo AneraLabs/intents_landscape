@@ -1,12 +1,12 @@
+from abc import abstractmethod
 import base64
-from base58 import b58encode
+from base58 import b58encode, b58decode
 from borsh_construct import Option,CStruct,U32,U64,Bytes,U8
 import json
 from anchorpy.coder.event import EventCoder
 from anchorpy_core.idl import Idl
 from solders.rpc.responses import GetTransactionResp
 from solders.transaction_status import UiPartiallyDecodedInstruction
-from typing_extensions import override
 
 from solana_parser import UNPARSED_INSTRUCTION_FIELD_NAME, BaseSolanaParser, Parseable
 
@@ -1748,16 +1748,28 @@ def process_instruction_data(data: dict):
     except Exception as e:
         print(f"Key: {key}, e: {e}") 
 class DlnParser(BaseSolanaParser):
-    idl = IDL
 
     @property
     def protocol_name(self) -> str:
         return "dln"
+    
+    @property
+    @abstractmethod
+    def identifier(self) -> str:
+        raise NotImplementedError
+    
+    def is_relevant_instruction(self, instruction) -> bool:
+        has_parsable_data = isinstance(instruction, UiPartiallyDecodedInstruction)
+        if not has_parsable_data:
+            return False
+        decoded_data_hex = b58decode(instruction.data.encode()).hex()
+        return str(instruction.program_id) == self.program_address and decoded_data_hex.startswith(self.identifier)
 
-    @override
-    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction,  doc: dict):
-        doc['scraper_protocol'] = PROTOCOL_NAME
-        if UNPARSED_INSTRUCTION_FIELD_NAME not in doc:
+    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction, parsed_instruction_data: dict, doc: dict):
+        if parsed_instruction_data is not None:
+            doc['tx'] = {}
+            for key, value in parsed_instruction_data.items():
+                doc['tx'][key] = value
             process_instruction_data(doc['tx'])
         return doc
 
@@ -1798,9 +1810,8 @@ class DlnDepositParser(DlnParser):
             "referralCode" / Option(U32)
         )
 
-    @override
-    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction,  doc: dict):
-        doc = super().parse_protocol_specific_fields(tx, instruction, doc)
+    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction, parsed_instruction_data: dict,  doc: dict):
+        doc = super().parse_protocol_specific_fields(tx, instruction, parsed_instruction_data, doc)
 
         if UNPARSED_INSTRUCTION_FIELD_NAME not in doc:
             doc["tx"]["identifier"] = "deposit"	
@@ -1857,8 +1868,8 @@ class DlnFillParser(DlnParser):
             )
         )
     
-    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction,  doc: dict):
-        doc = super().parse_protocol_specific_fields(tx, instruction, doc)
+    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction, parsed_instruction_data: dict, doc: dict):
+        doc = super().parse_protocol_specific_fields(tx, instruction, parsed_instruction_data, doc)
 
         if UNPARSED_INSTRUCTION_FIELD_NAME not in doc:
             doc["tx"]["identifier"] = "fulfillOrder"
@@ -1874,26 +1885,42 @@ if __name__ == "__main__":
     # a simple test for dln solana parser
     from solana.rpc.api import Client
     from solders.pubkey import Pubkey
+    from solders.signature import Signature
 
     parsers = get_solana_parsers()
+    chain_id = '7565164'
 
     rpc_url = "https://api.mainnet-beta.solana.com"
-    chain_id = '7565164'
 
     client = Client(rpc_url)
 
-    for parser in parsers:
-        pubkey = Pubkey.from_string(parser.program_address)
-        # TODO: fix schema:
-        # Failed to parse data for [5EFsJAozodmaKLg45sywAwCFDSiwccwovfe8Qm4XJnwwgk2ED1n8kY6crb6d5377KPsAufGTJYecEFLfoSTr9Qkx] : [Error in path (parsing) -> affiliateFee -> value -> beneficiary
-        # example parsed in ui - https://solscan.io/tx/5EFsJAozodmaKLg45sywAwCFDSiwccwovfe8Qm4XJnwwgk2ED1n8kY6crb6d5377KPsAufGTJYecEFLfoSTr9Qkx 
-        # related discord - https://discord.com/channels/875308315700264970/876748142777864202/1202508720307703828
-        # parser by debridge written in TS - https://github.com/debridge-finance/solana-tx-parser-public
-        # https://stackoverflow.com/questions/70794607/how-do-you-decode-a-solana-instruction-in-python-like-solscan-io-does 
-        tx_status_with_signatures = client.get_signatures_for_address(pubkey, limit=3).value
-        for tx_status in tx_status_with_signatures:
-            signature = tx_status.signature
-            tx = client.get_transaction(signature, max_supported_transaction_version=1, encoding="jsonParsed")
-            result = parser.parse_transaction(chain_id, signature, tx)
-            print(json.dumps(result, indent=4))
-            print()
+    # for parser in parsers:
+    #     pubkey = Pubkey.from_string(parser.program_address)
+    #     tx_status_with_signatures = client.get_signatures_for_address(pubkey, limit=3).value
+    #     for tx_status in tx_status_with_signatures:
+    #         signature = tx_status.signature
+    #         tx = client.get_transaction(signature, max_supported_transaction_version=1, encoding="jsonParsed")
+    #         result = parser.parse_transaction(chain_id, signature, tx)
+    #         print(json.dumps(result, indent=4))
+    #         print()
+    # TODO: fix schema:
+    # IDLs are now available at https://docs.debridge.finance/dln-the-debridge-liquidity-network-protocol/deployed-contracts
+    # Failed to parse data for [5EFsJAozodmaKLg45sywAwCFDSiwccwovfe8Qm4XJnwwgk2ED1n8kY6crb6d5377KPsAufGTJYecEFLfoSTr9Qkx] : [Error in path (parsing) -> affiliateFee -> value -> beneficiary
+    # example parsed in ui - https://solscan.io/tx/5EFsJAozodmaKLg45sywAwCFDSiwccwovfe8Qm4XJnwwgk2ED1n8kY6crb6d5377KPsAufGTJYecEFLfoSTr9Qkx 
+    # related discord - https://discord.com/channels/875308315700264970/876748142777864202/1202508720307703828
+    # parser by debridge written in TS - https://github.com/debridge-finance/solana-tx-parser-public
+    # https://stackoverflow.com/questions/70794607/how-do-you-decode-a-solana-instruction-in-python-like-solscan-io-does 
+
+    # signatures with Claim Unlock (no relevant instructions)
+    signatures_to_check = [
+        Signature.from_string('3miQh98v3eMoS9thVBd4cbUuuyAocMdtbcr2ZWZ43WmiqGSpSdks9EwswEHiyidusosxd62CguVyMBbvaWqdiXBh'),
+        Signature.from_string('2xDYud2StWxWWk6D2yLANrRgTMaQC6Df5BEGZ8tjVp47uq5ysCGuojhfm4V2DZVRMP5feRgrCGD5APdzYuVXyjLm'),
+        Signature.from_string('wtQtS6chBDmz6cJ8wRjvC5VQrbZ7sxtGj2a5avp27Dj9bEsL6zWkstRTNWoKFT3yZyfJTqoDfGsmdNuZ8orHrze')
+    ]
+
+    for signature in signatures_to_check:
+        tx = client.get_transaction(signature, max_supported_transaction_version=1, encoding="jsonParsed")
+        result = parsers[0].parse_transaction(chain_id, signature, tx)
+        print(json.dumps(result, indent=4))
+        print()
+

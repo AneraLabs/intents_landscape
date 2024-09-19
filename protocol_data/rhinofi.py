@@ -1,6 +1,19 @@
 import json
+import os
+from solana_parser import BaseSolanaParser, Parseable
+from solders.rpc.responses import GetTransactionResp
+from solders.transaction_status import UiPartiallyDecodedInstruction
+
+from anchor_clients.rhinofi.instructions.deposit import layout as deposit_layout
+from anchor_clients.rhinofi.instructions.withdraw import layout as withdraw_layout
 
 PROTOCOL_NAME = "rhinofi"
+DEPOSIT_SOLANA_PROGRAM_ID = "FCW1uBM3pZ7fQWvEL9sxTe4fNiH41bu9DWX4ErTZ6aMq"
+FILL_SOLANA_PROGRAM_ID = "FCW1uBM3pZ7fQWvEL9sxTe4fNiH41bu9DWX4ErTZ6aMq"
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+with open(os.path.join(current_dir, "..", "abis", "rhinofi.json"), "r") as f:
+    ETHEREUM_ABI = json.load(f)
 
 def get_contract_address(chain_id, type):
     # Call by scraping logic to determine where to monitor for events
@@ -13,6 +26,10 @@ def get_contract_address(chain_id, type):
         #     'deposit': { 12062072 : '0xeD9d63a96c27f87B07115b56b2e3572827f21646' },
         #     'fill': { STARTING_BLOCK_NUMBER : '' }
         # },
+        '7565164': {
+            "deposit": DEPOSIT_SOLANA_PROGRAM_ID,
+            "fill": FILL_SOLANA_PROGRAM_ID,
+        },
         '42161' : { 
             'deposit': { 12062072 : '0x10417734001162Ea139e8b044DFe28DbB8B28ad0' },
             'fill': { 12062072 : '0x10417734001162Ea139e8b044DFe28DbB8B28ad0' },
@@ -56,596 +73,9 @@ def get_contract_address(chain_id, type):
     }
     return contracts[chain_id][type]
 
-# TODO: find solana contracts, they are absent in https://github.com/rhinofi/contracts_public/
-def get_function_identifier(chain_id, type):
-    # Ids for solana functions (if required)
-    identifiers = {
-        # '7565164': {
-        #     "deposit": "828362be28ce4432",
-        #     "fill": "3dd627f841d49924",
-        # }
-    }
-    return identifiers[chain_id][type]
 
 def get_contract_abi(chain_id, type):
-    contract_abi = json.loads("""
-[
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "user",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "BridgedDeposit",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "user",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "internalType": "string",
-                "name": "withdrawalId",
-                "type": "string"
-            }
-        ],
-        "name": "BridgedWithdrawal",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "amountToken",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "amountNative",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "internalType": "bytes",
-                "name": "ref",
-                "type": "bytes"
-            }
-        ],
-        "name": "BridgedWithdrawalWithData",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "user",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "amountToken",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "amountNative",
-                "type": "uint256"
-            }
-        ],
-        "name": "BridgedWithdrawalWithNative",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "internalType": "uint8",
-                "name": "version",
-                "type": "uint8"
-            }
-        ],
-        "name": "Initialized",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "previousOwner",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "newOwner",
-                "type": "address"
-            }
-        ],
-        "name": "OwnershipTransferred",
-        "type": "event"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "addFunds",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "addFundsNative",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "tokenAddress",
-                "type": "address"
-            },
-            {
-                "internalType": "int256",
-                "name": "maxAmount",
-                "type": "int256"
-            }
-        ],
-        "name": "allowDeposits",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "bool",
-                "name": "value",
-                "type": "bool"
-            }
-        ],
-        "name": "allowDepositsGlobal",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "user",
-                "type": "address"
-            },
-            {
-                "internalType": "bool",
-                "name": "value",
-                "type": "bool"
-            }
-        ],
-        "name": "authorize",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "authorized",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "checkMaxDepositAmount",
-        "outputs": [],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "createVMContract",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "deposit",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "depositNative",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "depositsDisallowed",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "initialize",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "maxDepositAmount",
-        "outputs": [
-            {
-                "internalType": "int256",
-                "name": "",
-                "type": "int256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "name": "processedWithdrawalIds",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "removeFunds",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address payable",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "removeFundsNative",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "renounceOwnership",
-        "outputs": [],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "newOwner",
-                "type": "address"
-            }
-        ],
-        "name": "transferOwner",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "newOwner",
-                "type": "address"
-            }
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address payable",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "withdrawNativeV2",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "withdrawV2",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amountToken",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amountNative",
-                "type": "uint256"
-            }
-        ],
-        "name": "withdrawV2WithNative",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            }
-        ],
-        "name": "withdrawVmFunds",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amountNative",
-                "type": "uint256"
-            },
-            {
-                "components": [
-                    {
-                        "internalType": "address",
-                        "name": "target",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "value",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "bytes",
-                        "name": "data",
-                        "type": "bytes"
-                    }
-                ],
-                "internalType": "struct BridgeVM.Call[]",
-                "name": "datas",
-                "type": "tuple[]"
-            },
-            {
-                "internalType": "bytes",
-                "name": "ref",
-                "type": "bytes"
-            }
-        ],
-        "name": "withdrawWithData",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "stateMutability": "payable",
-        "type": "receive"
-    }
-]
-""")
+    contract_abi = ETHEREUM_ABI
 
     # deposit and fill contracts may be the same for some protocols
     if type == 'deposit':
@@ -658,7 +88,7 @@ def get_contract_abi(chain_id, type):
 def get_supported_chains():
     # Only chain_ids listed here will be used when scraping data
     # TODO: add more chains
-    return ['42161', '56', '137', '324', '1101', '10', '59144', '8453', '169', '534352']
+    return ['7565164', '42161', '56', '137', '324', '1101', '10', '59144', '8453', '169', '534352']
 
 def get_deposit_function_filter():
     # To record deposit transactions specify the function name
@@ -685,3 +115,97 @@ def get_fill_event_filter():
     # To record fill events specify the event name
     # NOTE: wherever possible please also include the fill function filter above
     return { 0 : ['BridgedWithdrawal', 'BridgedWithdrawalWithData', 'BridgedWithdrawalWithNative'] }
+
+
+# --------------------- Solana ----------------------------
+DEPOSIT_IDENTIFIER = b"\xf2#\xc6\x89R\xe1\xf2\xb6"
+FILL_IDENTIFIER = b'\xb7\x12F\x9c\x94m\xa1"'
+
+class RhinoFiSchema(Parseable):
+    def parse(self, data: bytes) -> dict:
+        identifier = data[:8]
+        if identifier == DEPOSIT_IDENTIFIER:
+            decoded = deposit_layout.parse(data[8:])
+            return {
+                "instruction": "deposit",
+                "amount": str(decoded.amount),
+                "eth_address_upper": str(decoded.eth_address_upper),
+                "eth_address_lower": str(decoded.eth_address_lower)
+            }
+        elif identifier == FILL_IDENTIFIER:
+            decoded = withdraw_layout.parse(data[8:])
+            return {
+                "instruction": "withdraw",
+                "amount": str(decoded.amount),
+            }
+        else:
+            raise ValueError(f"Unknown instruction: [{identifier.hex()}]")
+class RhinoFiParser(BaseSolanaParser):
+
+    @property
+    def protocol_name(self) -> str:
+        return PROTOCOL_NAME
+
+    @property
+    def program_address(self) -> str:
+        return DEPOSIT_SOLANA_PROGRAM_ID
+    
+    @property
+    def schema(self) -> Parseable:
+        return RhinoFiSchema()
+    
+    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction, parsed_instruction_data: dict, doc: dict):
+        
+        doc['tx'] = parsed_instruction_data
+        doc['scraper_function'] = doc['tx']['instruction']
+
+        if doc['tx']['instruction'] == "deposit":
+            doc['source_address'] = str(instruction.accounts[3])
+            doc['source_chain'] = doc['scraper_originChain']
+            doc['source_token_address'] = str(instruction.accounts[4])
+        else:
+            # fill
+            doc['destination_address'] = str(instruction.accounts[4])
+            doc['destination_chain'] = doc['scraper_originChain']
+            doc['destination_token_address'] = str(instruction.accounts[6])
+            doc['filler_address'] = str(instruction.accounts[9])
+        return doc
+
+
+def get_solana_parsers() -> list[BaseSolanaParser]:
+    return [RhinoFiParser()]
+
+
+if __name__ == "__main__":
+    # a simple test for dln solana parser
+    from solana.rpc.api import Client
+    from solders.pubkey import Pubkey
+    from solders.signature import Signature
+
+    parsers = get_solana_parsers()
+    chain_id = '7565164'
+
+    rpc_url = "https://api.mainnet-beta.solana.com"
+
+    client = Client(rpc_url)
+
+    for parser in parsers:
+        pubkey = Pubkey.from_string(parser.program_address)
+        tx_status_with_signatures = client.get_signatures_for_address(pubkey, limit=20).value
+        for tx_status in tx_status_with_signatures:
+            signature = tx_status.signature
+            tx = client.get_transaction(signature, max_supported_transaction_version=1, encoding="jsonParsed")
+            result = parser.parse_transaction(chain_id, signature, tx)
+            print(json.dumps(result, indent=4))
+            print()
+
+        # # fill
+        # signatures = [
+        #     Signature.from_string('W4F2LwF45ThfeBikqtsb3ahte1X25HWrX2Et43AKgBSS8zCqWmdYU1mEhXwuDUs5EJUFuGhYrm5TR74ibX8BHY4')
+        # ]
+
+        # for signature in signatures:
+        #     tx = client.get_transaction(signature, max_supported_transaction_version=1, encoding="jsonParsed")
+        #     result = parser.parse_transaction(chain_id, signature, tx)
+        #     print(json.dumps(result, indent=4))
+        #     print()
