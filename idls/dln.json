@@ -1,0 +1,23 @@
+{
+    "version": "1.2.1",
+    "name": "dln_src",
+    "instructions": [],
+    "accounts": [],
+    "events": [
+        {
+            "name": "CreatedOrderId",
+            "fields": [
+                {
+                    "name": "orderId",
+                    "type": {
+                        "array": [
+                            "u8",
+                            32
+                        ]
+                    },
+                    "index": false
+                }
+            ]
+        }
+    ]
+}
