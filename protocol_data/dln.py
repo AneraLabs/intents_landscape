@@ -1,12 +1,16 @@
 from abc import abstractmethod
 import base64
+import traceback
 from base58 import b58encode, b58decode
 from borsh_construct import Option,CStruct,U32,U64,Bytes,U8
 import json
 from anchorpy.coder.event import EventCoder
 from anchorpy_core.idl import Idl
+from anchorpy.coder.instruction import InstructionCoder
+from anchorpy.program.common import NamedInstruction
 from solders.rpc.responses import GetTransactionResp
 from solders.transaction_status import UiPartiallyDecodedInstruction
+from construct.lib.containers import Container
 
 from solana_parser import UNPARSED_INSTRUCTION_FIELD_NAME, BaseSolanaParser, Parseable
 
@@ -1687,12 +1691,17 @@ def get_fill_event_filter():
 
 # --------------------- Solana ----------------------------
 
-with open("intents_landscape/idls/dln.json", "r") as f:
-    IDL = json.load(f)
+with open("intents_landscape/idls/dln_deposit.json", "r") as f:
+    DEPOSIT_IDL = json.load(f)
+DEPOSIT_CODER = InstructionCoder(Idl.from_json(json.dumps(DEPOSIT_IDL)))
+
+with open("intents_landscape/idls/dln_fill.json", "r") as f:
+    FILL_IDL = json.load(f)
+FILL_CODER = InstructionCoder(Idl.from_json(json.dumps(FILL_IDL)))
 
 def get_order_id_from_logs(logs) -> str | None:
     try:
-        json_string = json.dumps(IDL)
+        json_string = json.dumps(DEPOSIT_IDL)
         coder = EventCoder(Idl.from_json(json_string))
     except Exception as e:
         print("Coder Error", e)
@@ -1706,48 +1715,72 @@ def get_order_id_from_logs(logs) -> str | None:
         except Exception as e:
             pass
 
-def process_instruction_data(data: dict):
+def snake_to_camel(snake_str):
 
-    if '_io' in data:
-        del data["_io"]
+    prefix = ''
+    if snake_str.startswith('_'):
+        prefix = '_'
+        snake_str = snake_str[1:]
 
-    if 'externalCall' in data:
-        del data["externalCall"]
-    
-    if 'unvalidatedOrder' in data:
-        data["_order"] = data["unvalidatedOrder"]
-        del data["unvalidatedOrder"]
-    
+    components = snake_str.split('_')
+    return prefix + components[0] + ''.join(x.title() for x in components[1:])
+
+def process_instruction_data(doc: dict, data):
     try:
-        for key, value in data.items():
-            if not value:
-                continue
+        # record as many fields as possible
+        if isinstance(data, dict):
+            items = list(data.items())
+        else:
+            items = []
+            for attr in dir(data):
+                if not attr.startswith('__'):
+                    attr_value = getattr(data, attr)
+                    if not callable(attr_value):
+                        items.append((attr, attr_value))
 
-            if key in ["identifier", "allowedTakerDst", "allowedCancelBeneficiarySrc", "givePatchAuthoritySrc", "makerSrc", "orderId"]:
-                data[key] = hex(int.from_bytes(value)) 
+        for key, value in items:
+
+            # to stay consistent with previously ingested data
+            key = snake_to_camel(key)
+            if key in {'_io', 'externalCall'}:
+                continue
+            if key == "unvalidatedOrder":
+                key = "_order"
+
+            if value is None:
+                doc[key] = None
+            elif key in ["orderId"]:
+                doc[key] = hex(int.from_bytes(value)) 
             elif key in ["orderArgs", "take", "give", "affiliateFee", "_order"]:
-                process_instruction_data(value)
+                doc[key] = {}
+                process_instruction_data(doc[key], value)
             elif key in ["chainId", "amount"]:
-                data[key] = str(int.from_bytes(value))
-            elif key in ["receiverDst", "orderAuthorityAddressDst"]:
-                if "give" in data:
-                    data[key] = str(b58encode(value).decode())
+                if isinstance(value, int) or isinstance(value, str):
+                    doc[key] = str(value)
                 else:
-                    data[key] = hex(int.from_bytes(value))  
-            elif key in ["unlockAuthority"]:
-                data[key] = b58encode(bytes(value)).decode()
-            elif key in ["tokenAddress"]:
-                if str(data["chainId"]) == "7565164":
-                    data[key] = str(b58encode(value).decode())
-                else:
-                    data[key] = hex(int.from_bytes(value))
-                
-                if data[key] == "0x0":
-                    data[key] = "0x" + "0" * 40
+                    doc[key] = str(int.from_bytes(value))
+            elif isinstance(value, bytes):
+                # dln often passes addresses as bytes
+                try:
+                    solana_key_value = Pubkey(value)
+                    doc[key] = str(solana_key_value)
+                except ValueError:
+                    # if couldn't convert to pubkey, most likely the field is an EVM address
+                    # store it as hex by default
+                    doc[key] = hex(int.from_bytes(value))
+            elif isinstance(value, int) or isinstance(value, float) or isinstance(value, str):
+                doc[key] = value
+            elif isinstance(value, Pubkey):
+                doc[key] = str(value)
 
     except Exception as e:
+        # print stack trace
+        print(f"Warning: failed to process key: [{key}] with error: [{e}], stack trace:")
+        traceback.print_exc()
         print(f"Key: {key}, e: {e}") 
+
 class DlnParser(BaseSolanaParser):
+    # shared fields for deposit and fill
 
     @property
     def protocol_name(self) -> str:
@@ -1765,12 +1798,14 @@ class DlnParser(BaseSolanaParser):
         decoded_data_hex = b58decode(instruction.data.encode()).hex()
         return str(instruction.program_id) == self.program_address and decoded_data_hex.startswith(self.identifier)
 
-    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction, parsed_instruction_data: dict, doc: dict):
-        if parsed_instruction_data is not None:
+    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction, parsed_instruction: NamedInstruction, doc: dict):
+        if parsed_instruction is not None:
+
+            data = parsed_instruction.data
             doc['tx'] = {}
-            for key, value in parsed_instruction_data.items():
-                doc['tx'][key] = value
-            process_instruction_data(doc['tx'])
+            doc['tx']['identifier'] = snake_to_camel(parsed_instruction.name)
+            process_instruction_data(doc['tx'], data)
+
         return doc
 
 class DlnDepositParser(DlnParser):
@@ -1785,37 +1820,13 @@ class DlnDepositParser(DlnParser):
     
     @property
     def schema(self) -> Parseable:
-        return CStruct(
-            "identifier" / U8[8],
-            "orderArgs" / CStruct(
-                "giveOriginalAmount" / U64,
-                "take" / CStruct(
-                    "chainId" / U8[32],
-                    "tokenAddress" / Bytes,
-                    "amount" / U8[32] 
-                ),
-                "receiverDst" / Bytes,
-                "externalCall" / Option(Bytes),
-                "givePatchAuthoritySrc" / U8[32],
-                "allowedCancelBeneficiarySrc" / Option(U8[32]),
-                "orderAuthorityAddressDst" / Bytes,
-                "allowedTakerDst" / Option(Bytes)
-            ),
-            "affiliateFee" / Option(
-                CStruct(
-                    "beneficiary" / Bytes,
-                    "amount" / U64
-                )
-            ),
-            "referralCode" / Option(U32)
-        )
+        return DEPOSIT_CODER
 
-    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction, parsed_instruction_data: dict,  doc: dict):
+    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction, parsed_instruction_data: NamedInstruction,  doc: dict):
         doc = super().parse_protocol_specific_fields(tx, instruction, parsed_instruction_data, doc)
 
         if UNPARSED_INSTRUCTION_FIELD_NAME not in doc:
-            doc["tx"]["identifier"] = "deposit"	
-            doc['scraper_function'] = doc["tx"]["identifier"] 
+            doc['scraper_function'] = "deposit"
             doc['tx']["orderArgs"]["giveTokenAddress"] = str(instruction.accounts[2])
             assert tx.value is not None
             tx_meta = tx.value.transaction.meta
@@ -1836,44 +1847,13 @@ class DlnFillParser(DlnParser):
 
     @property
     def schema(self) -> Parseable:
-        return CStruct(
-            "identifier" / U8[8],
-            "unvalidatedOrder" / CStruct(
-                "makerOrderNonce" / U64,
-                "makerSrc" / Bytes,
-                "give" / CStruct(
-                    "chainId" / U8[32],
-                    "tokenAddress" / Bytes,
-                    "amount" / U8[32] 
-                ),
-                "take" / CStruct(
-                    "chainId" / U8[32],
-                    "tokenAddress" / Bytes,
-                    "amount" / U8[32] 
-                ),
-                "receiverDst" / Bytes,
-                "givePatchAuthoritySrc" / Bytes,
-                "orderAuthorityAddressDst" / Bytes,
-                "allowedTakerDst" / Option(Bytes),
-                "allowedCancelBeneficiarySrc" / Option(Bytes),
-                "externalCall" / Option(
-                    CStruct(
-                        "externalCallShortcut" / U8[32]
-                    )
-                ),
-            ),
-            "orderId" / U8[32],
-            "unlockAuthority" / Option(
-              U8[32]
-            )
-        )
+        return FILL_CODER
     
-    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction, parsed_instruction_data: dict, doc: dict):
+    def parse_protocol_specific_fields(self, tx: GetTransactionResp, instruction: UiPartiallyDecodedInstruction, parsed_instruction_data: NamedInstruction, doc: dict):
         doc = super().parse_protocol_specific_fields(tx, instruction, parsed_instruction_data, doc)
 
         if UNPARSED_INSTRUCTION_FIELD_NAME not in doc:
-            doc["tx"]["identifier"] = "fulfillOrder"
-            doc['scraper_function'] = doc["tx"]["identifier"]
+            doc['scraper_function'] = "fulfillOrder"
 
         return doc
 
@@ -1886,6 +1866,7 @@ if __name__ == "__main__":
     from solana.rpc.api import Client
     from solders.pubkey import Pubkey
     from solders.signature import Signature
+    from deepdiff import DeepDiff
 
     parsers = get_solana_parsers()
     chain_id = '7565164'
@@ -1894,33 +1875,121 @@ if __name__ == "__main__":
 
     client = Client(rpc_url)
 
-    # for parser in parsers:
-    #     pubkey = Pubkey.from_string(parser.program_address)
-    #     tx_status_with_signatures = client.get_signatures_for_address(pubkey, limit=3).value
-    #     for tx_status in tx_status_with_signatures:
-    #         signature = tx_status.signature
-    #         tx = client.get_transaction(signature, max_supported_transaction_version=1, encoding="jsonParsed")
-    #         result = parser.parse_transaction(chain_id, signature, tx)
-    #         print(json.dumps(result, indent=4))
-    #         print()
-    # TODO: fix schema:
-    # IDLs are now available at https://docs.debridge.finance/dln-the-debridge-liquidity-network-protocol/deployed-contracts
-    # Failed to parse data for [5EFsJAozodmaKLg45sywAwCFDSiwccwovfe8Qm4XJnwwgk2ED1n8kY6crb6d5377KPsAufGTJYecEFLfoSTr9Qkx] : [Error in path (parsing) -> affiliateFee -> value -> beneficiary
-    # example parsed in ui - https://solscan.io/tx/5EFsJAozodmaKLg45sywAwCFDSiwccwovfe8Qm4XJnwwgk2ED1n8kY6crb6d5377KPsAufGTJYecEFLfoSTr9Qkx 
-    # related discord - https://discord.com/channels/875308315700264970/876748142777864202/1202508720307703828
-    # parser by debridge written in TS - https://github.com/debridge-finance/solana-tx-parser-public
-    # https://stackoverflow.com/questions/70794607/how-do-you-decode-a-solana-instruction-in-python-like-solscan-io-does 
+    def print_diff(expected, result):
+        diff = DeepDiff(expected, result, verbose_level=2)
 
-    # signatures with Claim Unlock (no relevant instructions)
-    signatures_to_check = [
-        Signature.from_string('3miQh98v3eMoS9thVBd4cbUuuyAocMdtbcr2ZWZ43WmiqGSpSdks9EwswEHiyidusosxd62CguVyMBbvaWqdiXBh'),
-        Signature.from_string('2xDYud2StWxWWk6D2yLANrRgTMaQC6Df5BEGZ8tjVp47uq5ysCGuojhfm4V2DZVRMP5feRgrCGD5APdzYuVXyjLm'),
-        Signature.from_string('wtQtS6chBDmz6cJ8wRjvC5VQrbZ7sxtGj2a5avp27Dj9bEsL6zWkstRTNWoKFT3yZyfJTqoDfGsmdNuZ8orHrze')
-    ]
+        if diff:
+            print(json.dumps(diff, indent=4, default=str))
 
-    for signature in signatures_to_check:
+            print("Reult doc:")
+            print(json.dumps(result, indent=4, default=str))
+        else:
+            print("No differences found")
+
+    def get_tx_and_parse(signature, parser):
         tx = client.get_transaction(signature, max_supported_transaction_version=1, encoding="jsonParsed")
-        result = parsers[0].parse_transaction(chain_id, signature, tx)
-        print(json.dumps(result, indent=4))
-        print()
+        result = parser.parse_transaction(chain_id, signature, tx)
+        return result
 
+    # signatures with Claim Unlock (no relevant instructions, should result in null)
+    # signatures_to_check = [
+    #     Signature.from_string('3miQh98v3eMoS9thVBd4cbUuuyAocMdtbcr2ZWZ43WmiqGSpSdks9EwswEHiyidusosxd62CguVyMBbvaWqdiXBh'),
+    #     Signature.from_string('2xDYud2StWxWWk6D2yLANrRgTMaQC6Df5BEGZ8tjVp47uq5ysCGuojhfm4V2DZVRMP5feRgrCGD5APdzYuVXyjLm'),
+    #     Signature.from_string('wtQtS6chBDmz6cJ8wRjvC5VQrbZ7sxtGj2a5avp27Dj9bEsL6zWkstRTNWoKFT3yZyfJTqoDfGsmdNuZ8orHrze')
+    # ]
+    # for signature in signatures_to_check:
+    #     tx = client.get_transaction(signature, max_supported_transaction_version=1, encoding="jsonParsed")
+    #     result = parsers[0].parse_transaction(chain_id, signature, tx)
+    #     print(json.dumps(result, indent=4))
+    #     print()
+
+    # with affiliate fee
+    signature = Signature.from_string('5Rxmv4h5ntR8Yozp1L7rLG54HWVgDUDpiC7EXfLwKg6N7z8qQFFwX9YJfAWxeA9vDvxGwRFArzMk24oCRoYCS5zQ')
+    result = get_tx_and_parse(signature, parsers[0])
+    print(json.dumps(result, indent=4, default=str))
+    
+
+    # with no affiliate fee (was successful with old parser)
+    signature = Signature.from_string('37p3XLDxPcNbwDKNw2Adma3YDgbuyoAGwoc3TK4XnP8dyaKW8QaTH6CGqXQYch2hfcYsLpvH1azMQ33kgnS15v83')
+    expected_deposit_doc = {
+        "scraper_originChain": "7565164",
+        "scraper_blockNumber": 281109590,
+        "scraper_blockTimestamp": 1722595729,
+        "scraper_from": "C2ptaYeY83ndFt1axQaE3w7F9fxWzmCibnv9cmNUFbER",
+        "scraper_protocol": "dln",
+        "scraper_contractAddress": "src5qyZHqTqecJV4aY6Cb6zDZLMDzrDKKezs22MPHr4",
+        "scraper_tx_status": "ok",
+        "scraper_tx_hash": "37p3XLDxPcNbwDKNw2Adma3YDgbuyoAGwoc3TK4XnP8dyaKW8QaTH6CGqXQYch2hfcYsLpvH1azMQ33kgnS15v83",
+        "instruction_type": "outer_instruction",
+        "tx": {
+            "identifier": "createOrderWithNonce",
+            "orderArgs": {
+                "giveOriginalAmount": 2981416279,
+                "take": {
+                    "chainId": "56",
+                    "tokenAddress": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+                    "amount": "2977793444404504181799",
+                },
+                "receiverDst": "0xa2e9370d8e888a79e8cb83d9c002d0f481b7e0c8",
+                "givePatchAuthoritySrc": "C2ptaYeY83ndFt1axQaE3w7F9fxWzmCibnv9cmNUFbER",
+                "allowedCancelBeneficiarySrc": None,
+                "orderAuthorityAddressDst": "0xa2e9370d8e888a79e8cb83d9c002d0f481b7e0c8",
+                "allowedTakerDst": None,
+                "giveTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            },
+            "affiliateFee": None,
+            "referralCode": 5022,
+            "orderId": "0xbc4eac2ca927e3a9d3d8aa87333e939580af9e151ef2afde39b67f5d58fb886a",
+            "nonce": 1722595724071,
+            "metadata": "0x101010000a3e4120000000000000000000000000000000000273c62f9a8802f6da10000000000000000000000000000000000000000000000000000000000000000",
+        },
+        "scraper_function": "deposit",
+        "scraper_chain_fee": 15001,
+        "scraper_chain_prioritization_fee": 10000,
+    }
+
+    result = get_tx_and_parse(signature, parsers[0])
+    print_diff(expected_deposit_doc, result)
+
+    # fill example
+    signature = Signature.from_string('4hxiKWW5FGosAhevnKkUjkRDWVmGoC7KZeQYB4itvAeD2R3rtffRJkSAmqBniXcRbHGdm4Xzp1u1nA9MoijZeXoY')
+    expected_fill_doc = {
+        "scraper_originChain": "7565164",
+        "scraper_blockNumber": 276792628,
+        "scraper_blockTimestamp": 1720631355,
+        "scraper_from": "7FfB2zQRYUQwpPzkRxAeg2mCBGeCRKp4PCEeULJA9xTo",
+        "scraper_protocol": "dln",
+        "scraper_contractAddress": "dst5MGcFPoBeREFAA5E3tU5ij8m5uVYwkzkSAbsLbNo",
+        "scraper_tx_status": "ok",
+        "scraper_tx_hash": "4hxiKWW5FGosAhevnKkUjkRDWVmGoC7KZeQYB4itvAeD2R3rtffRJkSAmqBniXcRbHGdm4Xzp1u1nA9MoijZeXoY",
+        "instruction_type": "outer_instruction",
+        "scraper_chain_fee": 1005001,
+        "scraper_chain_prioritization_fee": 1000000,
+        "tx": {
+            "identifier": "fulfillOrder",
+            "orderId": "0xafd3e671a10a838cb41703166182c46698793e0dfcab2e8d593d3558819795bc",
+            "unlockAuthority": "7FfB2zQRYUQwpPzkRxAeg2mCBGeCRKp4PCEeULJA9xTo",
+            "_order": {
+                "makerOrderNonce": 1720631333780,
+                "makerSrc": "0x25b60226c170fe88192b054666c90a00f52c4698",
+                "give": {
+                    "chainId": "42161",
+                    "tokenAddress": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+                    "amount": "1173693309"
+                },
+                "take": {
+                    "chainId": "7565164",
+                    "tokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                    "amount": "1172807627"
+                },
+                "receiverDst": "2AueoQsAR2JQn9bVq6FCBhmEBRH31Cw5Dg5uayp8C8aB",
+                "givePatchAuthoritySrc": "0x25b60226c170fe88192b054666c90a00f52c4698",
+                "orderAuthorityAddressDst": "2AueoQsAR2JQn9bVq6FCBhmEBRH31Cw5Dg5uayp8C8aB",
+                "allowedTakerDst": None,
+                "allowedCancelBeneficiarySrc": None
+            }
+        },
+        "scraper_function": "fulfillOrder"
+    }
+    result = get_tx_and_parse(signature, parsers[1])
+    print_diff(expected_fill_doc, result)
