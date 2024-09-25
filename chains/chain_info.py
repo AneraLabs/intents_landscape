@@ -28,16 +28,35 @@ CHAINS = {
                      native_token_icon_url='https://icons.llamao.fi/icons/chains/rsz_solana.jpg',
                      native_token_decimals=9,
                      native_token_coingecko_id='solana'),
-    '43114': Chain('43114', 'Avalanche', 'https://icons.llamao.fi/icons/chains/rsz_avalanche.jpg', 2.1),
+    '43114': Chain('43114', 'Avalanche', 'https://icons.llamao.fi/icons/chains/rsz_avalanche.jpg', 2.1, 
+                   native_token_symbol='AVAX', 
+                   native_token_icon_url='https://icons.llamao.fi/icons/chains/rsz_avalanche.jpg',
+                   native_token_decimals=18,
+                   native_token_coingecko_id='avalanche-2'),
     '56': Chain('56', 'BNB Chain', 'https://icons.llamao.fi/icons/chains/rsz_binance.jpg', 3.1, 
                 native_token_symbol='BNB', 
                 native_token_icon_url='https://icons.llamao.fi/icons/chains/rsz_binance.jpg', 
                 native_token_coingecko_id='binancecoin'),
     '59144': Chain('59144', 'Linea', 'https://icons.llamao.fi/icons/chains/rsz_linea.jpg', 2.0),
+
+    # even though coingecko api says that the native token is BLAST
+    # using ETH because the explorers show fees in ETH 
+    # example: https://blastexplorer.io/tx/0x07504f40b0a6487941d866b0eab374b4545be79aa84b47b06fb0b6d5d244a72c
+    # block time is from https://cryptoapis.io/blockchains/blast 
     '81457': Chain('81457', 'Blast', 'https://icons.llamao.fi/icons/chains/rsz_blast.jpg', 2.0),
+
+    # https://scrollscan.com/
     '534352': Chain('534352', 'Scroll', 'https://icons.llamao.fi/icons/chains/rsz_scroll.jpg', 2.96),
+
+    # https://zkevm.polygonscan.com/
     '1101': Chain('1101', 'Polygon zkEVM', 'https://icons.llamao.fi/icons/chains/rsz_polygon-zkevm.jpg', 3.0),
-    '5000': Chain('5000', 'Mantle', 'https://icons.llamao.fi/icons/chains/rsz_mantle.jpg', None),
+
+    # https://mantlescan.info/
+    '5000': Chain('5000', 'Mantle', 'https://icons.llamao.fi/icons/chains/rsz_mantle.jpg', None,
+                 native_token_symbol='MNT',
+                 native_token_icon_url='https://icons.llamao.fi/icons/chains/rsz_mantle.jpg',
+                 native_token_decimals=18,
+                 native_token_coingecko_id='mantle'),
     '169': Chain('169', 'Manta', 'https://icons.llamao.fi/icons/chains/rsz_manta.jpg', 10.0),
     # '30': Chain('30', 'Rootstock', 'https://icons.llamao.fi/icons/chains/rsz_rootstock.jpg', None, 
     #             # TODO: verify RBTC has 18 decimals
@@ -48,9 +67,25 @@ CHAINS = {
                        native_token_icon_url='https://icons.llamao.fi/icons/chains/rsz_tron.jpg',
                        native_token_decimals=6, 
                        native_token_coingecko_id='tron'),
+
+    # even though coingecko api says that the native token is mode
+    # block scanners show ETH
+    # https://modescan.io/block/13469670
     '34443': Chain('34443', 'Mode', 'https://icons.llamao.fi/icons/chains/rsz_mode.jpg', None),
+
+    # https://bobascan.com/
     '288': Chain('288', 'Boba Network', 'https://icons.llamao.fi/icons/chains/rsz_boba.jpg', None),
-    '1088': Chain('1088', 'Metis', 'https://icons.llamao.fi/icons/chains/rsz_metis.jpg', None),
+
+    # https://explorer.metis.io/
+    '1088': Chain('1088', 'Metis', 'https://icons.llamao.fi/icons/chains/rsz_metis.jpg', None,
+                 native_token_symbol='METIS',
+                 native_token_icon_url='https://icons.llamao.fi/icons/chains/rsz_metis.jpg',
+                 native_token_decimals=18,
+                 native_token_coingecko_id='metis-token'),
+
+    # even though coingecko api says that the native token is taiko
+    # block scanners show ETH
+    # https://taikoscan.io/
     '167000': Chain('167000', 'Taiko', 'https://icons.llamao.fi/icons/chains/rsz_taiko.jpg', None),
 
     # https://blockscout.lisk.com/
