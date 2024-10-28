@@ -34,7 +34,7 @@ pip install -r requirements.txt
 
 ## Adding a protocol
 
-To add a new protocol, you will need to fork the intents_landscape repo and add 3 new files (protocol filter python file, a static data file, and normalisation logic file) by following the steps in this section.
+To add a new protocol, you will need to fork the intents_landscape repo (from the `main` branch) and add 3 new files (protocol filter python file, a static data file, and normalisation logic file) by following the steps in this section.
 
 If updating you will also need to fork the repo, but will instead make changes to the relevant files for the protocol in question.
 
@@ -68,6 +68,26 @@ Please be especially careful with the following fields as it's important to cons
 - filler_failure_resistance / filler_failure_resistance_details
 
 The only accepted values for auction_openness, filler_diversity, censorship_resistance and filler_failure_resistance are `Excellent` / `Good` / `Average` / `Poor`.
+
+### Part 3: Add normalisation logic
+
+The final step is to add normalisation logic that converts protocol-specific event data into a standardized format that can be used by the dashboard. This involves:
+
+1. Create a new normalisation file in the [intents_landscape/normalisation](https://github.com/AneraLabs/intents_landscape/tree/main/normalisation) directory following the protocol naming convention
+2. Implement logic to transform:
+   - Order deposit data into standardized format
+   - Fill event data into standardized format
+   - Match deposits to their corresponding fills
+
+Key considerations when implementing normalisation:
+
+- Ensure all required fields are populated correctly (see `is_valid_normalised_doc` function)
+- Handle protocol-specific quirks and edge cases
+- Validate data integrity during transformation
+- Add appropriate error handling
+- Include comments explaining any complex transformations
+
+Test the normalisation logic thoroughly with sample data before submitting the PR to ensure it correctly handles all scenarios.
 
 ## Contributions guidelines
 
