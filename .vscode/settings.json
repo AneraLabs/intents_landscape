@@ -1,0 +1,10 @@
+{
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.formatOnSave": false
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.tabSize": 4
+  }
+}

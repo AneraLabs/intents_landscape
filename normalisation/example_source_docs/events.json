@@ -1,0 +1,95 @@
+[
+    {
+        "_id": {
+            "protocol": "acrossv3",
+            "origin_chain_id": "7777777",
+            "tx_hash": "4a49e8e72edd043f13ba6d2c23582392ec68ab3eec1d532ca929d5d9e746c6cb",
+            "protocol_order_id": "1147456"
+        },
+        "scraper_originChain": "7777777",
+        "scraper_blockNumber": 21573083,
+        "scraper_tx_hash": "4a49e8e72edd043f13ba6d2c23582392ec68ab3eec1d532ca929d5d9e746c6cb",
+        "scraper_blockTimestamp": 1729840005,
+        "scraper_protocol": "acrossv3",
+        "scraper_contractAddress": "0x13fDac9F9b4777705db45291bbFF3c972c6d1d97",
+        "scraper_event": "FilledV3Relay",
+        "scraper_from": "0xCad97616f91872C02BA3553dB315Db4015cBE850",
+        "scraper_to": "0x13fDac9F9b4777705db45291bbFF3c972c6d1d97",
+        "scraper_effectiveGasPrice": "1150300",
+        "scraper_gasUsed": "105057",
+        "event": {
+            "originChainId": "534352",
+            "depositId": "1147456",
+            "relayer": "0xCad97616f91872C02BA3553dB315Db4015cBE850",
+            "inputToken": "0x5300000000000000000000000000000000000004",
+            "outputToken": "0x4200000000000000000000000000000000000006",
+            "inputAmount": "3337400142072003",
+            "outputAmount": "3334569582823786",
+            "repaymentChainId": "534352",
+            "fillDeadline": "4294967295",
+            "exclusivityDeadline": "0",
+            "exclusiveRelayer": "0x0000000000000000000000000000000000000000",
+            "depositor": "0x776a088941CfDF00474D7F3B1624D666c74BE715",
+            "recipient": "0x776a088941CfDF00474D7F3B1624D666c74BE715",
+            "message": "0x",
+            "relayExecutionInfo": {
+                "updatedRecipient": "0x776a088941CfDF00474D7F3B1624D666c74BE715",
+                "updatedMessage": "0x",
+                "updatedOutputAmount": "3334569582823786",
+                "fillType": "0"
+            }
+        }
+    },
+    {
+        "_id": {
+            "protocol": "cowswap",
+            "origin_chain_id": "1",
+            "tx_hash": "89509701b803dad56dff7eb06f81126aa976805ed801147541f81c364c317e18",
+            "protocol_order_id": "0x6a9603b4aeab0f530a85c385f78c910b71d1b1a48aefd70b36625e24949ec1ca5ac6720d12ef7cce95d8fb5c40590ce957c0d6f567110804"
+        },
+        "scraper_originChain": "1",
+        "scraper_blockNumber": 20985265,
+        "scraper_tx_hash": "89509701b803dad56dff7eb06f81126aa976805ed801147541f81c364c317e18",
+        "scraper_blockTimestamp": 1729167827,
+        "scraper_protocol": "cowswap",
+        "scraper_contractAddress": "0x9008D19f58AAbD9eD0D60971565AA8510560ab41",
+        "scraper_event": "Trade",
+        "scraper_from": "0xC7899Ff6A3aC2FF59261bD960A8C880DF06E1041",
+        "scraper_to": "0x9008D19f58AAbD9eD0D60971565AA8510560ab41",
+        "scraper_effectiveGasPrice": "45415576675",
+        "scraper_gasUsed": "479138",
+        "event": {
+            "owner": "0x5aC6720D12EF7cCe95D8fb5c40590CE957C0d6f5",
+            "sellToken": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "buyToken": "0x69457A1C9Ec492419344DA01Daf0DF0e0369d5D0",
+            "sellAmount": "12000000000",
+            "buyAmount": "40354115433316372053654",
+            "feeAmount": "0",
+            "orderUid": "0x6a9603b4aeab0f530a85c385f78c910b71d1b1a48aefd70b36625e24949ec1ca5ac6720d12ef7cce95d8fb5c40590ce957c0d6f567110804"
+        }
+    },
+    {
+        "_id": {
+            "protocol": "rhinofi",
+            "origin_chain_id": "10",
+            "tx_hash": "f15eba188c37f88907918d004641c3ca541d291b5521e7af7963160cb6a54200",
+            "protocol_order_id": "f15eba188c37f88907918d004641c3ca541d291b5521e7af7963160cb6a54200"
+        },
+        "scraper_originChain": "10",
+        "scraper_blockNumber": 127120605,
+        "scraper_tx_hash": "f15eba188c37f88907918d004641c3ca541d291b5521e7af7963160cb6a54200",
+        "scraper_blockTimestamp": 1729839987,
+        "scraper_protocol": "rhinofi",
+        "scraper_contractAddress": "0x0bCa65bf4b4c8803d2f0B49353ed57CAAF3d66Dc",
+        "scraper_event": "BridgedDeposit",
+        "scraper_from": "0x27d0DdB01bC4292a52B01a29eD51ffeA8365024d",
+        "scraper_to": "0x0bCa65bf4b4c8803d2f0B49353ed57CAAF3d66Dc",
+        "scraper_effectiveGasPrice": "300000000",
+        "scraper_gasUsed": "34739",
+        "event": {
+            "user": "0x27d0DdB01bC4292a52B01a29eD51ffeA8365024d",
+            "token": "0x0000000000000000000000000000000000000000",
+            "amount": "2200000000000000"
+        }
+    }
+]

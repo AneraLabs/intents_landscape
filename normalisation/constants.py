@@ -1,0 +1,2 @@
+NATIVE_TOKEN_ADDRESS = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+SOLANA_CHAIN_ID = "7565164"
