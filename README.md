@@ -1,6 +1,6 @@
 # Introduction
 
-All data on the dashboard is build from open sources that can be contributed to by anyone to update existing protocols, add new ones or correct mistakes to improve the quality of the data we provide.
+All data on the dashboard is built from open sources that can be contributed to by anyone to update existing protocols, add new ones or correct mistakes to improve the quality of the data we provide.
 
 > Spotted a mistake? Want to add a new intent based protocol? We are grateful for all contributions - this page explains how to contribute.
 
