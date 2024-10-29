@@ -6,7 +6,7 @@ All data on the dashboard is built from open sources that can be contributed to 
 
 ## Data sources
 
-[intent.markets](https://intent.markets) has been created to provide transparent and verifiable insights into the emerging space of Intent based protocols. As such, all information presented on the dashboard is generated using on-chain data as the source of truth.
+[intent.markets](https://intent.markets) has been created to provide transparent and verifiable insights into the emerging space of Intent based protocols. All information presented on the dashboard is generated using primary and secondary onchain data as the source of truth.
 
 We run a number of workers responsible for ingesting and normalising on-chain data and processing it to generate insights which are then reflected on the dashboard.
 
