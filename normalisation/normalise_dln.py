@@ -7,7 +7,7 @@ from protocol_data.solana_parser import UNPARSED_INSTRUCTION_FIELD_NAME
 # This module will only work within the context of the parent closed source repository
 # TODO: decouple from price_helper
 try:
-    from price_helper import PartnerFee, ProtocolFee, add_fee_usd
+    from services.common.price_helper import PartnerFee, ProtocolFee, add_fee_usd
 except ImportError:
     pass
 

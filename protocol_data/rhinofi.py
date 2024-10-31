@@ -1,11 +1,11 @@
 import json
 import os
-from solana_parser import BaseSolanaParser, Parseable
 from solders.rpc.responses import GetTransactionResp
 from solders.transaction_status import UiPartiallyDecodedInstruction
-
 from anchor_clients.rhinofi.instructions.deposit import layout as deposit_layout
 from anchor_clients.rhinofi.instructions.withdraw import layout as withdraw_layout
+
+from protocol_data.solana_parser import BaseSolanaParser, Parseable
 
 PROTOCOL_NAME = "rhinofi"
 DEPOSIT_SOLANA_PROGRAM_ID = "FCW1uBM3pZ7fQWvEL9sxTe4fNiH41bu9DWX4ErTZ6aMq"

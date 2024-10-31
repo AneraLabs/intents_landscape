@@ -11,7 +11,7 @@ from solders.rpc.responses import GetTransactionResp
 from solders.transaction_status import UiPartiallyDecodedInstruction
 from solders.pubkey import Pubkey
 
-from solana_parser import UNPARSED_INSTRUCTION_FIELD_NAME, BaseSolanaParser, Parseable
+from protocol_data.solana_parser import UNPARSED_INSTRUCTION_FIELD_NAME, BaseSolanaParser, Parseable
 
 PROTOCOL_NAME = "dln"
 DEPOSIT_SOLANA_PROGRAM_ID = "src5qyZHqTqecJV4aY6Cb6zDZLMDzrDKKezs22MPHr4"
