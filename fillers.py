@@ -21,7 +21,7 @@ KNOWN_FILLERS: list[Filler] = []
 # all files in the fillers folder
 for file in os.listdir(FILLERS_DIR):
     if file.endswith(".json"):
-        with open(f"{FILLERS_DIR}/{file}", encoding="utf-8") as f:
+        with open(f"{FILLERS_DIR}/{file}", encoding="utf-8", some_unexisting_param_to_test_ci) as f:
             filler_dict = json.load(f)
         KNOWN_FILLERS.append(Filler.from_dict(filler_dict))
 
