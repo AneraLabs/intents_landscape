@@ -1,8 +1,6 @@
-from typing import Any
 from normalisation.constants import NATIVE_TOKEN_ADDRESS
 from normalisation.utils import normalise_address_if_needed
 from protocol_data.solana_parser import UNPARSED_INSTRUCTION_FIELD_NAME
-
 
 # This module will only work within the context of the parent closed source repository
 # TODO: decouple from price_helper
@@ -258,7 +256,6 @@ def normalise_dln(original_doc: dict, type: str, normalised_doc: dict) -> dict |
                 "affiliateFee" in original_doc["event"]
                 and original_doc["event"]["affiliateFee"] != "0x"
             ):
-
                 # example affiliate_fee_hex 0xb4f34d09124b8c9712957b76707b42510041ecbb00000000000000000000000000000000000000000000000025008e16879daa76
                 affiliate_fee_hex = original_doc["event"]["affiliateFee"]
                 affiliate_address = "0x" + affiliate_fee_hex[2:42]
@@ -303,6 +300,7 @@ def normalise_dln(original_doc: dict, type: str, normalised_doc: dict) -> dict |
     return normalised_doc
 
 
+# ruff: noqa: E501
 if __name__ == "__main__":
     tx_doc = {
         "_id": {
@@ -350,7 +348,6 @@ if __name__ == "__main__":
         "scraper_function": "deposit",
     }
 
-
     normalised_doc = {
         "scraper_protocol": "dln",
         "scraper_originChain": "7565164",
@@ -365,6 +362,5 @@ if __name__ == "__main__":
         "scraper_function": "deposit",
     }
 
-
-    normalised_doc = normalise_dln(tx_doc, 'tx', normalised_doc)
+    normalised_doc = normalise_dln(tx_doc, "tx", normalised_doc)
     print(normalised_doc)

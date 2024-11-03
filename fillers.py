@@ -2,6 +2,8 @@ import json
 import os
 from dataclasses import dataclass
 
+FILLERS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fillers")
+
 
 @dataclass
 class Filler:
@@ -9,7 +11,7 @@ class Filler:
     addresses: list[str]
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'Filler':
+    def from_dict(cls, data: dict) -> "Filler":
         return cls(**data)
 
 
@@ -17,9 +19,9 @@ KNOWN_FILLERS: list[Filler] = []
 
 
 # all files in the fillers folder
-for file in os.listdir('intents_landscape/fillers'):
-    if file.endswith('.json'):
-        with open(f'intents_landscape/fillers/{file}', 'r') as f:
+for file in os.listdir(FILLERS_DIR):
+    if file.endswith(".json"):
+        with open(f"{FILLERS_DIR}/{file}", encoding="utf-8") as f:
             filler_dict = json.load(f)
         KNOWN_FILLERS.append(Filler.from_dict(filler_dict))
 
@@ -38,7 +40,7 @@ def get_filler_by_name(name: str) -> Filler | None:
     return None
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # check if all fillers are loaded with no errors
     for filler in KNOWN_FILLERS:
         print(filler.name)

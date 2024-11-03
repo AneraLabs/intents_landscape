@@ -1,112 +1,162 @@
 import time
+
 from web3 import Web3
-from typing import Any
 
 from normalisation.utils import normalise_address_if_needed
 from signal_handler import SignalHandler
 
-# This module will only work within the context of the parent closed source repository because of this import
-# TODO: remove after replacing get_synapse_bridge_transaction with a parser with no call to the RPC
+# This module will only work within the context of the parent
+# closed source repository because of this import
+# TODO: remove after replacing get_synapse_bridge_transaction with
+# a parser with no call to the RPC
 try:
     from services.common.rpc_utils import execute_web3_eth_method
 except ImportError:
     pass
 
 
-def normalise_synapse(original_doc, type, normalised_doc, signal_handler: SignalHandler):
-    if type == 'tx':
-        if original_doc['scraper_function'] != 'relay':
+def normalise_synapse(
+    original_doc, type, normalised_doc, signal_handler: SignalHandler
+):
+    if type == "tx":
+        if original_doc["scraper_function"] != "relay":
             print(f"Unknown function type {original_doc['scraper_function']}")
             return None
-        normalised_doc['name'] = 'order_fill_tx'
-        
-        decodedTx = get_synapse_bridge_transaction(original_doc, signal_handler)
-        if decodedTx is None:
+        normalised_doc["name"] = "order_fill_tx"
+
+        decoded_tx = get_synapse_bridge_transaction(original_doc, signal_handler)
+        if decoded_tx is None:
             return None
 
         if signal_handler.shutdown:
             return None
 
-        [origin_chain_id, dest_chain_id, origin_sender, dest_recepient, origin_token, dest_token, origin_amount, dest_amount, origin_fee_amount, send_chain_gas, deadline, nonce] = decodedTx        
+        [
+            origin_chain_id,
+            dest_chain_id,
+            origin_sender,
+            dest_recepient,
+            origin_token,
+            dest_token,
+            origin_amount,
+            dest_amount,
+            origin_fee_amount,
+            _send_chain_gas,
+            _deadline,
+            _nonce,
+        ] = decoded_tx
 
-        normalised_doc['source_address'] = origin_sender
-        normalised_doc['destination_address'] = dest_recepient
+        normalised_doc["source_address"] = origin_sender
+        normalised_doc["destination_address"] = dest_recepient
 
-        normalised_doc['source_chain'] = origin_chain_id
-        normalised_doc['destination_chain'] = dest_chain_id
+        normalised_doc["source_chain"] = origin_chain_id
+        normalised_doc["destination_chain"] = dest_chain_id
 
-        normalised_doc['source_token_address'] = origin_token
-        normalised_doc['destination_token_address'] = dest_token
+        normalised_doc["source_token_address"] = origin_token
+        normalised_doc["destination_token_address"] = dest_token
 
-        normalised_doc['source_token_amount'] = origin_amount
-        normalised_doc['destination_token_amount'] = dest_amount
-        
-        normalised_doc['order_id'] = str(normalised_doc['source_chain']) + '_' + str(Web3.solidity_keccak(['bytes'], [original_doc['tx']['request']]).hex())
-        normalised_doc['protocol_fee'] = origin_fee_amount
+        normalised_doc["source_token_amount"] = origin_amount
+        normalised_doc["destination_token_amount"] = dest_amount
 
-        normalised_doc['filler_address'] = original_doc['scraper_from']
+        values_to_hash = [original_doc["tx"]["request"]]
+        # pylint: disable=no-value-for-parameter
+        order_id_part = str(
+            Web3.solidity_keccak(abi_types=["bytes"], values=values_to_hash).hex()
+        )
+        normalised_doc["order_id"] = (
+            str(normalised_doc["source_chain"]) + "_" + order_id_part
+        )
+        normalised_doc["protocol_fee"] = origin_fee_amount
 
-    elif type == 'event':
-        if original_doc['scraper_event'] == 'BridgeRequested':
-            normalised_doc['name'] = 'order_deposit_event'
+        normalised_doc["filler_address"] = original_doc["scraper_from"]
 
-            normalised_doc['source_address'] = original_doc['event']['sender']
-            normalised_doc['destination_address'] = original_doc['event']['sender']
+    elif type == "event":
+        if original_doc["scraper_event"] == "BridgeRequested":
+            normalised_doc["name"] = "order_deposit_event"
 
-            normalised_doc['source_chain'] = original_doc['scraper_originChain']
-            normalised_doc['destination_chain'] = original_doc['event']['destChainId']
+            normalised_doc["source_address"] = original_doc["event"]["sender"]
+            normalised_doc["destination_address"] = original_doc["event"]["sender"]
 
-            normalised_doc['source_token_address'] = normalise_address_if_needed(original_doc['event']['originToken'])
-            normalised_doc['destination_token_address'] = normalise_address_if_needed(original_doc['event']['destToken'])
+            normalised_doc["source_chain"] = original_doc["scraper_originChain"]
+            normalised_doc["destination_chain"] = original_doc["event"]["destChainId"]
 
-            normalised_doc['source_token_amount'] = original_doc['event']['originAmount']
-            normalised_doc['destination_token_amount'] = original_doc['event']['destAmount']
+            normalised_doc["source_token_address"] = normalise_address_if_needed(
+                original_doc["event"]["originToken"]
+            )
+            normalised_doc["destination_token_address"] = normalise_address_if_needed(
+                original_doc["event"]["destToken"]
+            )
 
-            normalised_doc['protocol_fee'] = 0 
+            normalised_doc["source_token_amount"] = original_doc["event"][
+                "originAmount"
+            ]
+            normalised_doc["destination_token_amount"] = original_doc["event"][
+                "destAmount"
+            ]
 
-        elif original_doc['scraper_event'] == 'BridgeRelayed':
-            normalised_doc['name'] = 'order_fill_event'
+            normalised_doc["protocol_fee"] = 0
 
-            normalised_doc['source_address'] = original_doc['event']['to']
-            # Note there is a relayExecutionInfo.updatedRecipient, we should check how this is used..
-            normalised_doc['destination_address'] = original_doc['event']['to']
+        elif original_doc["scraper_event"] == "BridgeRelayed":
+            normalised_doc["name"] = "order_fill_event"
 
-            normalised_doc['source_chain'] = original_doc['event']['originChainId']
-            normalised_doc['destination_chain'] = original_doc['scraper_originChain']
+            normalised_doc["source_address"] = original_doc["event"]["to"]
+            # Note there is a relayExecutionInfo.updatedRecipient,
+            # we should check how this is used..
+            normalised_doc["destination_address"] = original_doc["event"]["to"]
 
-            normalised_doc['source_token_address'] = normalise_address_if_needed(original_doc['event']['originToken'])
-            normalised_doc['destination_token_address'] = normalise_address_if_needed(original_doc['event']['destToken'])
+            normalised_doc["source_chain"] = original_doc["event"]["originChainId"]
+            normalised_doc["destination_chain"] = original_doc["scraper_originChain"]
 
-            normalised_doc['source_token_amount'] = original_doc['event']['originAmount']
-            normalised_doc['destination_token_amount'] = original_doc['event']['destAmount']
-            
-            # TODO double check that this is safe, maybe there is a token swap happening?
-            normalised_doc['protocol_fee'] = 0
+            normalised_doc["source_token_address"] = normalise_address_if_needed(
+                original_doc["event"]["originToken"]
+            )
+            normalised_doc["destination_token_address"] = normalise_address_if_needed(
+                original_doc["event"]["destToken"]
+            )
 
-            # Ideally we'd use the value in original_doc['event']['relayer'], however this would be inconsistent with txs
-            # which do not expose this. Without looking at the inner txs the originating EOA is the best we can do for now
-            normalised_doc['filler_address'] = original_doc['scraper_from']
+            normalised_doc["source_token_amount"] = original_doc["event"][
+                "originAmount"
+            ]
+            normalised_doc["destination_token_amount"] = original_doc["event"][
+                "destAmount"
+            ]
+
+            # TODO double check that this is safe, is there a token swap happening?
+            normalised_doc["protocol_fee"] = 0
+
+            # Ideally we'd use the value in original_doc['event']['relayer'],
+            # however this would be inconsistent with txs
+            # which do not expose this. Without looking at the inner txs the originating
+            # EOA is the best we can do for now
+            normalised_doc["filler_address"] = original_doc["scraper_from"]
         else:
             print(f"Unknown event type {original_doc['scraper_event']}")
             return None
-        
-        normalised_doc['order_id'] = str(normalised_doc['source_chain']) + '_' + str(original_doc['event']['transactionId'])
+
+        normalised_doc["order_id"] = (
+            str(normalised_doc["source_chain"])
+            + "_"
+            + str(original_doc["event"]["transactionId"])
+        )
 
     # approximate prove and claim gas paid
-    if normalised_doc['name'] in ['order_fill_tx', 'order_fill_event'] and 'source_chain' in normalised_doc:
-        if normalised_doc['source_chain'] == '1':
-            normalised_doc['scraper_prove_gas_paid_usd'] = 2.0
-            normalised_doc['scraper_claim_gas_paid_usd'] = 1.8
+    if (
+        normalised_doc["name"] in {"order_fill_tx", "order_fill_event"}
+        and "source_chain" in normalised_doc
+    ):
+        if normalised_doc["source_chain"] == "1":
+            normalised_doc["scraper_prove_gas_paid_usd"] = 2.0
+            normalised_doc["scraper_claim_gas_paid_usd"] = 1.8
         else:
-            normalised_doc['scraper_prove_gas_paid_usd'] = 0.01
-            normalised_doc['scraper_claim_gas_paid_usd'] = 0.01
+            normalised_doc["scraper_prove_gas_paid_usd"] = 0.01
+            normalised_doc["scraper_claim_gas_paid_usd"] = 0.01
 
     return normalised_doc
 
 
 def get_synapse_bridge_transaction(original_doc, signal_handler: SignalHandler):
     # TODO: This is ugly, open to any PRs that can improve this by decoding inplace
-    abi="""[{
+    abi = """[{
         "inputs": [
             {
                 "internalType": "bytes",
@@ -188,30 +238,39 @@ def get_synapse_bridge_transaction(original_doc, signal_handler: SignalHandler):
         "type": "function"
     }]"""
 
-
     chain_id = original_doc["scraper_originChain"]
 
-    contract = execute_web3_eth_method(chain_id, 'contract', signal_handler, address="0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E", abi=abi)
+    contract = execute_web3_eth_method(
+        chain_id,
+        "contract",
+        signal_handler,
+        address="0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
+        abi=abi,
+    )
     if contract is None:
         return None
 
     max_retry = 4
-    decodedTx = None
+    decoded_tx = None
 
     while max_retry > 0:
         try:
-            decodedTx = contract.functions.getBridgeTransaction(original_doc['tx']['request']).call()
+            decoded_tx = contract.functions.getBridgeTransaction(
+                original_doc["tx"]["request"]
+            ).call()
             break
         except Exception as e:
-            print(f"Call to synapse contract function due to {e}.. retrying {max_retry}")
+            print(
+                f"Call to synapse contract function due to {e}.. retrying {max_retry}"
+            )
             time.sleep(2)
             max_retry -= 1
 
-    return decodedTx
+    return decoded_tx
 
 
-def test_get_synapse_bridge_transaction(): 
-
+# ruff: noqa: E501
+def test_get_synapse_bridge_transaction():
     mock_original_doc = {
         "_id": "665789c6cb6ffd3353ef669a",
         "scraper_originChain": "1",
@@ -230,6 +289,7 @@ def test_get_synapse_bridge_transaction():
 
     signal_handler = SignalHandler()
     get_synapse_bridge_transaction(mock_original_doc, signal_handler)
+
 
 if __name__ == "__main__":
     test_get_synapse_bridge_transaction()
