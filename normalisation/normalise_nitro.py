@@ -121,24 +121,26 @@ NITRO_TOKEN_ADDRESS_KEY = {
 
 nitro_token_name_key = {}  # Computed using `nitro_token_address_key`
 
-for chain in NITRO_TOKEN_ADDRESS_KEY:
-    for address in NITRO_TOKEN_ADDRESS_KEY[chain]:
-        if not chain in nitro_token_name_key:
+for chain, tokens in NITRO_TOKEN_ADDRESS_KEY.items():
+    for address, token_name in tokens.items():
+        if chain not in nitro_token_name_key:
             nitro_token_name_key[chain] = {}
-        nitro_token_name_key[chain][NITRO_TOKEN_ADDRESS_KEY[chain][address]] = address
+        nitro_token_name_key[chain][token_name] = address
 
 
 def get_nitro_corresponding_dest_token(original_doc):
-
     dest_chain_id = bytes_to_chain_id(original_doc["event"]["destChainIdBytes"])
 
     if (
-        not original_doc["scraper_originChain"] in NITRO_TOKEN_ADDRESS_KEY
-        or not original_doc["event"]["srcToken"]
-        in NITRO_TOKEN_ADDRESS_KEY[original_doc["scraper_originChain"]]
+        original_doc["scraper_originChain"] not in NITRO_TOKEN_ADDRESS_KEY
+        or original_doc["event"]["srcToken"]
+        not in NITRO_TOKEN_ADDRESS_KEY[original_doc["scraper_originChain"]]
     ):
         print(
-            f"Please add token matching for chain: {original_doc['scraper_originChain']} token_addr: {original_doc['event']['srcToken']} hash: {original_doc['scraper_tx_hash']}"
+            f"Please add token matching for chain: "
+            f"{original_doc['scraper_originChain']} "
+            f"token_addr: {original_doc['event']['srcToken']} "
+            f"hash: {original_doc['scraper_tx_hash']}"
         )
         return None
 
@@ -147,11 +149,13 @@ def get_nitro_corresponding_dest_token(original_doc):
     ]
 
     if (
-        not dest_chain_id in nitro_token_name_key
-        or not src_token_name in nitro_token_name_key[dest_chain_id]
+        dest_chain_id not in nitro_token_name_key
+        or src_token_name not in nitro_token_name_key[dest_chain_id]
     ):
         print(
-            f"Please add token matching for chain: {dest_chain_id} token_name: {src_token_name} hash: {original_doc['scraper_tx_hash']}"
+            f"Please add token matching for chain: {dest_chain_id} "
+            f"token_name: {src_token_name} "
+            f"hash: {original_doc['scraper_tx_hash']}"
         )
         return None
 
@@ -180,20 +184,20 @@ def is_valid_nitro(original_doc):
 
 
 def normalise_nitro_dest_token(destination_token_address: str, original_doc: dict):
-    if destination_token_address in [
+    if destination_token_address in {
         "0x0000000000000000000000000000000000000000",
         "0x",
-    ]:
+    }:
         return get_nitro_corresponding_dest_token(original_doc)
     return destination_token_address
 
 
 def normalise_nitro(original_doc, type, normalised_doc):
-
     if not is_valid_nitro(original_doc):
         return None
 
-    # url = 'https://api-beta.pathfinder.routerprotocol.com/api/v2/status?srcTxHash=' + original_doc['scraper_tx_hash']
+    # url = 'https://api-beta.pathfinder.routerprotocol.com/api/v2/status?srcTxHash=' +
+    # original_doc['scraper_tx_hash']
 
     # max_retries = 10
     # retry_count = 0
@@ -208,9 +212,11 @@ def normalise_nitro(original_doc, type, normalised_doc):
     #         retry_timeout = min(2 ** retry_count, 32)
     #         retry_count += 1
     #         if retry_count > max_retries:
-    #             print(f"Failed to fetch nitro dest token: {url}\nRetried {max_retries} times, giving up.")
+    #             print(f"Failed to fetch nitro dest token: {url}\nRetried {max_retries}
+    #                    times, giving up.")
     #             return None
-    #         print(f"Failed to fetch nitro dest token: {url}\nError: {e}\nRetrying {retry_count} / {max_retries} in {retry_timeout} seconds...")
+    #         print(f"Failed to fetch nitro dest token: {url}\nError: {e}\nRetrying
+    #               {retry_count} / {max_retries} in {retry_timeout} seconds...")
     #         time.sleep(retry_timeout)
 
     # TODO: maybe get from https://sentry.lcd.routerprotocol.com/router-protocol/router-chain/multichain/contract_config
@@ -238,7 +244,7 @@ def normalise_nitro(original_doc, type, normalised_doc):
         "167000": "0x7bd616192fb2b364f9d29b2026165281a5f2ff2f",
     }
 
-    def encodeBytes(
+    def encode_bytes(
         input_amount,
         src_chain_id,
         deposit_id,
@@ -266,9 +272,10 @@ def normalise_nitro(original_doc, type, normalised_doc):
         def pad_addr(addr):
             return "0x" + addr[2:].rjust(64, "0")
 
+        # pylint: disable=no-value-for-parameter
         return Web3.solidity_keccak(
-            ["uint256", "bytes32", "uint256", "bytes", "bytes", "bytes"],
-            [
+            abi_types=["uint256", "bytes32", "uint256", "bytes", "bytes", "bytes"],
+            values=[
                 int(input_amount),
                 src_chain_id,
                 int(deposit_id),
@@ -278,6 +285,8 @@ def normalise_nitro(original_doc, type, normalised_doc):
             ],
         ).hex()
 
+    # TODO: fix ruff warnings
+    # ruff: noqa: PLR0913, PLR0917
     def get_message_hash_with_calldata(
         input_amount,
         src_chain_id,
@@ -288,7 +297,7 @@ def normalise_nitro(original_doc, type, normalised_doc):
         message_bytes,
     ):
         return Web3.keccak(
-            encodeBytes(
+            encode_bytes(
                 int(input_amount),
                 src_chain_id,
                 int(deposit_id),
@@ -364,7 +373,6 @@ def normalise_nitro(original_doc, type, normalised_doc):
             return None
 
     elif type == "event":
-
         if original_doc["scraper_event"] == "FundsDeposited":
             normalised_doc["name"] = "order_deposit_event"
 
@@ -393,7 +401,8 @@ def normalise_nitro(original_doc, type, normalised_doc):
             )
             if destination_chain not in chain_id_to_contract_address:
                 print(
-                    f"Nitro contract address for chain id {destination_chain} not found, skipping"
+                    f"Nitro contract address for chain id {destination_chain} "
+                    "not found, skipping"
                 )
                 return None
 
@@ -403,7 +412,8 @@ def normalise_nitro(original_doc, type, normalised_doc):
 
             if normalised_doc["destination_token_address"] is None:
                 print(
-                    f'Could not normalise destination token address for nitro doc: [{original_doc.get("_id", "N/A")}], skipping document...'
+                    "Could not normalise destination token address for nitro doc: "
+                    f'[{original_doc.get("_id", "N/A")}], skipping document...'
                 )
                 return None
 
@@ -456,13 +466,15 @@ def normalise_nitro(original_doc, type, normalised_doc):
 
             if not destination_chain_contract_address:
                 print(
-                    f"Nitro contract address for chain id [{destination_chain}] not found"
+                    f"Nitro contract address for chain id "
+                    f"[{destination_chain}] not found"
                 )
                 return None
 
             if normalised_doc["destination_token_address"] is None:
                 print(
-                    f'Could not normalise destination token address for nitro doc: [{original_doc.get("_id", "N/A")}], skipping document...'
+                    f'Could not normalise destination token address for nitro doc: '
+                    f'[{original_doc.get("_id", "N/A")}], skipping document...'
                 )
                 return None
 
@@ -489,13 +501,14 @@ def normalise_nitro(original_doc, type, normalised_doc):
             return None
 
     # approximate gas paid for claim events
-    if normalised_doc["name"] in ["order_fill_tx", "order_fill_event"]:
+    if normalised_doc["name"] in {"order_fill_tx", "order_fill_event"}:
         # nitro claim happens on their own chain
         normalised_doc["scraper_claim_gas_paid_usd"] = 0.01
 
     return normalised_doc
 
 
+# ruff: noqa: E501
 if __name__ == "__main__":
     event = {
         "_id": {

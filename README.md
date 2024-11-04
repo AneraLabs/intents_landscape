@@ -32,6 +32,13 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+#### checking linting and formatting locally
+
+```sh
+ruff check .
+pylint  . --errors-only
+```
+
 ## Adding a protocol
 
 To add a new protocol, you will need to fork the intents_landscape repo (from the `main` branch) and add 3 new files (protocol filter python file, a static data file, and normalisation logic file) by following the steps in this section.

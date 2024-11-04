@@ -1,14 +1,15 @@
-from web3 import Web3
 import hashlib
+
 import base58
+from web3 import Web3
 
 
 def _bytes_as_hex_str(value):
     if isinstance(value, bytes):
-        return '0x' + value.hex()
+        return "0x" + value.hex()
     elif isinstance(value, dict):
-        for key, value in value.items():
-            value[key] = _bytes_as_hex_str(value)
+        for key, inner_value in value.items():
+            value[key] = _bytes_as_hex_str(inner_value)
     elif isinstance(value, list):
         for i in range(len(value)):
             value[i] = _bytes_as_hex_str(value[i])
@@ -21,15 +22,20 @@ def bytes_as_hex_str(doc: dict):
 
 
 def stringify_numeric_values(data, key: str | None = None):
-    '''
+    """
     Fixes errors like: OverflowError: MongoDB can only handle up to 8-byte ints
-    '''
+    """
     # other logic depends on these fields being numeric
-    if key is not None and (key.endswith('_usd') or key in {'scraper_blockNumber', 'scraper_blockTimestamp', 'decimals'}):
+    if key is not None and (
+        key.endswith("_usd")
+        or key in {"scraper_blockNumber", "scraper_blockTimestamp", "decimals"}
+    ):
         return data
 
     if isinstance(data, dict):
-        return {key: stringify_numeric_values(value, key) for key, value in data.items()}
+        return {
+            key: stringify_numeric_values(value, key) for key, value in data.items()
+        }
     elif isinstance(data, list):
         return [stringify_numeric_values(item) for item in data]
     elif isinstance(data, int):
@@ -40,8 +46,8 @@ def stringify_numeric_values(data, key: str | None = None):
 
 
 def normalise_address_if_needed(address):
-    if address == '0x':
-        return '0x0000000000000000000000000000000000000000'
+    if address == "0x":
+        return "0x0000000000000000000000000000000000000000"
     return address
 
 
@@ -80,21 +86,23 @@ ERC20_ABI = [
         "constant": True,
     },
 ]
+ETH_ADDRESS_LENGTH = 42
+TRON_ADDRESS_LENGTH = 34
 
 
 def is_eth_address(address):
-    return address.startswith("0x") and len(address) == 42
+    return address.startswith("0x") and len(address) == ETH_ADDRESS_LENGTH
 
 
 def is_valid_tron_address(address: str) -> bool:
     if not address.startswith("T"):
         return False
-    if len(address) != 34:
+    if len(address) != TRON_ADDRESS_LENGTH:
         return False
     try:
         base58.b58decode_check(address)
         return True
-    except:
+    except:  # noqa: E722
         return False
 
 
