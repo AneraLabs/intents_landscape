@@ -1,0 +1,38 @@
+line-length = 88
+target-version = "py311"
+
+[lint]
+preview = true
+select = [
+    "E",   # pycodestyle errors
+    "F",   # Pyflakes
+    "B",   # flake8-bugbear
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "PL",  # Pylint
+    "RUF", # Ruff-specific rules
+]
+
+
+ignore = ["E402", "PLW0603", "N815", "PLC1901"]
+fixable = ["I001", "B", "F", "UP", "RUF"]
+unfixable = []
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "build",
+    "dist",
+    "anchor_clients/*",
+    "*.ipynb",
+]
+
+[lint.per-file-ignores]
+"normalisation/*.py" = ["PLR0915", "PLR0912", "PLR0911"]
+
+[format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"

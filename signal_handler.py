@@ -8,6 +8,6 @@ class SignalHandler:
         signal.signal(signal.SIGINT, self.exit_gracefully)
         signal.signal(signal.SIGTERM, self.exit_gracefully)
 
-    def exit_gracefully(self, signum, frame):
+    def exit_gracefully(self, _signum, _frame):
         print("Shutdown requested..")
         self.shutdown = True

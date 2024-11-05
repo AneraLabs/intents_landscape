@@ -1,13 +1,13 @@
-from signal_handler import SignalHandler
 from chains.chain_info import is_supported
-from normalisation.utils import safe_checksum_address, bytes_as_hex_str
 from normalisation.normalise_acrossv2 import normalise_across_v2
 from normalisation.normalise_acrossv3 import normalise_across_v3
-from normalisation.normalise_nitro import normalise_nitro
-from normalisation.normalise_dln import normalise_dln
-from normalisation.normalise_synapse import normalise_synapse
-from normalisation.normalise_rhinofi import normalise_rhinofi
 from normalisation.normalise_cowswap import normalise_cowswap
+from normalisation.normalise_dln import normalise_dln
+from normalisation.normalise_nitro import normalise_nitro
+from normalisation.normalise_rhinofi import normalise_rhinofi
+from normalisation.normalise_synapse import normalise_synapse
+from normalisation.utils import bytes_as_hex_str, safe_checksum_address
+from signal_handler import SignalHandler
 
 
 def is_field_value_present(doc: dict, field: str) -> bool:
@@ -22,7 +22,7 @@ def is_valid_normalised_doc(doc: dict) -> bool:
 
     # docs that fail normalisation but that is expected
     # we don't need to log errors about them
-    if (not "order_id" in doc or doc["order_id"] is None) and (
+    if ("order_id" not in doc or doc["order_id"] is None) and (
         "scraper_tx_status" in doc and doc["scraper_tx_status"] != "ok"
     ):
         return False
@@ -146,7 +146,6 @@ def normalise(doc: dict, signal_handler: SignalHandler) -> dict | None:
                 normalised_doc[address_key] = safe_checksum_address(
                     normalised_doc[address_key]
                 )
-            return None
 
         checksum_address("scraper_contractAddress")
         checksum_address("source_token_address")
@@ -164,10 +163,10 @@ def normalise(doc: dict, signal_handler: SignalHandler) -> dict | None:
 
 
 if __name__ == "__main__":
-
     import json
+
     def read_json_file(file_path):
-        with open(file_path, "r") as file:
+        with open(file_path, encoding="utf-8") as file:
             return json.load(file)
 
     signal_handler = SignalHandler()
