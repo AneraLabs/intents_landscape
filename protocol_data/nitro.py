@@ -1,166 +1,49 @@
 import json
 
+from normalisation.utils import safe_checksum_address
+
 PROTOCOL_NAME = "nitro"
 
 
-def get_contract_address(chain_id, type):
-    # Call by scraping logic to determine where to monitor for events
-    # accepts only checksummed addresses, can be done here:
-    # https://ethsum.netlify.app/
-    contracts = {
-        "1": {
-            "deposit": {
-                0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
-            },
-            "fill": {
-                0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
-            },
-        },
-        "534352": {
-            "deposit": {
-                0: "0x01B4CE0d48Ce91eB6bcaf5dB33870C65d641b894",
-            },
-            "fill": {
-                0: "0x01B4CE0d48Ce91eB6bcaf5dB33870C65d641b894",
-            },
-        },
-        "324": {
-            "deposit": {
-                0: "0x8B6f1C18c866f37e6EA98AA539e0C117E70178a2",
-            },
-            "fill": {
-                0: "0x8B6f1C18c866f37e6EA98AA539e0C117E70178a2",
-            },
-        },
-        "42161": {
-            "deposit": {
-                0: "0xEF300Fb4243a0Ff3b90C8cCfa1264D78182AdaA4",
-            },
-            "fill": {
-                0: "0xEF300Fb4243a0Ff3b90C8cCfa1264D78182AdaA4",
-            },
-        },
-        "59144": {
-            "deposit": {
-                0: "0x8C4aCd74Ff4385f3B7911432FA6787Aa14406f8B",
-            },
-            "fill": {
-                0: "0x8C4aCd74Ff4385f3B7911432FA6787Aa14406f8B",
-            },
-        },
-        "137": {
-            "deposit": {
-                0: "0x1396F41d89b96Eaf29A7Ef9EE01ad36E452235aE",
-            },
-            "fill": {
-                0: "0x1396F41d89b96Eaf29A7Ef9EE01ad36E452235aE",
-            },
-        },
-        "81457": {
-            "deposit": {
-                0: "0x21c1E74CAaDf990E237920d5515955a024031109",
-            },
-            "fill": {
-                0: "0x21c1E74CAaDf990E237920d5515955a024031109",
-            },
-        },
-        "10": {
-            "deposit": {
-                0: "0x8201c02d4AB2214471E8C3AD6475C8b0CD9F2D06",
-            },
-            "fill": {
-                0: "0x8201c02d4AB2214471E8C3AD6475C8b0CD9F2D06",
-            },
-        },
-        "43114": {
-            "deposit": {
-                0: "0xF9f4C3dC7ba8f56737a92d74Fd67230c38AF51f2",
-            },
-            "fill": {
-                0: "0xF9f4C3dC7ba8f56737a92d74Fd67230c38AF51f2",
-            },
-        },
-        "8453": {
-            "deposit": {
-                0: "0x0Fa205c0446cD9EeDCc7538c9E24BC55AD08207f",
-            },
-            "fill": {
-                0: "0x0Fa205c0446cD9EeDCc7538c9E24BC55AD08207f",
-            },
-        },
-        "56": {
-            "deposit": {
-                0: "0x260687eBC6C55DAdd578264260f9f6e968f7B2A5",
-            },
-            "fill": {
-                0: "0x260687eBC6C55DAdd578264260f9f6e968f7B2A5",
-            },
-        },
-        "1101": {
-            "deposit": {
-                0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
-            },
-            "fill": {
-                0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
-            },
-        },
-        "5000": {
-            "deposit": {
-                0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
-            },
-            "fill": {
-                0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
-            },
-        },
-        "169": {
-            "deposit": {
-                0: "0x21c1E74CAaDf990E237920d5515955a024031109",
-            },
-            "fill": {
-                0: "0x21c1E74CAaDf990E237920d5515955a024031109",
-            },
-        },
-        "30": {
-            "deposit": {
-                0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
-            },
-            "fill": {
-                0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
-            },
-        },
-        "728126428": {
-            "deposit": {
-                0: "0x9D25B8289c0f3789237c1b3a88264882eeD6c610",
-            },
-            "fill": {
-                0: "0x9D25B8289c0f3789237c1b3a88264882eeD6c610",
-            },
-        },
-        "288": {
-            "deposit": {0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9"},
-            "fill": {
-                0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
-            },
-        },
-        "34443": {
-            "deposit": {0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9"},
-            "fill": {
-                0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
-            },
-        },
-        "1088": {
-            "deposit": {0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9"},
-            "fill": {
-                0: "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
-            },
-        },
-        "167000": {
-            "deposit": {0: "0x7BD616192fB2B364f9d29B2026165281a5f2ff2F"},
-            "fill": {0: "0x7BD616192fB2B364f9d29B2026165281a5f2ff2F"},
-        },
-    }
+# https://sentry.lcd.routerprotocol.com/router-protocol/router-chain/multichain/contract_config
+# choose VOYAGER addresses
+NITRO_CHAIN_ID_TO_CONTRACT_ADDRESS = {
+    "1": "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
+    "534352": "0x01B4CE0d48Ce91eB6bcaf5dB33870C65d641b894",
+    "324": "0x8B6f1C18c866f37e6EA98AA539e0C117E70178a2",
+    "42161": "0xEF300Fb4243a0Ff3b90C8cCfa1264D78182AdaA4",
+    "59144": "0x8C4aCd74Ff4385f3B7911432FA6787Aa14406f8B",
+    "137": "0x1396F41d89b96Eaf29A7Ef9EE01ad36E452235aE",
+    "81457": "0x21c1E74CAaDf990E237920d5515955a024031109",
+    "10": "0x8201c02d4AB2214471E8C3AD6475C8b0CD9F2D06",
+    "43114": "0xF9f4C3dC7ba8f56737a92d74Fd67230c38AF51f2",
+    "8453": "0x0Fa205c0446cD9EeDCc7538c9E24BC55AD08207f",
+    "56": "0x260687eBC6C55DAdd578264260f9f6e968f7B2A5",
+    "1101": "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
+    "5000": "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
+    "169": "0x21c1E74CAaDf990E237920d5515955a024031109",
+    "30": "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
+    "728126428": "0x9D25B8289c0f3789237c1b3a88264882eeD6c610",
+    "288": "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
+    "34443": "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
+    "1088": "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
+    "167000": "0x7bd616192fb2b364f9d29b2026165281a5f2ff2f",
+    "2000": "0x21c1e74caadf990e237920d5515955a024031109",
+    "196": "0x21c1e74caadf990e237920d5515955a024031109",
+    "995": "0x7bd616192fb2b364f9d29b2026165281a5f2ff2f",
+    "7225878": "0x21c1e74caadf990e237920d5515955a024031109",
+    "1313161554": "0xc21e4ebd1d92036cb467b53fe3258f219d909eb9",
+}
 
-    return contracts[chain_id][type]
+
+def get_contract_address(chain_id, _type):
+    # Call by scraping logic to determine where to monitor for events
+    address = safe_checksum_address(NITRO_CHAIN_ID_TO_CONTRACT_ADDRESS[chain_id])
+
+    # 0 to ignore starting block timestamp
+    result_doc = {0: address}
+
+    return result_doc
 
 
 def get_contract_abi(chain_id, type):
