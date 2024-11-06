@@ -122,11 +122,7 @@ def normalise(doc: dict, signal_handler: SignalHandler) -> dict | None:
     elif protocol == "acrossv3":
         normalised_doc = normalise_across_v3(doc, type, normalised_doc)
     elif protocol == "nitro":
-        try:
-            normalised_doc = normalise_nitro(doc, type, normalised_doc)
-        except Exception as e:
-            print(f"Error normalising nitro document: [{e}]")
-            return None
+        normalised_doc = normalise_nitro(doc, type, normalised_doc)
     elif protocol == "dln":
         normalised_doc = normalise_dln(doc, type, normalised_doc)
     elif protocol == "synapse":
