@@ -4,5 +4,5 @@ solders==0.*
 anchorpy==0.*
 python-dotenv==1.*
 deepdiff==8.*
-ruff==0.7.*
-pylint==3.3.*
+ruff==0.7.1
+pylint==3.3.1
