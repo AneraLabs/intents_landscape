@@ -25,10 +25,10 @@ def get_contract_address(chain_id, type):
     contracts = {
         # ethereum is not clear, there is no bridge contract
         # there is a deposit contract but no fill contract
-        # '1': {
-        #     'deposit': { 12062072 : '0xeD9d63a96c27f87B07115b56b2e3572827f21646' },
-        #     'fill': { STARTING_BLOCK_NUMBER : '' }
-        # },
+        "1": {
+            "deposit": {0: "0xc3CA38091061e3E5358A52d74730F16C60cA9c26"},
+            "fill": {0: "0xc3CA38091061e3E5358A52d74730F16C60cA9c26"},
+        },
         "7565164": {
             "deposit": DEPOSIT_SOLANA_PROGRAM_ID,
             "fill": FILL_SOLANA_PROGRAM_ID,
@@ -72,6 +72,26 @@ def get_contract_address(chain_id, type):
         "534352": {
             "deposit": {694: "0x87627c7E586441EeF9eE3C28B66662e897513f33"},
             "fill": {694: "0x87627c7E586441EeF9eE3C28B66662e897513f33"},
+        },
+        "43114": {
+            "deposit": {0: "0x5e023c31E1d3dCd08a1B3e8c96f6EF8Aa8FcaCd1"},
+            "fill": {0: "0x5e023c31E1d3dCd08a1B3e8c96f6EF8Aa8FcaCd1"},
+        },
+        "146": {
+            "deposit": {0: "0x5e023c31E1d3dCd08a1B3e8c96f6EF8Aa8FcaCd1"},
+            "fill": {0: "0x5e023c31E1d3dCd08a1B3e8c96f6EF8Aa8FcaCd1"},
+        },
+        "5000": {
+            "deposit": {0: "0x5e023c31e1d3dcd08a1b3e8c96f6ef8aa8fcacd1"},
+            "fill": {0: "0x5e023c31E1d3dCd08a1B3e8c96f6EF8Aa8FcaCd1"},
+        },
+        "34443": {
+            "deposit": {0: "0x5e023c31e1d3dcd08a1b3e8c96f6ef8aa8fcacd1"},
+            "fill": {0: "0x5e023c31E1d3dCd08a1B3e8c96f6EF8Aa8FcaCd1"},
+        },
+        "167000": {
+            "deposit": {0: "0x1Df2De291F909baA50C1456C87C71Edf9Fb199D5"},
+            "fill": {0: "0x1Df2De291F909baA50C1456C87C71Edf9Fb199D5"},
         },
     }
     return contracts[chain_id][type]
