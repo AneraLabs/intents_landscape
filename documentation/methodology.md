@@ -1,4 +1,4 @@
-# Liquidity Provisions
+# Liquidity Provision
 
 Our data collection and processing methodology is designed to provide real-time insights into DeFi protocol activities. We focus on major protocols including **Uniswap V2/V3**, **Curve**, and **Balancer V2**, tracking their on-chain activities through a two-phase approach.
 
