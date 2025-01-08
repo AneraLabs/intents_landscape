@@ -169,6 +169,17 @@ CHAINS = {
     "7777777": Chain(
         "7777777", "Zora", "https://icons.llamao.fi/icons/chains/rsz_zora.jpg", 2.0
     ),
+    # https://evm-explorer.alephzero.org/
+    "41455": Chain(
+        "41455",
+        "Aleph Zero",
+        "https://icons.llamao.fi/icons/chains/rsz_aleph-zero-evm.png",
+        3.5,
+        native_token_symbol="AZERO",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_aleph-zero-evm.png",
+        native_token_decimals=12,
+        native_token_coingecko_id="aleph-zero",
+    ),
 }
 
 
