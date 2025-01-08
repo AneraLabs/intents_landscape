@@ -184,6 +184,12 @@ CHAINS = {
     "57073": Chain(
         "57073", "Ink", "https://icons.llamao.fi/icons/chains/rsz_ink.jpg", 1.0
     ),
+    "480": Chain(
+        "480",
+        "World Chain",
+        "https://icons.llamao.fi/icons/chains/rsz_worldchain.png",
+        2.0,
+    ),
 }
 
 
