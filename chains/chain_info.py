@@ -109,11 +109,15 @@ CHAINS = {
     "169": Chain(
         "169", "Manta", "https://icons.llamao.fi/icons/chains/rsz_manta.jpg", 10.0
     ),
-    # '30': Chain('30', 'Rootstock', 'https://icons.llamao.fi/icons/chains/rsz_rootstock.jpg',
-    #             None,
-    #             # TODO: verify RBTC has 18 decimals
-    #             native_token_symbol='RBTC',
-    #             native_token_icon_url='https://icons.llamao.fi/icons/chains/rsz_rootstock.jpg'),
+    "30": Chain(
+        "30",
+        "Rootstock",
+        "https://icons.llamao.fi/icons/chains/rsz_rootstock.jpg",
+        None,
+        # TODO: verify RBTC has 18 decimals
+        native_token_symbol="RBTC",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_rootstock.jpg",
+    ),
     "728126428": Chain(
         "728126428",
         "Tron",
