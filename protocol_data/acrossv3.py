@@ -65,6 +65,10 @@ def get_contract_address(chain_id, type):
             "deposit": {0: "0x13fDac9F9b4777705db45291bbFF3c972c6d1d97"},
             "fill": {0: "0x13fDac9F9b4777705db45291bbFF3c972c6d1d97"},
         },
+        "57073": {
+            "deposit": {0: "0xeF684C38F94F48775959ECf2012D7E864ffb9dd4"},
+            "fill": {0: "0xeF684C38F94F48775959ECf2012D7E864ffb9dd4"},
+        },
     }
 
     if chain_id in contracts:
@@ -107,6 +111,7 @@ def get_supported_chains():
         "324",
         "7777777",
         "41455",
+        "57073",
     ]
 
 

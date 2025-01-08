@@ -180,6 +180,10 @@ CHAINS = {
         native_token_decimals=12,
         native_token_coingecko_id="aleph-zero",
     ),
+    # https://explorer.inkonchain.com/
+    "57073": Chain(
+        "57073", "Ink", "https://icons.llamao.fi/icons/chains/rsz_ink.jpg", 1.0
+    ),
 }
 
 
