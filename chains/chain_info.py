@@ -190,6 +190,35 @@ CHAINS = {
         "https://icons.llamao.fi/icons/chains/rsz_worldchain.png",
         2.0,
     ),
+    # Fantom, explorer at -> https://ftmscan.com/
+    "250": Chain(
+        "250",
+        "Fantom Opera",
+        "https://icons.llamao.fi/icons/chains/rsz_fantom",
+        0.5,  # 2 blocks per second
+    ),
+    # Gnosis, explorer at -> https://gnosisscan.io/
+    "100": Chain(
+        "100",
+        "Gnosis",
+        "https://icons.llamao.fi/icons/chains/rsz_gnosis",
+        5,  # 1 blocks per 5 seconds
+    ),
+    # Sonic, explorer at -> https://explorer.soniclabs.com/
+    "146": Chain(
+        "146",
+        "Sonic",
+        "https://icons.llamao.fi/icons/chains/rsz_sonic",
+        2.5,  # approx 4 blocks per 10 seconds
+    ),
+    # Neon, explorer at -> https://neonscan.org/
+    "245022934": Chain(
+        "245022934",
+        "Neon",
+        "https://icons.llamao.fi/icons/chains/rsz_neon",
+        0.05,  # TPS of 0.05 listed on their website, \
+        # and most blocks have a single tx so this is an approximation
+    ),
 }
 
 

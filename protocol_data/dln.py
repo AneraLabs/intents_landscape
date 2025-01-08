@@ -64,6 +64,22 @@ def get_contract_address(chain_id, type):
             "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
             "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
         },
+        "250": {
+            "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+            "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+        },
+        "100": {
+            "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+            "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+        },
+        "146": {
+            "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+            "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+        },
+        "245022934": {
+            "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+            "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+        },
     }
     return contracts[chain_id][type]
 
