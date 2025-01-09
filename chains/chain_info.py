@@ -200,6 +200,11 @@ CHAINS = {
         "Fantom Opera",
         "https://icons.llamao.fi/icons/chains/rsz_fantom",
         0.5,  # 2 blocks per second
+        native_token_symbol="FTM",
+        # TODO
+        native_token_icon_url="",
+        native_token_decimals=0,
+        native_token_coingecko_id="",
     ),
     # Gnosis, explorer at -> https://gnosisscan.io/
     "100": Chain(
@@ -214,6 +219,11 @@ CHAINS = {
         "Sonic",
         "https://icons.llamao.fi/icons/chains/rsz_sonic",
         2.5,  # approx 4 blocks per 10 seconds
+        native_token_symbol="S",
+        # TODO
+        native_token_icon_url="",
+        native_token_decimals=0,
+        native_token_coingecko_id="",
     ),
     # Neon, explorer at -> https://neonscan.org/
     "245022934": Chain(
@@ -222,6 +232,11 @@ CHAINS = {
         "https://icons.llamao.fi/icons/chains/rsz_neon",
         0.05,  # TPS of 0.05 listed on their website, \
         # and most blocks have a single tx so this is an approximation
+        native_token_symbol="NEON",
+        # TODO
+        native_token_icon_url="",
+        native_token_decimals=0,
+        native_token_coingecko_id="",
     ),
 }
 
