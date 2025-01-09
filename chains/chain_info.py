@@ -241,6 +241,16 @@ CHAINS = {
         native_token_decimals=18,
         native_token_coingecko_id="neon",
     ),
+    "2000": Chain(
+        "2000",
+        "DogeChain",
+        "https://icons.llamao.fi/icons/chains/rsz_doge",
+        2,  # 1 blocks per 2 second
+        native_token_symbol="Doge",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_doge.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="binance-peg-dogecoin",
+    ),
 }
 
 
