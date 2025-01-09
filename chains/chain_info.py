@@ -181,13 +181,14 @@ CHAINS = {
         3.5,
         native_token_symbol="AZERO",
         native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_aleph-zero-evm.png",
-        native_token_decimals=12,
+        native_token_decimals=18,
         native_token_coingecko_id="aleph-zero",
     ),
     # https://explorer.inkonchain.com/
     "57073": Chain(
         "57073", "Ink", "https://icons.llamao.fi/icons/chains/rsz_ink.jpg", 1.0
     ),
+    # https://worldscan.org/
     "480": Chain(
         "480",
         "World Chain",
@@ -201,10 +202,9 @@ CHAINS = {
         "https://icons.llamao.fi/icons/chains/rsz_fantom",
         0.5,  # 2 blocks per second
         native_token_symbol="FTM",
-        # TODO
-        native_token_icon_url="",
-        native_token_decimals=0,
-        native_token_coingecko_id="",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_fantom",
+        native_token_decimals=18,
+        native_token_coingecko_id="fantom",
     ),
     # Gnosis, explorer at -> https://gnosisscan.io/
     "100": Chain(
@@ -212,6 +212,10 @@ CHAINS = {
         "Gnosis",
         "https://icons.llamao.fi/icons/chains/rsz_gnosis",
         5,  # 1 blocks per 5 seconds
+        native_token_symbol="xDAI",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_xdai.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="xdai",
     ),
     # Sonic, explorer at -> https://explorer.soniclabs.com/
     "146": Chain(
@@ -219,11 +223,10 @@ CHAINS = {
         "Sonic",
         "https://icons.llamao.fi/icons/chains/rsz_sonic",
         2.5,  # approx 4 blocks per 10 seconds
-        native_token_symbol="S",
-        # TODO
-        native_token_icon_url="",
-        native_token_decimals=0,
-        native_token_coingecko_id="",
+        native_token_symbol="SONIC",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_sonic.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="sonic-2",
     ),
     # Neon, explorer at -> https://neonscan.org/
     "245022934": Chain(
@@ -233,10 +236,9 @@ CHAINS = {
         0.05,  # TPS of 0.05 listed on their website, \
         # and most blocks have a single tx so this is an approximation
         native_token_symbol="NEON",
-        # TODO
-        native_token_icon_url="",
-        native_token_decimals=0,
-        native_token_coingecko_id="",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_neon",
+        native_token_decimals=18,
+        native_token_coingecko_id="neon",
     ),
 }
 
