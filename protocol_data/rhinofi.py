@@ -25,10 +25,10 @@ def get_contract_address(chain_id, type):
     contracts = {
         # ethereum is not clear, there is no bridge contract
         # there is a deposit contract but no fill contract
-        "1": {
-            "deposit": {0: "0xc3CA38091061e3E5358A52d74730F16C60cA9c26"},
-            "fill": {0: "0xc3CA38091061e3E5358A52d74730F16C60cA9c26"},
-        },
+        # "1": {
+        #     "deposit": {0: "0xc3CA38091061e3E5358A52d74730F16C60cA9c26"},
+        #     "fill": {0: "0xc3CA38091061e3E5358A52d74730F16C60cA9c26"},
+        # },
         "7565164": {
             "deposit": DEPOSIT_SOLANA_PROGRAM_ID,
             "fill": FILL_SOLANA_PROGRAM_ID,
