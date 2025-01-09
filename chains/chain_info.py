@@ -241,6 +241,7 @@ CHAINS = {
         native_token_decimals=18,
         native_token_coingecko_id="neon",
     ),
+    # DogeChain, explorer at -> https://explorer.dogechain.dog/
     "2000": Chain(
         "2000",
         "DogeChain",
@@ -251,14 +252,38 @@ CHAINS = {
         native_token_decimals=18,
         native_token_coingecko_id="binance-peg-dogecoin",
     ),
+    # Matchain, explorer at -> https://matchscan.io/
     "698": Chain(
         "698",
         "Matchain",
         "https://icons.llamao.fi/icons/chains/rsz_matchain",
         2,  # 1 blocks per 2 second
         native_token_symbol="BNB",
+        native_token_decimals=18,
         native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_binance.jpg",
         native_token_coingecko_id="binancecoin",
+    ),
+    # Rollux, explorer at -> https://explorer.rollux.com/
+    "570": Chain(
+        "570",
+        "Rollux",
+        "https://icons.llamao.fi/icons/chains/rsz_rollux",
+        2,  # 1 blocks per 2 second
+        native_token_symbol="SYS",
+        native_token_icon_url="https://icons.llamao.fi/icons/protocols/pegasys-v2",
+        native_token_decimals=18,
+        native_token_coingecko_id="wrapped-syscoin",
+    ),
+    # XLayer explorer at -> https://www.oklink.com/xlayer
+    "196": Chain(
+        "196",
+        "XLayer",
+        "https://icons.llamao.fi/icons/protocols/okx-dex",
+        3,
+        native_token_symbol="OKB",
+        native_token_icon_url="https://icons.llamao.fi/icons/protocols/okx-dex",
+        native_token_decimals=18,
+        native_token_coingecko_id="okb",
     ),
 }
 
