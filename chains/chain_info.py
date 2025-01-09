@@ -251,6 +251,15 @@ CHAINS = {
         native_token_decimals=18,
         native_token_coingecko_id="binance-peg-dogecoin",
     ),
+    "698": Chain(
+        "698",
+        "Matchain",
+        "https://icons.llamao.fi/icons/chains/rsz_matchain",
+        2,  # 1 blocks per 2 second
+        native_token_symbol="BNB",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_binance.jpg",
+        native_token_coingecko_id="binancecoin",
+    ),
 }
 
 
