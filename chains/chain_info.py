@@ -114,9 +114,10 @@ CHAINS = {
         "Rootstock",
         "https://icons.llamao.fi/icons/chains/rsz_rootstock.jpg",
         None,
-        # TODO: verify RBTC has 18 decimals
+        native_token_decimals=18,
         native_token_symbol="RBTC",
         native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_rootstock.jpg",
+        native_token_coingecko_id="rootstock",
     ),
     "728126428": Chain(
         "728126428",
