@@ -80,6 +80,10 @@ def get_contract_address(chain_id, type):
             "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
             "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
         },
+        "1088": {
+            "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+            "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+        },
     }
     return contracts[chain_id][type]
 
@@ -1700,7 +1704,22 @@ def get_contract_abi(chain_id, type):
 
 
 def get_supported_chains():
-    return ["7565164", "42161", "43114", "8453", "56", "1", "59144", "10", "137"]
+    return [
+        "7565164",
+        "42161",
+        "43114",
+        "8453",
+        "56",
+        "1",
+        "59144",
+        "10",
+        "137",
+        "250",
+        "100",
+        "146",
+        "245022934",
+        "1088",
+    ]
 
 
 def get_deposit_function_filter():
