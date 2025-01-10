@@ -70,27 +70,7 @@ def get_contract_abi(chain_id, type):
 
 def get_supported_chains():
     # Only chain_ids listed here will be used when scraping data
-    return [
-        "1",
-        "534352",
-        "324",
-        "42161",
-        "59144",
-        "137",
-        "81457",
-        "10",
-        "43114",
-        "8453",
-        "56",
-        "1101",
-        "5000",
-        "169",
-        "728126428",
-        "288",
-        "34443",
-        "1088",
-        "167000",
-    ]
+    return list(NITRO_CHAIN_ID_TO_CONTRACT_ADDRESS.keys())
 
 
 def get_deposit_function_filter():

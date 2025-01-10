@@ -3,84 +3,84 @@ import json
 PROTOCOL_NAME = "synapse"
 
 
-def get_contract_address(chain_id, type):
-    # Call by scraping logic to determine where to monitor for events
-    # Synapse FASTBRIDGE_CONTRACTS, source:
-    # https://github.com/synapsecns/sanguine/blob/2f452875d88c95505cb491cff2f64a46b7d7e497/packages/synapse-constants/constants/chains/index.ts#L121
-    contracts = {
-        "42161": {
-            "deposit": {
-                0: "0x6C0771aD91442D670159a8171C35F4828E19aFd2",
-                189700328: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-            },
-            "fill": {
-                0: "0x6C0771aD91442D670159a8171C35F4828E19aFd2",
-                189700328: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-            },
+# Synapse FASTBRIDGE_CONTRACTS, source:
+# https://github.com/synapsecns/sanguine/blob/2f452875d88c95505cb491cff2f64a46b7d7e497/packages/synapse-constants/constants/chains/index.ts#L121
+CHAINS_TO_CONTRACTS = {
+    "42161": {
+        "deposit": {
+            0: "0x6C0771aD91442D670159a8171C35F4828E19aFd2",
+            189700328: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
         },
-        "1": {
-            "deposit": {
-                0: "0x4983DB49336fD4f95e864aB6DA9135e057EF0be1",
-                19421323: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-            },
-            "fill": {
-                0: "0x4983DB49336fD4f95e864aB6DA9135e057EF0be1",
-                19421323: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-            },
+        "fill": {
+            0: "0x6C0771aD91442D670159a8171C35F4828E19aFd2",
+            189700328: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
         },
-        "10": {
-            "deposit": {
-                0: "0x6C0771aD91442D670159a8171C35F4828E19aFd2",
-                117334308: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-            },
-            "fill": {
-                0: "0x6C0771aD91442D670159a8171C35F4828E19aFd2",
-                117334308: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-            },
+    },
+    "1": {
+        "deposit": {
+            0: "0x4983DB49336fD4f95e864aB6DA9135e057EF0be1",
+            19421323: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
         },
-        "534352": {
-            "deposit": {
-                5124895: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-            },
-            "fill": {
-                5124895: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-            },
+        "fill": {
+            0: "0x4983DB49336fD4f95e864aB6DA9135e057EF0be1",
+            19421323: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
         },
-        "8453": {
-            "deposit": {
-                12478103: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-            },
-            "fill": {
-                12478103: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-            },
+    },
+    "10": {
+        "deposit": {
+            0: "0x6C0771aD91442D670159a8171C35F4828E19aFd2",
+            117334308: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
         },
-        "81457": {
-            "deposit": {
-                6378234: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
-            },
-            "fill": {
-                6378234: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
-            },
+        "fill": {
+            0: "0x6C0771aD91442D670159a8171C35F4828E19aFd2",
+            117334308: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
         },
-        "56": {
-            "deposit": {
-                40497843: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-            },
-            "fill": {
-                40497843: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-            },
+    },
+    "534352": {
+        "deposit": {
+            5124895: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
         },
-        "59144": {
-            "deposit": {
-                7124666: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
-            },
-            "fill": {
-                7124666: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
-            },
+        "fill": {
+            5124895: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
         },
-    }
+    },
+    "8453": {
+        "deposit": {
+            12478103: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
+        },
+        "fill": {
+            12478103: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
+        },
+    },
+    "81457": {
+        "deposit": {
+            6378234: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
+        },
+        "fill": {
+            6378234: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
+        },
+    },
+    "56": {
+        "deposit": {
+            40497843: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
+        },
+        "fill": {
+            40497843: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
+        },
+    },
+    "59144": {
+        "deposit": {
+            7124666: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
+        },
+        "fill": {
+            7124666: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
+        },
+    },
+}
 
-    return contracts[chain_id][type]
+
+def get_contract_address(chain_id, type):
+    return CHAINS_TO_CONTRACTS[chain_id][type]
 
 
 def get_contract_abi(chain_id, type):
@@ -571,8 +571,7 @@ def get_contract_abi(chain_id, type):
 
 
 def get_supported_chains():
-    # Only chain_ids listed here will be used when scraping data
-    return ["42161", "534352", "1", "10", "8453"]
+    return list(CHAINS_TO_CONTRACTS.keys())
 
 
 def get_deposit_function_filter():
