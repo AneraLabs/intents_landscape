@@ -237,7 +237,7 @@ def normalise_dln(original_doc: dict, type: str, normalised_doc: dict) -> dict |
             # 1. flat fee is paid in the native gas token
             if "nativeFixFee" in original_doc["event"]:
                 native_fix_fee = ProtocolFee(
-                    chain_id=normalised_doc["source_chain"],
+                    chain_id=normalise_chain_id(normalised_doc["source_chain"]),
                     token_address=NATIVE_TOKEN_ADDRESS,
                     amount=int(original_doc["event"]["nativeFixFee"]),
                 )
@@ -245,7 +245,7 @@ def normalise_dln(original_doc: dict, type: str, normalised_doc: dict) -> dict |
             # 2. variable fee is paid in the input token
             if "percentFee" in original_doc["event"]:
                 variable_fee = ProtocolFee(
-                    chain_id=normalised_doc["source_chain"],
+                    chain_id=normalise_chain_id(normalised_doc["source_chain"]),
                     token_address=normalised_doc["source_token_address"],
                     amount=int(original_doc["event"]["percentFee"]),
                 )
@@ -263,7 +263,7 @@ def normalise_dln(original_doc: dict, type: str, normalised_doc: dict) -> dict |
                 fee_amount_hex = "0x" + affiliate_fee_hex[42:]
                 fee_amount = int(fee_amount_hex, 16)
                 partner_fee = PartnerFee(
-                    chain_id=normalised_doc["source_chain"],
+                    chain_id=normalise_chain_id(normalised_doc["source_chain"]),
                     token_address=normalise_address_if_needed(
                         normalised_doc["source_token_address"]
                     ),
@@ -286,6 +286,11 @@ def normalise_dln(original_doc: dict, type: str, normalised_doc: dict) -> dict |
     if "destination_chain" in normalised_doc:
         normalised_doc["destination_chain"] = normalise_chain_id(
             normalised_doc["destination_chain"]
+        )
+
+    if "scraper_originChain" in normalised_doc:
+        normalised_doc["scraper_originChain"] = normalise_chain_id(
+            normalised_doc["scraper_originChain"]
         )
 
     add_fee_usd(normalised_doc, protocol_fees, partner_fees)
