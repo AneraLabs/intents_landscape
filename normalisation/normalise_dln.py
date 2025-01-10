@@ -17,6 +17,7 @@ DLN_INTERNAL_CHAIN_ID_MAP = {
     "100000003": "1890",
     "100000004": "1088",
     "100000005": "7171",
+    "100000014": "146",
 }
 
 
@@ -278,8 +279,6 @@ def normalise_dln(original_doc: dict, type: str, normalised_doc: dict) -> dict |
             print(f"Unknown function type {original_doc['scraper_function']}")
             return None
 
-    add_fee_usd(normalised_doc, protocol_fees, partner_fees)
-
     if "source_chain" in normalised_doc:
         normalised_doc["source_chain"] = normalise_chain_id(
             normalised_doc["source_chain"]
@@ -288,6 +287,8 @@ def normalise_dln(original_doc: dict, type: str, normalised_doc: dict) -> dict |
         normalised_doc["destination_chain"] = normalise_chain_id(
             normalised_doc["destination_chain"]
         )
+
+    add_fee_usd(normalised_doc, protocol_fees, partner_fees)
 
     if not isinstance(normalised_doc["order_id"], str):
         if (
