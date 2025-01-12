@@ -109,6 +109,7 @@ CHAINS = {
     "169": Chain(
         "169", "Manta", "https://icons.llamao.fi/icons/chains/rsz_manta.jpg", 10.0
     ),
+    # https://explorer.rootstock.io/
     "30": Chain(
         "30",
         "Rootstock",
