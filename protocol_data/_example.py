@@ -1,8 +1,24 @@
 import json
+import os
 
 from protocol_data.solana_parser import BaseSolanaParser
 
 PROTOCOL_NAME = "protocol_name"
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PARENT_DIR = os.path.dirname(SCRIPT_DIR)
+
+with open(
+    os.path.join(PARENT_DIR, "abis", "<YOUR DEPOSIT FILE NAME HERE>.json"),
+    encoding="utf-8",
+) as f:
+    DEPOSIT_ABI = json.load(f)
+
+with open(
+    os.path.join(PARENT_DIR, "abis", "<YOUR FILL FILENAME HERE>.json"),
+    encoding="utf-8",
+) as f:
+    FILL_ABI = json.load(f)
 
 STARTING_BLOCK_NUMBER = 0
 
@@ -47,17 +63,11 @@ def get_solana_parsers() -> list[BaseSolanaParser]:
 
 
 def get_contract_abi(chain_id, type):
-    contract_abi = json.loads("""[
-    {
-        "abi": "as_json"
-    }
-]""")
-
     # deposit and fill contracts may be the same for some protocols
     if type == "deposit":
-        return {STARTING_BLOCK_NUMBER: contract_abi}
+        return {STARTING_BLOCK_NUMBER: DEPOSIT_ABI}
     elif type == "fill":
-        return {STARTING_BLOCK_NUMBER: contract_abi}
+        return {STARTING_BLOCK_NUMBER: FILL_ABI}
 
     return None
 
