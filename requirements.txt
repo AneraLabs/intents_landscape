@@ -1,8 +1,8 @@
-web3==7.*
-base58==2.*
-solders==0.*
-anchorpy==0.*
-python-dotenv==1.*
-deepdiff==8.*
+web3==7.4.0
+base58==2.1.1
+solders==0.21.0
+anchorpy==0.20.1
+python-dotenv==1.0.1
+deepdiff==8.1.1
 ruff==0.7.1
 pylint==3.3.1
