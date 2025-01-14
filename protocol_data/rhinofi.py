@@ -12,10 +12,10 @@ PROTOCOL_NAME = "rhinofi"
 DEPOSIT_SOLANA_PROGRAM_ID = "FCW1uBM3pZ7fQWvEL9sxTe4fNiH41bu9DWX4ErTZ6aMq"
 FILL_SOLANA_PROGRAM_ID = "FCW1uBM3pZ7fQWvEL9sxTe4fNiH41bu9DWX4ErTZ6aMq"
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-with open(
-    os.path.join(current_dir, "..", "abis", "rhinofi.json"), encoding="utf-8"
-) as f:
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PARENT_DIR = os.path.dirname(SCRIPT_DIR)
+
+with open(os.path.join(PARENT_DIR, "abis", "rhinofi.json"), encoding="utf-8") as f:
     ETHEREUM_ABI = json.load(f)
 
 
