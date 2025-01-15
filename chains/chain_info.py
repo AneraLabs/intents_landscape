@@ -286,6 +286,83 @@ CHAINS = {
         native_token_decimals=18,
         native_token_coingecko_id="okb",
     ),
+    # https://5irescan.io/dashboard
+    "995": Chain(
+        "995",
+        "5ire",
+        "/chains/unknown-logo.png",
+        None,
+        native_token_symbol="5IRE",
+        native_token_icon_url="/chains/unknown-logo.png",
+        native_token_decimals=18,
+        native_token_coingecko_id="5ire",
+    ),
+    # https://explorer.nahmii.io/
+    "4061": Chain(
+        "4061",
+        "Nahmii",
+        "https://icons.llamao.fi/icons/chains/rsz_nahmii.jpg",
+        None,
+        native_token_symbol="N3",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_nahmii.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="nahmii",
+    ),
+    # https://neroscan.io/
+    "1689": Chain(
+        "1689",
+        "Nero",
+        "/chains/unknown-logo.png",
+        None,
+        native_token_symbol="NERO",
+        native_token_icon_url="/chains/unknown-logo.png",
+        native_token_decimals=18,
+        native_token_coingecko_id="nero",
+    ),
+    # https://explorer.oasis.io/mainnet/sapphire
+    "23294": Chain(
+        "23294",
+        "Oasis Sapphire",
+        "https://icons.llamao.fi/icons/chains/rsz_oasis_sapphire.jpg",
+        None,
+        native_token_symbol="ROSE",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_oasis_sapphire.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="oasis-network",
+    ),
+    # https://redbelly.routescan.io/
+    "151": Chain(
+        "151",
+        "Redbelly",
+        "https://icons.llamao.fi/icons/chains/rsz_redbelly.jpg",
+        None,
+        native_token_symbol="RBNT",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_redbelly.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="redbelly-network-token",
+    ),
+    # https://explorer.saakuru.network/
+    "7225878": Chain(
+        "7225878",
+        "Saakuru",
+        "https://icons.llamao.fi/icons/chains/rsz_saakuru.jpg",
+        1,
+        native_token_symbol="OAS",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_saakuru.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="oasys",
+    ),
+    # https://explorer.vanarchain.com/
+    "2040": Chain(
+        "2040",
+        "Vanarchain",
+        "/chains/unknown-logo.png",
+        None,
+        native_token_symbol="VANRY",
+        native_token_icon_url="/chains/unknown-logo.png",
+        native_token_decimals=18,
+        native_token_coingecko_id="vanar-chain",
+    ),
 }
 
 
