@@ -20,30 +20,27 @@ with open(
 ) as f:
     FILL_ABI = json.load(f)
 
+# nubers are the block numbers where the contracts were deployed
 STARTING_BLOCK_NUMBER = 0
+CHAINS_TO_CONTRACTS = {
+    "1": {
+        "deposit": {
+            STARTING_BLOCK_NUMBER: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"
+        },
+        "fill": {STARTING_BLOCK_NUMBER: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+    "10": {
+        "deposit": {
+            STARTING_BLOCK_NUMBER: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"
+        },
+        "fill": {STARTING_BLOCK_NUMBER: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+}
 
 
 def get_contract_address(chain_id, type):
     # Call by scraping logic to determine where to monitor for events
-    contracts = {
-        "1": {
-            "deposit": {
-                STARTING_BLOCK_NUMBER: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"
-            },
-            "fill": {
-                STARTING_BLOCK_NUMBER: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"
-            },
-        },
-        "10": {
-            "deposit": {
-                STARTING_BLOCK_NUMBER: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"
-            },
-            "fill": {
-                STARTING_BLOCK_NUMBER: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"
-            },
-        },
-    }
-    return contracts[chain_id][type]
+    return CHAINS_TO_CONTRACTS[chain_id][type]
 
 
 def get_function_identifier(chain_id, type):
@@ -74,7 +71,7 @@ def get_contract_abi(chain_id, type):
 
 def get_supported_chains():
     # Only chain_ids listed here will be used when scraping data
-    return ["1", "10"]
+    return list(CHAINS_TO_CONTRACTS.keys())
 
 
 def get_deposit_function_filter():
