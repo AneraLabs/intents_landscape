@@ -109,11 +109,17 @@ CHAINS = {
     "169": Chain(
         "169", "Manta", "https://icons.llamao.fi/icons/chains/rsz_manta.jpg", 10.0
     ),
-    # '30': Chain('30', 'Rootstock', 'https://icons.llamao.fi/icons/chains/rsz_rootstock.jpg',
-    #             None,
-    #             # TODO: verify RBTC has 18 decimals
-    #             native_token_symbol='RBTC',
-    #             native_token_icon_url='https://icons.llamao.fi/icons/chains/rsz_rootstock.jpg'),
+    # https://explorer.rootstock.io/
+    "30": Chain(
+        "30",
+        "Rootstock",
+        "https://icons.llamao.fi/icons/chains/rsz_rootstock.jpg",
+        None,
+        native_token_decimals=18,
+        native_token_symbol="RBTC",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_rootstock.jpg",
+        native_token_coingecko_id="rootstock",
+    ),
     "728126428": Chain(
         "728126428",
         "Tron",
@@ -168,6 +174,194 @@ CHAINS = {
     # https://explorer.zora.energy/
     "7777777": Chain(
         "7777777", "Zora", "https://icons.llamao.fi/icons/chains/rsz_zora.jpg", 2.0
+    ),
+    # https://evm-explorer.alephzero.org/
+    "41455": Chain(
+        "41455",
+        "Aleph Zero",
+        "https://icons.llamao.fi/icons/chains/rsz_aleph-zero-evm.png",
+        3.5,
+        native_token_symbol="AZERO",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_aleph-zero-evm.png",
+        native_token_decimals=18,
+        native_token_coingecko_id="aleph-zero",
+    ),
+    # https://explorer.inkonchain.com/
+    "57073": Chain(
+        "57073", "Ink", "https://icons.llamao.fi/icons/chains/rsz_ink.jpg", 1.0
+    ),
+    # https://worldscan.org/
+    "480": Chain(
+        "480",
+        "World Chain",
+        "https://icons.llamao.fi/icons/chains/rsz_worldchain.png",
+        2.0,
+    ),
+    # Fantom, explorer at -> https://ftmscan.com/
+    "250": Chain(
+        "250",
+        "Fantom Opera",
+        "https://icons.llamao.fi/icons/chains/rsz_fantom",
+        0.5,  # 2 blocks per second
+        native_token_symbol="FTM",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_fantom",
+        native_token_decimals=18,
+        native_token_coingecko_id="fantom",
+    ),
+    # Gnosis, explorer at -> https://gnosisscan.io/
+    "100": Chain(
+        "100",
+        "Gnosis",
+        "https://icons.llamao.fi/icons/chains/rsz_gnosis",
+        5,  # 1 blocks per 5 seconds
+        native_token_symbol="xDAI",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_xdai.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="xdai",
+    ),
+    # Sonic, explorer at -> https://explorer.soniclabs.com/
+    "146": Chain(
+        "146",
+        "Sonic",
+        "https://icons.llamao.fi/icons/chains/rsz_sonic",
+        2.5,  # approx 4 blocks per 10 seconds
+        native_token_symbol="SONIC",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_sonic.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="sonic-2",
+    ),
+    # Neon, explorer at -> https://neonscan.org/
+    "245022934": Chain(
+        "245022934",
+        "Neon",
+        "https://icons.llamao.fi/icons/chains/rsz_neon",
+        0.05,  # TPS of 0.05 listed on their website, \
+        # and most blocks have a single tx so this is an approximation
+        native_token_symbol="NEON",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_neon",
+        native_token_decimals=18,
+        native_token_coingecko_id="neon",
+    ),
+    # DogeChain, explorer at -> https://explorer.dogechain.dog/
+    "2000": Chain(
+        "2000",
+        "DogeChain",
+        "https://icons.llamao.fi/icons/chains/rsz_doge",
+        2,  # 1 blocks per 2 second
+        native_token_symbol="Doge",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_doge.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="binance-peg-dogecoin",
+    ),
+    # Matchain, explorer at -> https://matchscan.io/
+    "698": Chain(
+        "698",
+        "Matchain",
+        "https://icons.llamao.fi/icons/chains/rsz_matchain",
+        2,  # 1 blocks per 2 second
+        native_token_symbol="BNB",
+        native_token_decimals=18,
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_binance.jpg",
+        native_token_coingecko_id="binancecoin",
+    ),
+    # Rollux, explorer at -> https://explorer.rollux.com/
+    "570": Chain(
+        "570",
+        "Rollux",
+        "https://icons.llamao.fi/icons/chains/rsz_rollux",
+        2,  # 1 blocks per 2 second
+        native_token_symbol="SYS",
+        native_token_icon_url="https://icons.llamao.fi/icons/protocols/pegasys-v2",
+        native_token_decimals=18,
+        native_token_coingecko_id="wrapped-syscoin",
+    ),
+    # XLayer explorer at -> https://www.oklink.com/xlayer
+    "196": Chain(
+        "196",
+        "XLayer",
+        "https://icons.llamao.fi/icons/protocols/okx-dex",
+        3,
+        native_token_symbol="OKB",
+        native_token_icon_url="https://icons.llamao.fi/icons/protocols/okx-dex",
+        native_token_decimals=18,
+        native_token_coingecko_id="okb",
+    ),
+    # https://5irescan.io/dashboard
+    "995": Chain(
+        "995",
+        "5ire",
+        "/chains/unknown-logo.png",
+        None,
+        native_token_symbol="5IRE",
+        native_token_icon_url="/chains/unknown-logo.png",
+        native_token_decimals=18,
+        native_token_coingecko_id="5ire",
+    ),
+    # https://explorer.nahmii.io/
+    "4061": Chain(
+        "4061",
+        "Nahmii",
+        "https://icons.llamao.fi/icons/chains/rsz_nahmii.jpg",
+        None,
+        native_token_symbol="N3",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_nahmii.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="nahmii",
+    ),
+    # https://neroscan.io/
+    "1689": Chain(
+        "1689",
+        "Nero",
+        "/chains/unknown-logo.png",
+        None,
+        native_token_symbol="NERO",
+        native_token_icon_url="/chains/unknown-logo.png",
+        native_token_decimals=18,
+        native_token_coingecko_id="nero",
+    ),
+    # https://explorer.oasis.io/mainnet/sapphire
+    "23294": Chain(
+        "23294",
+        "Oasis Sapphire",
+        "https://icons.llamao.fi/icons/chains/rsz_oasis_sapphire.jpg",
+        None,
+        native_token_symbol="ROSE",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_oasis_sapphire.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="oasis-network",
+    ),
+    # https://redbelly.routescan.io/
+    "151": Chain(
+        "151",
+        "Redbelly",
+        "https://icons.llamao.fi/icons/chains/rsz_redbelly.jpg",
+        None,
+        native_token_symbol="RBNT",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_redbelly.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="redbelly-network-token",
+    ),
+    # https://explorer.saakuru.network/
+    "7225878": Chain(
+        "7225878",
+        "Saakuru",
+        "https://icons.llamao.fi/icons/chains/rsz_saakuru.jpg",
+        1,
+        native_token_symbol="OAS",
+        native_token_icon_url="https://icons.llamao.fi/icons/chains/rsz_saakuru.jpg",
+        native_token_decimals=18,
+        native_token_coingecko_id="oasys",
+    ),
+    # https://explorer.vanarchain.com/
+    "2040": Chain(
+        "2040",
+        "Vanarchain",
+        "/chains/unknown-logo.png",
+        None,
+        native_token_symbol="VANRY",
+        native_token_icon_url="/chains/unknown-logo.png",
+        native_token_decimals=18,
+        native_token_coingecko_id="vanar-chain",
     ),
 }
 

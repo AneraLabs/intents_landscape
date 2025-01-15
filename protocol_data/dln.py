@@ -31,49 +31,70 @@ with open(os.path.join(PARENT_DIR, "abis", "dln_deposit.json"), encoding="utf-8"
 with open(os.path.join(PARENT_DIR, "abis", "dln_fill.json"), encoding="utf-8") as f:
     FILL_ABI = json.load(f)
 
+# https://github.com/debridge-finance/dln-contracts/blob/d54e94f2b5102bff89a4df506404bb77f3edc148/hardhat.config.ts
+# https://docs.dln.trade/the-core-protocol/trusted-smart-contracts
+CHAINS_TO_CONTRACTS = {
+    "7565164": {
+        "deposit": DEPOSIT_SOLANA_PROGRAM_ID,
+        "fill": FILL_SOLANA_PROGRAM_ID,
+    },
+    "42161": {
+        "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+        "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+    "43114": {
+        "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+        "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+    "8453": {
+        "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+        "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+    "56": {
+        "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+        "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+    "1": {
+        "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+        "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+    "59144": {
+        "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+        "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+    "10": {
+        "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+        "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+    "137": {
+        "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+        "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+    "250": {
+        "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+        "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+    "100": {
+        "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+        "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+    "146": {
+        "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+        "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+    "245022934": {
+        "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+        "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+    "1088": {
+        "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
+        "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
+    },
+}
+
 
 def get_contract_address(chain_id, type):
-    # https://github.com/debridge-finance/dln-contracts/blob/d54e94f2b5102bff89a4df506404bb77f3edc148/hardhat.config.ts
-    # https://docs.dln.trade/the-core-protocol/trusted-smart-contracts
-    contracts = {
-        "7565164": {
-            "deposit": DEPOSIT_SOLANA_PROGRAM_ID,
-            "fill": FILL_SOLANA_PROGRAM_ID,
-        },
-        "42161": {
-            "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
-            "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
-        },
-        "43114": {
-            "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
-            "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
-        },
-        "8453": {
-            "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
-            "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
-        },
-        "56": {
-            "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
-            "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
-        },
-        "1": {
-            "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
-            "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
-        },
-        "59144": {
-            "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
-            "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
-        },
-        "10": {
-            "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
-            "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
-        },
-        "137": {
-            "deposit": {0: "0xeF4fB24aD0916217251F553c0596F8Edc630EB66"},
-            "fill": {0: "0xE7351Fd770A37282b91D153Ee690B63579D6dd7f"},
-        },
-    }
-    return contracts[chain_id][type]
+    return CHAINS_TO_CONTRACTS[chain_id][type]
 
 
 def get_contract_abi(_chain_id, type):
@@ -86,7 +107,7 @@ def get_contract_abi(_chain_id, type):
 
 
 def get_supported_chains():
-    return ["7565164", "42161", "43114", "8453", "56", "1", "59144", "10", "137"]
+    return list(CHAINS_TO_CONTRACTS.keys())
 
 
 def get_deposit_function_filter():

@@ -48,6 +48,9 @@ NITRO_CHAIN_ID_TO_CONTRACT_ADDRESS = {
     "81457": "0x21c1E74CAaDf990E237920d5515955a024031109",
     "8453": "0x0Fa205c0446cD9EeDCc7538c9E24BC55AD08207f",
     "995": "0x7BD616192fB2B364f9d29B2026165281a5f2ff2F",
+    "4061": "0x21c1E74CAaDf990E237920d5515955a024031109",
+    "1689": "0x21c1E74CAaDf990E237920d5515955a024031109",
+    "151": "0xF0773508C585246BD09BfB401Aa18B72685b03F9",
 }
 
 
@@ -70,27 +73,7 @@ def get_contract_abi(_chain_id, type):
 
 def get_supported_chains():
     # Only chain_ids listed here will be used when scraping data
-    return [
-        "1",
-        "534352",
-        "324",
-        "42161",
-        "59144",
-        "137",
-        "81457",
-        "10",
-        "43114",
-        "8453",
-        "56",
-        "1101",
-        "5000",
-        "169",
-        "728126428",
-        "288",
-        "34443",
-        "1088",
-        "167000",
-    ]
+    return list(NITRO_CHAIN_ID_TO_CONTRACT_ADDRESS.keys())
 
 
 def get_deposit_function_filter():
