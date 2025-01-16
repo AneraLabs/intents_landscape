@@ -4,9 +4,9 @@
 
 intent.markets has been created to provide transparent and verifiable insights into the emerging space of Intent based protocols. All information presented on the dashboard is generated using primary and secondary onchain data as the source of truth.
 
-We run a number of workers responsible for ingesting and normalising on-chain data and processing it to generate insights which are then reflected on the dashboard.
+We run a number of off-chain workers responsible for ingesting and normalising on-chain data and processing it to generate insights which are then reflected on the dashboard.
 
-For each protocol an ingestion worker monitors the protocol supported chains looking for transactions and events relating to order deposits and fills. The filters for contract addresses, functions and events, as well as normalisation logic, are open source and we encourage contributions and corrections (see Contribution section for more).
+For each protocol an ingestion worker monitors the protocol supported chains looking for transactions and events relating to order deposits and fills. The filters for contract addresses, functions and events, as well as normalisation logic, are [open source](https://github.com/AneraLabs/intents_landscape) and we encourage contributions and corrections (see [Contribution](https://intent.markets/contribute) section for more).
 
 - Order Deposits - When users create new orders, we capture:
     - Source and destination chain information
