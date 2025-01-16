@@ -7,7 +7,7 @@ from web3 import Web3
 
 from normalisation.constants import SOLANA_CHAIN_ID
 from normalisation.utils import normalise_address_if_needed, safe_checksum_address
-from protocol_data.nitro import NITRO_CHAIN_ID_TO_CONTRACT_ADDRESS
+from protocol_data.nitro import CHAINS_TO_CONTRACTS
 
 # MAYBE: alternatively we could send requests like:
 # but that would need to be moved to ingestion step
@@ -343,16 +343,14 @@ def _normalise_nitro(original_doc, type, normalised_doc):
             destination_chain = bytes_to_chain_id(
                 original_doc["event"]["destChainIdBytes"]
             )
-            if destination_chain not in NITRO_CHAIN_ID_TO_CONTRACT_ADDRESS:
+            if destination_chain not in CHAINS_TO_CONTRACTS:
                 print(
                     f"Nitro contract address for chain id {destination_chain} "
                     "not found, skipping"
                 )
                 return None
 
-            destination_chain_contract_address = NITRO_CHAIN_ID_TO_CONTRACT_ADDRESS[
-                destination_chain
-            ]
+            destination_chain_contract_address = CHAINS_TO_CONTRACTS[destination_chain]
 
             if normalised_doc["destination_token_address"] is None:
                 print(
@@ -404,9 +402,7 @@ def _normalise_nitro(original_doc, type, normalised_doc):
             destination_chain = bytes_to_chain_id(
                 original_doc["event"]["destChainIdBytes"]
             )
-            destination_chain_contract_address = NITRO_CHAIN_ID_TO_CONTRACT_ADDRESS[
-                destination_chain
-            ]
+            destination_chain_contract_address = CHAINS_TO_CONTRACTS[destination_chain]
 
             if not destination_chain_contract_address:
                 print(

@@ -14,7 +14,7 @@ with open(os.path.join(PARENT_DIR, "abis", "nitro.json"), encoding="utf-8") as f
 
 # https://sentry.lcd.routerprotocol.com/router-protocol/router-chain/multichain/contract_config
 # choose VOYAGER addresses
-NITRO_CHAIN_ID_TO_CONTRACT_ADDRESS = {
+CHAINS_TO_CONTRACTS = {
     "1": "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
     "10": "0x8201c02d4AB2214471E8C3AD6475C8b0CD9F2D06",
     "1088": "0xC21e4ebD1d92036Cb467b53fE3258F219d909Eb9",
@@ -56,7 +56,7 @@ NITRO_CHAIN_ID_TO_CONTRACT_ADDRESS = {
 
 def get_contract_address(chain_id, _type):
     # Call by scraping logic to determine where to monitor for events
-    address = safe_checksum_address(NITRO_CHAIN_ID_TO_CONTRACT_ADDRESS[chain_id])
+    address = safe_checksum_address(CHAINS_TO_CONTRACTS[chain_id])
 
     # 0 to ignore starting block timestamp
     result_doc = {0: address}
@@ -73,7 +73,7 @@ def get_contract_abi(_chain_id, type):
 
 def get_supported_chains():
     # Only chain_ids listed here will be used when scraping data
-    return list(NITRO_CHAIN_ID_TO_CONTRACT_ADDRESS.keys())
+    return list(CHAINS_TO_CONTRACTS.keys())
 
 
 def get_deposit_function_filter():
