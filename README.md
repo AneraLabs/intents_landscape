@@ -4,16 +4,6 @@ All data on the dashboard is built from open sources that can be contributed to 
 
 > Spotted a mistake? Want to add a new intent based protocol? We are grateful for all contributions - this page explains how to contribute.
 
-## Data sources
-
-[intent.markets](https://intent.markets) has been created to provide transparent and verifiable insights into the emerging space of Intent based protocols. All information presented on the dashboard is generated using primary and secondary onchain data as the source of truth.
-
-We run a number of workers responsible for ingesting and normalising on-chain data and processing it to generate insights which are then reflected on the dashboard.
-
-For each protocol an ingestion worker monitors the protocol supported chains looking for transactions and events relating to order deposits and fills. The filters for contract addresses, functions and events, as well as normalisation logic, are open source (stored within the intents_landscape repository) and we encourage contributions and corrections.
-
-Of the ingested events (for simplicity we will call transactions and events just 'events' from now) workers normalise the data from the protocol specific format into a common internal format which is then used for matching orders to one or more bids. This normalised and processed dataset is then used to generate the stats, metrics and graphs on the dashboard each day.
-
 ## Environment setup
 
 ### Requirements
