@@ -18,63 +18,88 @@ PARENT_DIR = os.path.dirname(SCRIPT_DIR)
 with open(os.path.join(PARENT_DIR, "abis", "rhinofi.json"), encoding="utf-8") as f:
     ETHEREUM_ABI = json.load(f)
 
+CHAINS_TO_CONTRACTS = {
+    # ethereum is not clear, there is no bridge contract
+    # there is a deposit contract but no fill contract
+    # "1": {
+    #     "deposit": {0: "0xc3CA38091061e3E5358A52d74730F16C60cA9c26"},
+    #     "fill": {0: "0xc3CA38091061e3E5358A52d74730F16C60cA9c26"},
+    # },
+    "7565164": {
+        "deposit": DEPOSIT_SOLANA_PROGRAM_ID,
+        "fill": FILL_SOLANA_PROGRAM_ID,
+    },
+    "42161": {
+        "deposit": {12062072: "0x10417734001162Ea139e8b044DFe28DbB8B28ad0"},
+        "fill": {12062072: "0x10417734001162Ea139e8b044DFe28DbB8B28ad0"},
+    },
+    "56": {
+        "deposit": {21550595: "0xB80A582fa430645A043bB4f6135321ee01005fEf"},
+        "fill": {21550595: "0xB80A582fa430645A043bB4f6135321ee01005fEf"},
+    },
+    "137": {
+        "deposit": {16917268: "0xBA4EEE20F434bC3908A0B18DA496348657133A7E"},
+        "fill": {16917268: "0xBA4EEE20F434bC3908A0B18DA496348657133A7E"},
+    },
+    "324": {
+        "deposit": {193: "0x1fa66e2B38d0cC496ec51F81c3e05E6A6708986F"},
+        "fill": {193: "0x1fa66e2B38d0cC496ec51F81c3e05E6A6708986F"},
+    },
+    "1101": {
+        "deposit": {15845: "0x65A4b8A0927c7FD899aed24356BF83810f7b9A3f"},
+        "fill": {15845: "0x65A4b8A0927c7FD899aed24356BF83810f7b9A3f"},
+    },
+    "10": {
+        "deposit": {96888536: "0x0bCa65bf4b4c8803d2f0B49353ed57CAAF3d66Dc"},
+        "fill": {96888536: "0x0bCa65bf4b4c8803d2f0B49353ed57CAAF3d66Dc"},
+    },
+    "59144": {
+        "deposit": {593: "0xcF68a2721394dcf5dCF66F6265C1819720F24528"},
+        "fill": {593: "0xcF68a2721394dcf5dCF66F6265C1819720F24528"},
+    },
+    "8453": {
+        "deposit": {1448656: "0x2f59E9086ec8130E21BD052065a9E6B2497bb102"},
+        "fill": {1448656: "0x2f59E9086ec8130E21BD052065a9E6B2497bb102"},
+    },
+    "169": {
+        "deposit": {21324: "0x2B4553122D960CA98075028d68735cC6b15DeEB5"},
+        "fill": {21324: "0x2B4553122D960CA98075028d68735cC6b15DeEB5"},
+    },
+    "534352": {
+        "deposit": {694: "0x87627c7E586441EeF9eE3C28B66662e897513f33"},
+        "fill": {694: "0x87627c7E586441EeF9eE3C28B66662e897513f33"},
+    },
+    "43114": {
+        "deposit": {0: "0x5e023c31E1d3dCd08a1B3e8c96f6EF8Aa8FcaCd1"},
+        "fill": {0: "0x5e023c31E1d3dCd08a1B3e8c96f6EF8Aa8FcaCd1"},
+    },
+    "146": {
+        "deposit": {0: "0x5e023c31E1d3dCd08a1B3e8c96f6EF8Aa8FcaCd1"},
+        "fill": {0: "0x5e023c31E1d3dCd08a1B3e8c96f6EF8Aa8FcaCd1"},
+    },
+    "5000": {
+        "deposit": {0: "0x5e023c31e1d3dcd08a1b3e8c96f6ef8aa8fcacd1"},
+        "fill": {0: "0x5e023c31E1d3dCd08a1B3e8c96f6EF8Aa8FcaCd1"},
+    },
+    "34443": {
+        "deposit": {0: "0x5e023c31e1d3dcd08a1b3e8c96f6ef8aa8fcacd1"},
+        "fill": {0: "0x5e023c31E1d3dCd08a1B3e8c96f6EF8Aa8FcaCd1"},
+    },
+    "167000": {
+        "deposit": {0: "0x1Df2De291F909baA50C1456C87C71Edf9Fb199D5"},
+        "fill": {0: "0x1Df2De291F909baA50C1456C87C71Edf9Fb199D5"},
+    },
+}
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+with open(
+    os.path.join(current_dir, "..", "abis", "rhinofi.json"), encoding="utf-8"
+) as f:
+    ETHEREUM_ABI = json.load(f)
+
 
 def get_contract_address(chain_id, type):
-    # Call by scraping logic to determine where to monitor for events
-    # source: https://github.com/rhinofi/contracts_public/
-    contracts = {
-        # ethereum is not clear, there is no bridge contract
-        # there is a deposit contract but no fill contract
-        # '1': {
-        #     'deposit': { 12062072 : '0xeD9d63a96c27f87B07115b56b2e3572827f21646' },
-        #     'fill': { STARTING_BLOCK_NUMBER : '' }
-        # },
-        "7565164": {
-            "deposit": DEPOSIT_SOLANA_PROGRAM_ID,
-            "fill": FILL_SOLANA_PROGRAM_ID,
-        },
-        "42161": {
-            "deposit": {12062072: "0x10417734001162Ea139e8b044DFe28DbB8B28ad0"},
-            "fill": {12062072: "0x10417734001162Ea139e8b044DFe28DbB8B28ad0"},
-        },
-        "56": {
-            "deposit": {21550595: "0xB80A582fa430645A043bB4f6135321ee01005fEf"},
-            "fill": {21550595: "0xB80A582fa430645A043bB4f6135321ee01005fEf"},
-        },
-        "137": {
-            "deposit": {16917268: "0xBA4EEE20F434bC3908A0B18DA496348657133A7E"},
-            "fill": {16917268: "0xBA4EEE20F434bC3908A0B18DA496348657133A7E"},
-        },
-        "324": {
-            "deposit": {193: "0x1fa66e2B38d0cC496ec51F81c3e05E6A6708986F"},
-            "fill": {193: "0x1fa66e2B38d0cC496ec51F81c3e05E6A6708986F"},
-        },
-        "1101": {
-            "deposit": {15845: "0x65A4b8A0927c7FD899aed24356BF83810f7b9A3f"},
-            "fill": {15845: "0x65A4b8A0927c7FD899aed24356BF83810f7b9A3f"},
-        },
-        "10": {
-            "deposit": {96888536: "0x0bCa65bf4b4c8803d2f0B49353ed57CAAF3d66Dc"},
-            "fill": {96888536: "0x0bCa65bf4b4c8803d2f0B49353ed57CAAF3d66Dc"},
-        },
-        "59144": {
-            "deposit": {593: "0xcF68a2721394dcf5dCF66F6265C1819720F24528"},
-            "fill": {593: "0xcF68a2721394dcf5dCF66F6265C1819720F24528"},
-        },
-        "8453": {
-            "deposit": {1448656: "0x2f59E9086ec8130E21BD052065a9E6B2497bb102"},
-            "fill": {1448656: "0x2f59E9086ec8130E21BD052065a9E6B2497bb102"},
-        },
-        "169": {
-            "deposit": {21324: "0x2B4553122D960CA98075028d68735cC6b15DeEB5"},
-            "fill": {21324: "0x2B4553122D960CA98075028d68735cC6b15DeEB5"},
-        },
-        "534352": {
-            "deposit": {694: "0x87627c7E586441EeF9eE3C28B66662e897513f33"},
-            "fill": {694: "0x87627c7E586441EeF9eE3C28B66662e897513f33"},
-        },
-    }
-    return contracts[chain_id][type]
+    return CHAINS_TO_CONTRACTS[chain_id][type]
 
 
 def get_contract_abi(chain_id, type):
@@ -90,21 +115,7 @@ def get_contract_abi(chain_id, type):
 
 
 def get_supported_chains():
-    # Only chain_ids listed here will be used when scraping data
-    # TODO: add more chains
-    return [
-        "7565164",
-        "42161",
-        "56",
-        "137",
-        "324",
-        "1101",
-        "10",
-        "59144",
-        "8453",
-        "169",
-        "534352",
-    ]
+    return list(CHAINS_TO_CONTRACTS.keys())
 
 
 def get_deposit_function_filter():
