@@ -104,7 +104,7 @@ def initialise_normalised_entry_with_common_values(doc, type):
     return normalised_doc
 
 
-def normalise(doc: dict, signal_handler: SignalHandler) -> dict | None:
+def normalise(doc: dict, _signal_handler: SignalHandler) -> dict | None:
     type = None
     if "scraper_event" in doc:
         type = "event"
@@ -126,7 +126,7 @@ def normalise(doc: dict, signal_handler: SignalHandler) -> dict | None:
     elif protocol == "dln":
         normalised_doc = normalise_dln(doc, type, normalised_doc)
     elif protocol == "synapse":
-        normalised_doc = normalise_synapse(doc, type, normalised_doc, signal_handler)
+        normalised_doc = normalise_synapse(doc, type, normalised_doc)
     elif protocol == "rhinofi":
         normalised_doc = normalise_rhinofi(doc, type, normalised_doc)
     elif protocol == "cowswap":
