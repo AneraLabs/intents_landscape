@@ -38,6 +38,9 @@ def stringify_numeric_values(data, key: str | None = None):
         }
     elif isinstance(data, list):
         return [stringify_numeric_values(item) for item in data]
+    # should be checked before int (True/False is an instance of int in Python)
+    elif isinstance(data, bool):
+        return data
     elif isinstance(data, int):
         # floats are fine, only large ints give the error
         return str(data)
