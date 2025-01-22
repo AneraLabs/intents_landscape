@@ -11,7 +11,7 @@ with open(os.path.join(PARENT_DIR, "abis", "synapse.json"), encoding="utf-8") as
 
 
 # Synapse FASTBRIDGE_CONTRACTS, source:
-# https://github.com/synapsecns/sanguine/blob/2f452875d88c95505cb491cff2f64a46b7d7e497/packages/synapse-constants/constants/chains/index.ts#L121
+# https://github.com/synapsecns/sanguine/blob/e80f36ee62f32dae5b19a2acf8c9dc8b0b1bab56/packages/synapse-constants/src/constants/chains/index.ts#L122
 CHAINS_TO_CONTRACTS = {
     "42161": {
         "deposit": {
@@ -59,31 +59,30 @@ CHAINS_TO_CONTRACTS = {
             12478103: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
         },
     },
-    # we only support FASTBRIDGE_CONTRACTS for now
-    # "81457": {
-    #     "deposit": {
-    #         6378234: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
-    #     },
-    #     "fill": {
-    #         6378234: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
-    #     },
-    # },
-    # "56": {
-    #     "deposit": {
-    #         40497843: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-    #     },
-    #     "fill": {
-    #         40497843: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
-    #     },
-    # },
-    # "59144": {
-    #     "deposit": {
-    #         7124666: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
-    #     },
-    #     "fill": {
-    #         7124666: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
-    #     },
-    # },
+    "59144": {
+        "deposit": {
+            7124666: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
+        },
+        "fill": {
+            7124666: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
+        },
+    },
+    "81457": {
+        "deposit": {
+            6378234: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
+        },
+        "fill": {
+            6378234: "0x34F52752975222d5994C206cE08C1d5B329f24dD",
+        },
+    },
+    "56": {
+        "deposit": {
+            40497843: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
+        },
+        "fill": {
+            40497843: "0x5523D3c98809DdDB82C686E152F5C58B1B0fB59E",
+        },
+    },
 }
 
 
