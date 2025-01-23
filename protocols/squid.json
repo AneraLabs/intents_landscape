@@ -1,50 +1,49 @@
 {
-	"title": "Squid",
-	"name": "squid",
-	"socials": [
-		{
-			"label": "App",
-			"link": "https://app.squidrouter.com/"
-		},
-		{
-			"label": "Website",
-			"link": "https://www.squidrouter.com/"
-		},
-		{
-			"label": "Docs",
-			"link": "https://docs.squidrouter.com/"
-		},
-		{
-			"label": "Twitter",
-			"link": "https://twitter.com/squidrouter"
-		},
-		{
-			"label": "Github",
-			"link": "https://github.com/0xsquid"
-		},
-		{
-			"label": "Discord",
-			"link": "http://discord.gg/squidrouter"
-		}
-	],
-	"logo_dark": "/protocols/squid_logo_dark.svg",
-	"logo_light": "/protocols/squid_logo_light.svg",
-	"icon_dark": "/protocols/squid_icon_dark.svg",
-	"icon_light": "/protocols/squid_icon_light.svg",
-	"description": "Squid allows any token to be swapped between blockchains, and unlocks access to apps across chains in a single click. Use Squid to build seamless user experiences that tap into cross-chain liquidity and scale to reach anyone with a crypto wallet, no matter what chain they're on.",
-	"mainnet": "yes",
-	"type": "bridge",
-	"chains_supported": "Ethereum, Binance, Polygon, Fantom, Optimism, Arbitrum, Avalanche, Moonriver, Moonbeam, Crono, Gnosis, Celo, Linea, Base, Scroll",
-	"xchain_sync": "Canonical bridges for message passing",
-	"auction_design": "FCFS",
-	"auction_design_ranking": "Average",
-	"auction_design_details": "The first accepted solver bid automatically wins the auction irrespective of whether another bid comes in at roughly the same time with a better price or outcome for the user",
-	"auction_openness": "Excellent",
-	"auction_openness_details": "Auctions occur entirely on chain with no auction period of shielded competition window and there are no preferential Filler selection mechanisms.",
-	"filler_permissionlessness": "Excellent",
-	"filler_permissionlessness_details": "DLN allows any participant to perform Filling actions and provides comprehensive code (https://github.com/debridge-finance/dln-taker) to get Fillers up and running quickly.",
-	"censorship_resistance": "Excellent",
-	"censorship_resistance_details": "There are no mechanisms on-chain by which the protocol can prevent an order from being filled (assuming it hasn't been already).",
-	"filler_failure_resistance": "Excellent",
-	"filler_failure_resistance_details": "If an order remains unfulfilled for a prolonged period of time for whatever reason, there is a mechanism to cancel the order and receive the funds back on the source chain. (See https://docs.dln.trade/dln-api/quick-start-guide/cancelling-the-order)."
+    "title": "Squid",
+    "name": "squid",
+    "socials": [
+        {
+            "label": "App",
+            "link": "https://app.squidrouter.com/"
+        },
+        {
+            "label": "Website",
+            "link": "https://www.squidrouter.com/"
+        },
+        {
+            "label": "Docs",
+            "link": "https://docs.squidrouter.com/"
+        },
+        {
+            "label": "Twitter",
+            "link": "https://twitter.com/squidrouter"
+        },
+        {
+            "label": "Github",
+            "link": "https://github.com/0xsquid"
+        },
+        {
+            "label": "Discord",
+            "link": "http://discord.gg/squidrouter"
+        }
+    ],
+    "logo_dark": "/protocols/squid_logo_dark.svg",
+    "logo_light": "/protocols/squid_logo_light.svg",
+    "icon_dark": "/protocols/squid_icon_dark.svg",
+    "icon_light": "/protocols/squid_icon_light.svg",
+    "description": "Squid allows any token to be swapped between blockchains, and unlocks access to apps across chains in a single click. Use Squid to build seamless user experiences that tap into cross-chain liquidity and scale to reach anyone with a crypto wallet, no matter what chain they're on.",
+    "mainnet": "yes",
+    "type": "bridge",
+    "xchain_sync": "Canonical bridges for message passing",
+    "auction_design": "FCFS",
+    "auction_design_ranking": "Average",
+    "auction_design_details": "The first accepted solver bid automatically wins the auction irrespective of whether another bid comes in at roughly the same time with a better price or outcome for the user",
+    "auction_openness": "Excellent",
+    "auction_openness_details": "Auctions occur entirely on chain with no auction period of shielded competition window and there are no preferential Filler selection mechanisms.",
+    "filler_permissionlessness": "Excellent",
+    "filler_permissionlessness_details": "DLN allows any participant to perform Filling actions and provides comprehensive code (https://github.com/debridge-finance/dln-taker) to get Fillers up and running quickly.",
+    "censorship_resistance": "Excellent",
+    "censorship_resistance_details": "There are no mechanisms on-chain by which the protocol can prevent an order from being filled (assuming it hasn't been already).",
+    "filler_failure_resistance": "Excellent",
+    "filler_failure_resistance_details": "If an order remains unfulfilled for a prolonged period of time for whatever reason, there is a mechanism to cancel the order and receive the funds back on the source chain. (See https://docs.dln.trade/dln-api/quick-start-guide/cancelling-the-order)."
 }

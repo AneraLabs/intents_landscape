@@ -38,7 +38,6 @@
 	"description": "Across is a cross-chain bridge for L2s and rollups secured by UMA's optimistic oracle.",
 	"mainnet": "yes",
 	"type": "bridge",
-	"chains_supported": "Ethereum, Arbitrum, Base, Optimism, Polygon PoS, zkSync Era",
 	"xchain_sync": "Canonical bridges for message passing",
 	"auction_design": "FCFS",
 	"auction_design_ranking": "Average",
