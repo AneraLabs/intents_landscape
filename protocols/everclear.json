@@ -38,7 +38,6 @@
     "description": "Everclear is a novel public good mechanism for settling intents across chains.",
     "mainnet": "yes",
     "type": "bridge",
-    "chains_supported": "Enables permissionless expansion to new chains and rollups, making it possible for any application on any chain to onboard users from any other chain.",
     "xchain_sync": "Canonical bridges for message passing",
     "auction_design": "RTB",
     "auction_design_ranking": "Good",

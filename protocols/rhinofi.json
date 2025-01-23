@@ -1,55 +1,54 @@
 {
-	"title": "rhino.fi",
-	"name": "rhinofi",
-	"socials": [
-		{
-			"label": "Website",
-			"link": "https://rhino.fi/"
-		},
-		{
-			"label": "Discord",
-			"link": "https://discord.gg/yafEx8W"
-		},
-		{
-			"label": "Blog",
-			"link": "https://rhino.fi/blog/"
-		},
-		{
-			"label": "Reddit",
-			"link": "https://www.reddit.com/r/rhino.fi/"
-		},
-		{
-			"label": "Twitter",
-			"link": "https://x.com/rhinofi"
-		},
-		{
-			"label": "Github",
-			"link": "https://github.com/rhinofi"
-		},
-		{
-			"label": "Docs",
-			"link": "https://tech.rhino.fi/rhino.fi"
-		}
-	],
-	"logo_dark": "/protocols/rhinofi_logo_dark.svg",
-	"logo_light": "/protocols/rhinofi_logo_light.svg",
-	"icon_url": "/protocols/rhinofi_icon_dark.png",
-	"icon_dark": "/protocols/rhinofi_icon_dark.png",
-	"icon_light": "/protocols/rhinofi_icon_light.png",
-	"description": "rhino.fi is a Layer 2 bridge for effortless multi-chain token movement",
-	"mainnet": "yes",
-	"type": "bridge",
-	"chains_supported": "Ethereum, Arbitrum, BSC, Polygon, zkSync, zkEVM, Optimism, Linea, Base, Manta, Starknet, Scroll",
-	"xchain_sync": "Canonical bridges for message passing",
-	"auction_design": "-",
-	"auction_design_ranking": "Poor",
-	"auction_design_details": "The bridging process involves the user giving rhino.fi assets on their origin chain and rhino.fi providing their desired assets on their destination chain. The protocol operates a single filler that executes all orders.",
-	"auction_openness": "Poor",
-	"auction_openness_details": "The protocol operates a single filler that executes all orders.",
-	"filler_permissionlessness": "Poor",
-	"filler_permissionlessness_details": "No mechanism exists for other fillers to solve orderflow originating from rhino.fi as the order expression information is incomplete and no mechanism exists for refunding of inventory filled by other entities.",
-	"censorship_resistance": "Poor",
-	"censorship_resistance_details": "Since the only running filler belongs to the protocol, there is no censorship resistance.",
-	"filler_failure_resistance": "Average",
-	"filler_failure_resistance_details": "Since the only running filler belongs to the protocol, were this or the off-chain infra to fail there would be no way for a user to complete a bridging operation. rhino.fi is built on StarkEx which provides some mechanism for users to withdraw funds to Ethereum L1 in the event the operator goes offline providing some limited recovery options."
+    "title": "rhino.fi",
+    "name": "rhinofi",
+    "socials": [
+        {
+            "label": "Website",
+            "link": "https://rhino.fi/"
+        },
+        {
+            "label": "Discord",
+            "link": "https://discord.gg/yafEx8W"
+        },
+        {
+            "label": "Blog",
+            "link": "https://rhino.fi/blog/"
+        },
+        {
+            "label": "Reddit",
+            "link": "https://www.reddit.com/r/rhino.fi/"
+        },
+        {
+            "label": "Twitter",
+            "link": "https://x.com/rhinofi"
+        },
+        {
+            "label": "Github",
+            "link": "https://github.com/rhinofi"
+        },
+        {
+            "label": "Docs",
+            "link": "https://tech.rhino.fi/rhino.fi"
+        }
+    ],
+    "logo_dark": "/protocols/rhinofi_logo_dark.svg",
+    "logo_light": "/protocols/rhinofi_logo_light.svg",
+    "icon_url": "/protocols/rhinofi_icon_dark.png",
+    "icon_dark": "/protocols/rhinofi_icon_dark.png",
+    "icon_light": "/protocols/rhinofi_icon_light.png",
+    "description": "rhino.fi is a Layer 2 bridge for effortless multi-chain token movement",
+    "mainnet": "yes",
+    "type": "bridge",
+    "xchain_sync": "Canonical bridges for message passing",
+    "auction_design": "-",
+    "auction_design_ranking": "Poor",
+    "auction_design_details": "The bridging process involves the user giving rhino.fi assets on their origin chain and rhino.fi providing their desired assets on their destination chain. The protocol operates a single filler that executes all orders.",
+    "auction_openness": "Poor",
+    "auction_openness_details": "The protocol operates a single filler that executes all orders.",
+    "filler_permissionlessness": "Poor",
+    "filler_permissionlessness_details": "No mechanism exists for other fillers to solve orderflow originating from rhino.fi as the order expression information is incomplete and no mechanism exists for refunding of inventory filled by other entities.",
+    "censorship_resistance": "Poor",
+    "censorship_resistance_details": "Since the only running filler belongs to the protocol, there is no censorship resistance.",
+    "filler_failure_resistance": "Average",
+    "filler_failure_resistance_details": "Since the only running filler belongs to the protocol, were this or the off-chain infra to fail there would be no way for a user to complete a bridging operation. rhino.fi is built on StarkEx which provides some mechanism for users to withdraw funds to Ethereum L1 in the event the operator goes offline providing some limited recovery options."
 }

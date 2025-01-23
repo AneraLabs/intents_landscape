@@ -1,50 +1,49 @@
 {
-	"title": "Nitro",
-	"name": "nitro",
-	"socials": [
-		{
-			"label": "App",
-			"link": "https://app.routernitro.com/swap"
-		},
-		{
-			"label": "Website",
-			"link": "https://nitro.routerprotocol.com/"
-		},
-		{
-			"label": "Docs",
-			"link": "https://docs.routerprotocol.com/"
-		},
-		{
-			"label": "Twitter",
-			"link": "https://twitter.com/routerprotocol"
-		},
-		{
-			"label": "Discord",
-			"link": "https://discord.com/invite/rKf9UYMNWC"
-		},
-		{
-			"label": "Medium",
-			"link": "https://routerprotocol.medium.com/"
-		}
-	],
-	"logo_dark": "/protocols/nitro_logo_dark.svg",
-	"logo_light": "/protocols/nitro_logo_light.svg",
-	"icon_dark": "/protocols/nitro_icon_dark.svg",
-	"icon_light": "/protocols/nitro_icon_light.svg",
-	"description": "The most efficient intent based cross-chain bridge in web3",
-	"mainnet": "yes",
-	"type": "bridge",
-	"chains_supported": "Ethereum, Scroll, ZKSync, Arbitrum, Linea, Polygon, Blast,Optimism, Avalanche, Base, BSC, Polygon ZKEVM, Mantle, Manta, Rootstock, Tron",
-	"xchain_sync": "Canonical bridges for message passing",
-	"auction_design": "FCFS",
-	"auction_design_ranking": "Average",
-	"auction_design_details": "The first accepted filler bid automatically wins the auction irrespective of whether another bid comes in at roughly the same time with a better price or outcome for the user",
-	"auction_openness": "Good",
-	"auction_openness_details": "Nitro runs a state chain which is open but requires permissioned node software to easily access. The team does however provide an explorer (https://explorer.routernitro.com/) but this does require some trust in the protocol operator.",
-	"filler_permissionlessness": "Good",
-	"filler_permissionlessness_details": "Nitro does not restrict fillers from contributing bids for orderflow on chain, however to get full access to orderflow and fee quoting requires running node software which is currently not freely available publicly.",
-	"censorship_resistance": "Good",
-	"censorship_resistance_details": "The Nitro state chain and PoS validator set includes protections against order flow and fill censorship. Participation requires access to node software which is currently not freely available publicly and an economic stake limiting open participation.",
-	"filler_failure_resistance": "Excellent",
-	"filler_failure_resistance_details": "Unfilled orders can be cancelled after 6 hours using the Nitro block explorer. This triggers call on the source chain to a function depositinfoupdate which emits an event picked up by decentralised Nitro validators which check the order hasn't been filled on the destination chain and sufficient time has passed to allow for a cancel operation. Once an order can be cancelled the validator set will create a new bridging operation which will return the funds minus the protocol fee to the user."
+    "title": "Nitro",
+    "name": "nitro",
+    "socials": [
+        {
+            "label": "App",
+            "link": "https://app.routernitro.com/swap"
+        },
+        {
+            "label": "Website",
+            "link": "https://nitro.routerprotocol.com/"
+        },
+        {
+            "label": "Docs",
+            "link": "https://docs.routerprotocol.com/"
+        },
+        {
+            "label": "Twitter",
+            "link": "https://twitter.com/routerprotocol"
+        },
+        {
+            "label": "Discord",
+            "link": "https://discord.com/invite/rKf9UYMNWC"
+        },
+        {
+            "label": "Medium",
+            "link": "https://routerprotocol.medium.com/"
+        }
+    ],
+    "logo_dark": "/protocols/nitro_logo_dark.svg",
+    "logo_light": "/protocols/nitro_logo_light.svg",
+    "icon_dark": "/protocols/nitro_icon_dark.svg",
+    "icon_light": "/protocols/nitro_icon_light.svg",
+    "description": "The most efficient intent based cross-chain bridge in web3",
+    "mainnet": "yes",
+    "type": "bridge",
+    "xchain_sync": "Canonical bridges for message passing",
+    "auction_design": "FCFS",
+    "auction_design_ranking": "Average",
+    "auction_design_details": "The first accepted filler bid automatically wins the auction irrespective of whether another bid comes in at roughly the same time with a better price or outcome for the user",
+    "auction_openness": "Good",
+    "auction_openness_details": "Nitro runs a state chain which is open but requires permissioned node software to easily access. The team does however provide an explorer (https://explorer.routernitro.com/) but this does require some trust in the protocol operator.",
+    "filler_permissionlessness": "Good",
+    "filler_permissionlessness_details": "Nitro does not restrict fillers from contributing bids for orderflow on chain, however to get full access to orderflow and fee quoting requires running node software which is currently not freely available publicly.",
+    "censorship_resistance": "Good",
+    "censorship_resistance_details": "The Nitro state chain and PoS validator set includes protections against order flow and fill censorship. Participation requires access to node software which is currently not freely available publicly and an economic stake limiting open participation.",
+    "filler_failure_resistance": "Excellent",
+    "filler_failure_resistance_details": "Unfilled orders can be cancelled after 6 hours using the Nitro block explorer. This triggers call on the source chain to a function depositinfoupdate which emits an event picked up by decentralised Nitro validators which check the order hasn't been filled on the destination chain and sufficient time has passed to allow for a cancel operation. Once an order can be cancelled the validator set will create a new bridging operation which will return the funds minus the protocol fee to the user."
 }
