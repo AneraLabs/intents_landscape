@@ -1,54 +1,53 @@
 {
-	"title": "Across V3",
-	"name": "acrossv3",
-	"socials": [
-		{
-			"label": "Discord",
-			"link": "https://discord.across.to/"
-		},
-		{
-			"label": "Twitter",
-			"link": "https://twitter.com/AcrossProtocol"
-		},
-		{
-			"label": "Medium",
-			"link": "https://medium.com/across-protocol"
-		},
-		{
-			"label": "Forum",
-			"link": "https://forum.across.to/"
-		},
-		{
-			"label": "Github",
-			"link": "https://github.com/across-protocol"
-		},
-		{
-			"label": "Docs",
-			"link": "https://docs.across.to/v/v3-developer-docs/introduction/what-is-across"
-		},
-		{
-			"label": "Website",
-			"link": "https://across.to/bridge"
-		}
-	],
-	"logo_dark": "/protocols/across_logo_dark.png",
-	"logo_light": "/protocols/across_logo_light.png",
-	"icon_dark": "/protocols/across_icon_dark.png",
-	"icon_light": "/protocols/across_icon_light.png",
-	"description": "Across is a cross-chain bridge for L2s and rollups secured by UMA's optimistic oracle.",
-	"mainnet": "yes",
-	"type": "bridge",
-	"chains_supported": "Ethereum, Arbitrum, Base, Optimism, Polygon PoS, zkSync Era",
-	"xchain_sync": "Canonical bridges for message passing",
-	"auction_design": "FCFS",
-	"auction_design_ranking": "Average",
-	"auction_design_details": "The first accepted solver bid automatically wins the auction irrespective of whether another bid comes in at roughly the same time with a better price or outcome for the user",
-	"auction_openness": "Average",
-	"auction_openness_details": "Auctions occur entirely on chain with no auction period of shielded competition window, however there is a preferential window where a nominated filler is able to submit a bid ahead of others and be automatically accepted.",
-	"filler_permissionlessness": "Good",
-	"filler_permissionlessness_details": "There are no protocol restrictions on who can act as a Filler. However due to a new preferential filler mechanism in V3, it is possible for the protocol to enforce orders being filled preferentially by it's own solvers reducing the open nature of the auction.",
-	"censorship_resistance": "Good",
-	"censorship_resistance_details": "As auctions are entirely on chain, all details about new orders are public and available to all participants. There are no mechanisms on-chain by which the protocol can prevent an order from being accepted. There are however no penalties to fillers for systematically ignoring address or orders which can indirectly result in censorship. However to prevent this there only needs to be one honest rational filler in the ecosystem to fill the order.",
-	"filler_failure_resistance": "Excellent",
-	"filler_failure_resistance_details": "If no fillers are available to fast fill the order, a backup mechanism using the JIT AMM and canonical bridges exists to fill an order (assuming a slow fill is requested prior to expiration). If an order is not filled before expiration time it will expire and can be credited back to the user on the source chain. (See https://docs.across.to/concepts/intent-lifecycle-in-across#slow-fill-or-expiration-if-no-fill)."
+    "title": "Across V3",
+    "name": "acrossv3",
+    "socials": [
+        {
+            "label": "Discord",
+            "link": "https://discord.across.to/"
+        },
+        {
+            "label": "Twitter",
+            "link": "https://twitter.com/AcrossProtocol"
+        },
+        {
+            "label": "Medium",
+            "link": "https://medium.com/across-protocol"
+        },
+        {
+            "label": "Forum",
+            "link": "https://forum.across.to/"
+        },
+        {
+            "label": "Github",
+            "link": "https://github.com/across-protocol"
+        },
+        {
+            "label": "Docs",
+            "link": "https://docs.across.to/v/v3-developer-docs/introduction/what-is-across"
+        },
+        {
+            "label": "Website",
+            "link": "https://across.to/bridge"
+        }
+    ],
+    "logo_dark": "/protocols/across_logo_dark.png",
+    "logo_light": "/protocols/across_logo_light.png",
+    "icon_dark": "/protocols/across_icon_dark.png",
+    "icon_light": "/protocols/across_icon_light.png",
+    "description": "Across is a cross-chain bridge for L2s and rollups secured by UMA's optimistic oracle.",
+    "mainnet": "yes",
+    "type": "bridge",
+    "xchain_sync": "Canonical bridges for message passing",
+    "auction_design": "FCFS",
+    "auction_design_ranking": "Average",
+    "auction_design_details": "The first accepted solver bid automatically wins the auction irrespective of whether another bid comes in at roughly the same time with a better price or outcome for the user",
+    "auction_openness": "Average",
+    "auction_openness_details": "Auctions occur entirely on chain with no auction period of shielded competition window, however there is a preferential window where a nominated filler is able to submit a bid ahead of others and be automatically accepted.",
+    "filler_permissionlessness": "Good",
+    "filler_permissionlessness_details": "There are no protocol restrictions on who can act as a Filler. However due to a new preferential filler mechanism in V3, it is possible for the protocol to enforce orders being filled preferentially by it's own solvers reducing the open nature of the auction.",
+    "censorship_resistance": "Good",
+    "censorship_resistance_details": "As auctions are entirely on chain, all details about new orders are public and available to all participants. There are no mechanisms on-chain by which the protocol can prevent an order from being accepted. There are however no penalties to fillers for systematically ignoring address or orders which can indirectly result in censorship. However to prevent this there only needs to be one honest rational filler in the ecosystem to fill the order.",
+    "filler_failure_resistance": "Excellent",
+    "filler_failure_resistance_details": "If no fillers are available to fast fill the order, a backup mechanism using the JIT AMM and canonical bridges exists to fill an order (assuming a slow fill is requested prior to expiration). If an order is not filled before expiration time it will expire and can be credited back to the user on the source chain. (See https://docs.across.to/concepts/intent-lifecycle-in-across#slow-fill-or-expiration-if-no-fill)."
 }

@@ -1,50 +1,49 @@
 {
-	"title": "Cowswap",
-	"name": "Cowswap",
-	"socials": [
-		{
-			"label": "Discord",
-			"link": "https://discord.com/invite/cowprotocol"
-		},
-		{
-			"label": "Twitter",
-			"link": "https://x.com/CoWSwap"
-		},
-		{
-			"label": "Forum",
-			"link": "https://forum.cow.fi/"
-		},
-		{
-			"label": "Github",
-			"link": "https://github.com/cowprotocol"
-		},
-		{
-			"label": "Docs",
-			"link": "https://docs.cow.fi/cow-protocol"
-		},
-		{
-			"label": "Website",
-			"link": "https://swap.cow.fi/"
-		}
-	],
-	"logo_dark": "/protocols/cowswap_logo_dark.png",
-	"logo_light": "/protocols/cowswap_logo_light.png",
-	"icon_dark": "/protocols/cowswap_icon_dark.png",
-	"icon_light": "/protocols/cowswap_icon_light.png",
-	"description": "CoW Protocol is a fully permissionless trading protocol that leverages batch auctions as its price finding mechanism. CoW Protocol uses batch auctions to maximize liquidity via Coincidence of Wants (CoWs) in addition to tapping all available on-chain liquidity whenever needed.",
-	"mainnet": "yes",
-	"type": "swap",
-	"chains_supported": "Ethereum, Arbitrum",
-	"xchain_sync": "-",
-	"auction_design": "EBBO",
-	"auction_design_ranking": "Good",
-	"auction_design_details": "-",
-	"auction_openness": "Average",
-	"auction_openness_details": "-",
-	"filler_permissionlessness": "Poor",
-	"filler_permissionlessness_details": "-",
-	"censorship_resistance": "Good",
-	"censorship_resistance_details": "-",
-	"filler_failure_resistance": "Good",
-	"filler_failure_resistance_details": "-"
+    "title": "Cowswap",
+    "name": "Cowswap",
+    "socials": [
+        {
+            "label": "Discord",
+            "link": "https://discord.com/invite/cowprotocol"
+        },
+        {
+            "label": "Twitter",
+            "link": "https://x.com/CoWSwap"
+        },
+        {
+            "label": "Forum",
+            "link": "https://forum.cow.fi/"
+        },
+        {
+            "label": "Github",
+            "link": "https://github.com/cowprotocol"
+        },
+        {
+            "label": "Docs",
+            "link": "https://docs.cow.fi/cow-protocol"
+        },
+        {
+            "label": "Website",
+            "link": "https://swap.cow.fi/"
+        }
+    ],
+    "logo_dark": "/protocols/cowswap_logo_dark.png",
+    "logo_light": "/protocols/cowswap_logo_light.png",
+    "icon_dark": "/protocols/cowswap_icon_dark.png",
+    "icon_light": "/protocols/cowswap_icon_light.png",
+    "description": "CoW Protocol is a fully permissionless trading protocol that leverages batch auctions as its price finding mechanism. CoW Protocol uses batch auctions to maximize liquidity via Coincidence of Wants (CoWs) in addition to tapping all available on-chain liquidity whenever needed.",
+    "mainnet": "yes",
+    "type": "swap",
+    "xchain_sync": "-",
+    "auction_design": "EBBO",
+    "auction_design_ranking": "Good",
+    "auction_design_details": "-",
+    "auction_openness": "Average",
+    "auction_openness_details": "-",
+    "filler_permissionlessness": "Poor",
+    "filler_permissionlessness_details": "-",
+    "censorship_resistance": "Good",
+    "censorship_resistance_details": "-",
+    "filler_failure_resistance": "Good",
+    "filler_failure_resistance_details": "-"
 }
