@@ -6,7 +6,11 @@ from normalisation.normalise_dln import normalise_dln
 from normalisation.normalise_nitro import normalise_nitro
 from normalisation.normalise_rhinofi import normalise_rhinofi
 from normalisation.normalise_synapse import normalise_synapse
-from normalisation.utils import bytes_as_hex_str, safe_checksum_address
+from normalisation.utils import (
+    bytes_as_hex_str,
+    initialise_normalised_entry_with_common_values,
+    safe_checksum_address,
+)
 from signal_handler import SignalHandler
 
 
@@ -96,12 +100,6 @@ def is_valid_normalised_doc(doc: dict) -> bool:
         print(f"Normalised doc failed validation (see errors above), doc: [{doc}]")
 
     return is_valid
-
-
-def initialise_normalised_entry_with_common_values(doc, type):
-    normalised_doc = {k: v for k, v in doc.items() if k.startswith("scraper_")}
-    normalised_doc["type"] = type
-    return normalised_doc
 
 
 def normalise(doc: dict, _signal_handler: SignalHandler) -> dict | None:
