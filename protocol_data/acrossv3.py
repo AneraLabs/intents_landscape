@@ -103,12 +103,12 @@ def get_deposit_function_filter():
 
 
 def get_deposit_event_filter():
-    return {0: ["V3FundsDeposited"]}
+    return {0: ["V3FundsDeposited", "FundsDeposited"]}
 
 
 def get_fill_function_filter():
-    return {0: ["fillV3Relay"]}
+    return {0: ["fillV3Relay", "fillRelay"]}
 
 
 def get_fill_event_filter():
-    return {0: ["FilledV3Relay"]}
+    return {0: ["FilledV3Relay", "FilledRelay"]}

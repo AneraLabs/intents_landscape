@@ -54,6 +54,12 @@ def normalise_address_if_needed(address):
     return address
 
 
+def initialise_normalised_entry_with_common_values(doc, type):
+    normalised_doc = {k: v for k, v in doc.items() if k.startswith("scraper_")}
+    normalised_doc["type"] = type
+    return normalised_doc
+
+
 # from https://ethereum.org/en/developers/docs/standards/tokens/erc-20/#web3py-example
 ERC20_ABI = [
     {
