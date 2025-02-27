@@ -1,4 +1,4 @@
-from normalisation.constants import NATIVE_TOKEN_ADDRESS
+from normalisation.constants import NATIVE_TOKEN_ADDRESS, SOLANA_CHAIN_ID
 from protocol_data.solana_parser import UNPARSED_INSTRUCTION_FIELD_NAME
 
 
@@ -65,11 +65,11 @@ def normalise_rhinofi(original_doc, type, normalised_doc) -> dict | None:
                 f"doc: [{original_doc}]"
             )
             return None
-    elif original_doc["scraper_originChain"] == "7565164":  # solana
+    elif original_doc["scraper_originChain"] == SOLANA_CHAIN_ID:
         if UNPARSED_INSTRUCTION_FIELD_NAME in original_doc:
             return None
         normalised_doc["order_id"] = original_doc["scraper_tx_hash"]
-        if original_doc["tx"]["instruction"] == "deposit":
+        if original_doc["tx"]["instruction"] in {"deposit", "deposit_with_id"}:
             normalised_doc["name"] = "order_deposit_tx"
             normalised_doc["source_address"] = original_doc["source_address"]
             normalised_doc["source_chain"] = original_doc["scraper_originChain"]

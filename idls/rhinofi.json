@@ -143,6 +143,95 @@
             ]
         },
         {
+            "name": "depositWithId",
+            "accounts": [
+                {
+                    "name": "bridge",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "pool",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "poolAuthority",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "depositor",
+                    "isMut": false,
+                    "isSigner": true,
+                    "docs": [
+                        "The account paying for all rents"
+                    ]
+                },
+                {
+                    "name": "mint",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "poolAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "depositorAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "payer",
+                    "isMut": true,
+                    "isSigner": true,
+                    "docs": [
+                        "The account paying for all rents"
+                    ]
+                },
+                {
+                    "name": "tokenProgram",
+                    "isMut": false,
+                    "isSigner": false,
+                    "docs": [
+                        "Solana ecosystem accounts"
+                    ]
+                },
+                {
+                    "name": "associatedTokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "eventAuthority",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "program",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "amount",
+                    "type": "u64"
+                },
+                {
+                    "name": "commitmentId",
+                    "type": "u128"
+                }
+            ]
+        },
+        {
             "name": "createPool",
             "accounts": [
                 {
@@ -340,6 +429,78 @@
             ]
         },
         {
+            "name": "recoverNested",
+            "accounts": [
+                {
+                    "name": "bridge",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "pool",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "operatorStorage",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "poolAuthority",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "mint",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "poolAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "nestedPoolAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "operator",
+                    "isMut": false,
+                    "isSigner": true
+                },
+                {
+                    "name": "payer",
+                    "isMut": true,
+                    "isSigner": true,
+                    "docs": [
+                        "The account paying for all rents"
+                    ]
+                },
+                {
+                    "name": "tokenProgram",
+                    "isMut": false,
+                    "isSigner": false,
+                    "docs": [
+                        "Solana ecosystem accounts"
+                    ]
+                },
+                {
+                    "name": "associatedTokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": []
+        },
+        {
             "name": "transferAdmin",
             "accounts": [
                 {
@@ -467,6 +628,36 @@
                 },
                 {
                     "name": "ethAddressLower",
+                    "type": "u128",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "BridgedDepositWithId",
+            "fields": [
+                {
+                    "name": "from",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "to",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "token",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "amount",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "commitmentId",
                     "type": "u128",
                     "index": false
                 }

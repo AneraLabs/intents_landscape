@@ -1,4 +1,5 @@
 import struct
+import traceback
 from abc import ABC, abstractmethod
 from typing import Protocol
 
@@ -114,6 +115,7 @@ class BaseSolanaParser(ABC):
 
         except Exception as e:
             print(f"Failed to parse data for [{signature}] : [{e}]")
+            traceback.print_exc()
             # mark docs that have unknown instructions for possible future fix
             doc[UNPARSED_INSTRUCTION_FIELD_NAME] = instruction.data
             return None
