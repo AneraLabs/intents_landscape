@@ -5,6 +5,9 @@ from solders.rpc.responses import GetTransactionResp
 from solders.transaction_status import UiPartiallyDecodedInstruction
 
 from anchor_clients.rhinofi.instructions.deposit import layout as deposit_layout
+from anchor_clients.rhinofi.instructions.deposit_with_id import (
+    layout as deposit_with_id_layout,
+)
 from anchor_clients.rhinofi.instructions.withdraw import layout as withdraw_layout
 from protocol_data.solana_parser import BaseSolanaParser, Parseable
 
@@ -156,6 +159,7 @@ def get_fill_event_filter():
 
 # --------------------- Solana ----------------------------
 DEPOSIT_IDENTIFIER = b"\xf2#\xc6\x89R\xe1\xf2\xb6"
+DEPOSIT_WITH_ID_IDENTIFIER = b"\xdfH\x96\xc2\xbe\xf5\xf5\x8f"
 FILL_IDENTIFIER = b'\xb7\x12F\x9c\x94m\xa1"'
 
 
@@ -169,6 +173,13 @@ class RhinoFiSchema(Parseable):
                 "amount": str(decoded.amount),
                 "eth_address_upper": str(decoded.eth_address_upper),
                 "eth_address_lower": str(decoded.eth_address_lower),
+            }
+        elif identifier == DEPOSIT_WITH_ID_IDENTIFIER:
+            decoded = deposit_with_id_layout.parse(data[8:])
+            return {
+                "instruction": "deposit_with_id",
+                "amount": str(decoded.amount),
+                "commitment_id": str(decoded.commitment_id),
             }
         elif identifier == FILL_IDENTIFIER:
             decoded = withdraw_layout.parse(data[8:])
@@ -204,6 +215,10 @@ class RhinoFiParser(BaseSolanaParser):
         doc["scraper_function"] = doc["tx"]["instruction"]
 
         if doc["tx"]["instruction"] == "deposit":
+            doc["source_address"] = str(instruction.accounts[3])
+            doc["source_chain"] = doc["scraper_originChain"]
+            doc["source_token_address"] = str(instruction.accounts[4])
+        elif doc["tx"]["instruction"] == "deposit_with_id":
             doc["source_address"] = str(instruction.accounts[3])
             doc["source_chain"] = doc["scraper_originChain"]
             doc["source_token_address"] = str(instruction.accounts[4])
